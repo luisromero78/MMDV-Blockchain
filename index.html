@@ -6,14 +6,14 @@
   <title>Luis Eduardo Romero · Blockchain · AI · Data</title>
   <meta name="description" content="Portfolio de Luis Eduardo Romero: Blockchain, IA y Analítica de Datos.">
 
-  <!-- FAVICONS (root + assets, con cache-busting) -->
+  <!-- FAVICONS -->
   <link rel="shortcut icon" href="favicon.ico?v=4">
   <link rel="icon" type="image/x-icon" href="favicon.ico?v=4">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png?v=4">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png?v=4">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png?v=4">
   <meta name="theme-color" content="#7A1535">
-  
+
   <style>
   :root{
     --ink:#121212;
@@ -27,29 +27,49 @@
   body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;color:var(--ink);background:var(--bg)}
   .wrap{max-width:1000px;margin:0 auto;padding:0 20px}
 
-  /* HEADER + HERO */
-  header{border-bottom:1px solid #eee;background:
-    radial-gradient(1200px 300px at 20% -50%, #fceff4 0%, transparent 60%),
-    linear-gradient(0deg,#fff, #fff)}
-  .hero{padding:44px 0 32px}
+  /* HEADER (unificado) */
+  header{
+    position: sticky; top: 0; z-index: 50;
+    border-bottom:1px solid #eee;
+    background:
+      linear-gradient(0deg,#fff,#fff),
+      radial-gradient(1200px 300px at 20% -50%, #fceff4 0%, transparent 60%),
+      url("assets/mmdv-pattern.jpg") center/cover no-repeat;
+    background-blend-mode: normal, normal, overlay;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  }
+  header::before{
+    content:"";
+    position:absolute;left:0;top:0;width:100%;height:4px;
+    background:linear-gradient(90deg,#7a1535 0%, #b96a82 40%, #7a1535 100%);
+    opacity:.85;
+  }
+  .nav-wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
   h1{margin:0 0 8px;font-size:34px;letter-spacing:.2px}
-  .subtitle{color:var(--muted);margin:0 0 16px}
-  nav a{margin-right:18px;text-decoration:none;color:var(--accent);font-weight:600}
-  nav a:hover{opacity:.8}
+  .subtitle{color:var(--muted);margin:2px 0 0}
+
+  /* NAV */
+  nav a{
+    margin-right:18px;text-decoration:none;color:var(--accent);font-weight:600;position:relative
+  }
+  nav a::after{
+    content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width .18s ease
+  }
+  nav a:hover::after{width:100%}
 
   /* SECCIONES */
   section{margin:36px 0}
   section h2{
-    font-size:22px;margin:0 0 16px;
-    position:relative;padding-left:14px
+    font-size:22px;margin:0 0 16px;position:relative;padding-left:14px
   }
   section h2:before{
     content:"";position:absolute;left:0;top:.45em;width:6px;height:1.2em;
-    background:linear-gradient(180deg,var(--accent),var(--accent-2));
-    border-radius:3px
+    background:linear-gradient(180deg,var(--accent),var(--accent-2));border-radius:3px
   }
 
-  /* GRID DE PROYECTOS/RETOS */
+  /* GRID */
   .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
 
   /* CARD */
@@ -85,200 +105,61 @@
 
   /* FOOTER */
   footer{border-top:1px solid #eee;margin-top:40px;padding:26px 20px;color:var(--muted)}
-
-   /* HERO + marca */
-.hero{padding:28px 0}
-.brand{display:flex;align-items:center;gap:14px;margin-bottom:12px}
-.brand img{
-  border-radius:12px; /* si es cuadrado queda más fino */
-  box-shadow:0 4px 14px rgba(122,21,53,.15);
-}
-.subtitle{color:var(--muted);margin:2px 0 0}
-
-/* Nav más visual */
-nav a{
-  margin-right:18px;
-  text-decoration:none;
-  color:var(--accent);
-  font-weight:600;
-  position:relative;
-}
-nav a::after{
-  content:"";position:absolute;left:0;bottom:-6px;height:2px;width:0;
-  background:linear-gradient(90deg,var(--accent),var(--accent-2));
-  transition:width .18s ease;
-}
-nav a:hover::after{width:100%}
-
-  :root {
-    --ink:#121212;
-    --muted:#6b6b6b;
-    --accent:#7a1535;
-    ...
-  }
-  /* muchos estilos */
-
-    /* Línea superior color vino */
-header {
-  position: relative;
-}
-
-header::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 4px;
-  background: linear-gradient(90deg, #7a1535 0%, #b96a82 40%, #7a1535 100%);
-  opacity: .85;
-}
-
-/* Fondo tenue con textura (usa tu imagen en assets/mmdv-pattern.jpg) */
-header {
-  background:
-    linear-gradient(0deg, #fff, #fff),
-    radial-gradient(1200px 300px at 20% -50%, #fceff4 0%, transparent 60%),
-    url("assets/mmdv-pattern.jpg") center/cover no-repeat;
-  background-blend-mode: normal, normal, overlay;
-}
-
-  /* Header fijo arriba */
-header {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: #fff;
-  backdrop-filter: blur(6px); /* efecto cristal sutil */
-  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-}
-
-   /* Distribución flex entre menú y botón */
-.nav-wrap {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  justify-content: space-between;
-}
-
-   /* === MMDV HEADER ENHANCED === */
-
-/* Línea superior vino degradada */
-header {
-  position: relative;
-  background:
-    linear-gradient(0deg,#fff,#fff),
-    radial-gradient(1200px 300px at 20% -50%, #fceff4 0%, transparent 60%),
-    url("assets/mmdv-pattern.jpg") center/cover no-repeat;
-  background-blend-mode: normal, normal, overlay;
-}
-header::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 4px;
-  background: linear-gradient(90deg, #7a1535 0%, #b96a82 40%, #7a1535 100%);
-  opacity: 0.85;
-}
-
-/* Header fijo al hacer scroll */
-header {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: #fff;
-  backdrop-filter: blur(6px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-}
-
-/* Nav + botón alineados */
-.nav-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-/* Botón principal estilo MMDV */
-.btn.outline {
-  padding: 8px 16px;
-  border-radius: 10px;
-  border: 1.5px solid var(--accent);
-  color: var(--accent);
-  text-decoration: none;
-  font-weight: 600;
-  transition: all 0.25s ease;
-}
-
-/* Hover con efecto vino */
-.btn.outline:hover {
-  background: var(--accent);
-  color: #fff;
-  box-shadow: 0 4px 12px rgba(122, 21, 53, 0.25);
-  transform: translateY(-1px);
-}
-
-/* === FIN MMDV HEADER ENHANCED === */
- 
-    
-</style>
-
+  </style>
 </head>
 <body>
+
   <header>
-  <div class="wrap">
-    <div class="nav-wrap">
-      <div>
-        <h1>Luis Eduardo Romero</h1>
-        <p>Blockchain · Inteligencia Artificial · Analítica de Datos · Real Estate</p>
+    <div class="wrap">
+      <div class="nav-wrap">
+        <div>
+          <h1>Luis Eduardo Romero</h1>
+          <p class="subtitle">Blockchain · Inteligencia Artificial · Analítica de Datos · Real Estate</p>
+        </div>
+        <nav>
+          <a href="projects.html">Proyectos</a>
+          <a href="certifications.html">Certificaciones</a>
+          <a href="about.html">Sobre mí</a>
+        </nav>
+        <a class="btn outline" href="retos.html">Explorar Retos</a>
       </div>
-      <nav>
-        <a href="projects.html">Proyectos</a>
-        <a href="certifications.html">Certificaciones</a>
-        <a href="about.html">Sobre mí</a>
-      </nav>
-      <a class="btn outline" href="retos.html">Explorar Retos</a>
     </div>
-  </div>
-</header>
-    
+  </header>
+
   <main class="wrap">
     <section id="proyectos">
       <h2>Proyectos</h2>
-       <div class="grid">
-      <div class="card">
-        <strong>Wine Market Dashboard (Power BI)</strong>
-        <p>KPIs de mercado del vino, storytelling y segmentaciones. Publicación y medidas DAX.</p>
-        <span class="tag">Power BI</span><span class="tag">Data</span>
-      </div>
+      <div class="grid">
+        <div class="card">
+          <strong>Wine Market Dashboard (Power BI)</strong>
+          <p>KPIs de mercado del vino, storytelling y segmentaciones. Publicación y medidas DAX.</p>
+          <span class="tag">Power BI</span><span class="tag">Data</span>
+        </div>
 
-      <div class="card">
-        <strong>XRP Tokenization Concept</strong>
-        <p>Prototipo de tokenización en XRP Ledger: flujo, metadata y compliance ISO 20022.</p>
-        <span class="tag">Blockchain</span><span class="tag">XRP</span>
-      </div>
+        <div class="card">
+          <strong>XRP Tokenization Concept</strong>
+          <p>Prototipo de tokenización en XRP Ledger: flujo, metadata y compliance ISO 20022.</p>
+          <span class="tag">Blockchain</span><span class="tag">XRP</span>
+        </div>
 
-      <div class="card">
-        <strong>On-Chain Analytics Metrics</strong>
-        <p>Análisis de inflows/outflows, SOPR y comportamiento LTH/SLTH con datasets públicos.</p>
-        <span class="tag">On-Chain</span><span class="tag">Crypto</span>
+        <div class="card">
+          <strong>On-Chain Analytics Metrics</strong>
+          <p>Análisis de inflows/outflows, SOPR y comportamiento LTH/SLTH con datasets públicos.</p>
+          <span class="tag">On-Chain</span><span class="tag">Crypto</span>
+        </div>
       </div>
-         
-      </div>   
     </section>
 
     <section id="retos">
       <h2>Retos Blockchain</h2>
       <div class="grid">
-      <div class="card">
-        <strong>Interoperabilidad entre cadenas</strong>
-        <p>Puentes entre redes: Polkadot, Cosmos, Chainlink y el caso XRP Ledger.</p>
-        <span class="tag">XRPL</span><span class="tag">Cosmos</span>
-        <a class="btn" href="./retos/">Ver retos</a>
+        <div class="card">
+          <strong>Interoperabilidad entre cadenas</strong>
+          <p>Puentes entre redes: Polkadot, Cosmos, Chainlink y el caso XRP Ledger.</p>
+          <span class="tag">XRPL</span><span class="tag">Cosmos</span>
+          <a class="btn" href="retos.html">Ver retos</a>
+        </div>
       </div>
-     </div>    
     </section>
 
     <section id="certificaciones">
