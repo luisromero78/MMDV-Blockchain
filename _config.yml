@@ -1,5 +1,5 @@
 title: MMDV-Blockchain
-description: Retos · Estudios · Experimentos técnicos
-remote_theme: pages-themes/cayman@v0.2.0
-plugins:
-  - jekyll-remote-theme
+url: https://luisromero78.github.io
+baseurl: /MMDV-Blockchain   # ← nombre del repo, con mayúsculas si las tiene
+theme: null                 # ← sin tema para que no vuelva Cayman
+
