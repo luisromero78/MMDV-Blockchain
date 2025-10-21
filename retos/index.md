@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: none
 title: Retos Blockchain — LuisRo
 ---
 
