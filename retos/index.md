@@ -82,4 +82,3 @@ Cada reto está diseñado para profundizar en los tres ejes fundamentales del ap
   <em>Blockchain · IA · Tokenización · Data & Vision</em></p>
   <p style="color:#777;">“Lo real no se instala. Se siente.”</p>
 </div>
-
