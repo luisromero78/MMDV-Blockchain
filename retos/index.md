@@ -1,4 +1,4 @@
-
+<!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8">
@@ -26,9 +26,9 @@
   /* detalle fino en títulos de secciones */
   section > h2{position:relative;padding-top:6px}
   section > h2::after{content:"";display:block;width:36px;height:2px;background:var(--accent);margin-top:10px;border-radius:2px;opacity:.2}
-  .list a:hover {color: var(--ink);letter-spacing: 0.3px;transition: all 0.15s ease-in-out;}
-</style>
-
+  /* Hover elegante sin “saltitos” (opcional: comenta la siguiente línea si quieres) */
+  .list a:hover {color: var(--ink); /* letter-spacing: 0.3px; */ transition: color 0.15s ease-in-out;}
+  </style>
 </head>
 <body>
   <header>
