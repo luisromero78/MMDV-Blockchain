@@ -1,101 +1,48 @@
 <!doctype html>
 <html lang="es">
+<!-- FAVICONS -->
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Luis Eduardo Romero · Blockchain · AI · Data</title>
+<!-- FAVICONS (root + assets, con cache-busting) -->
+<link rel="shortcut icon" href="favicon.ico?v=4">
+<link rel="icon" type="image/x-icon" href="favicon.ico?v=4">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png?v=4">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png?v=4">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png?v=4">
+<meta name="theme-color" content="#7A1535">
   <meta name="description" content="Portfolio de Luis Eduardo Romero: Blockchain, IA y Analítica de Datos.">
   <style>
-    :root{
-      --ink:#111;
-      --muted:#666;
-      --accent:#7a1535;
-      --bg:#fff;
-    }
-    *{box-sizing:border-box;}
-    body{
-      margin:0;
-      font-family:Inter,system-ui,Arial,sans-serif;
-      color:var(--ink);
-      background:var(--bg);
-    }
-    header{
-      padding:48px 20px;
-      border-bottom:1px solid #eee;
-    }
-    .wrap{
-      max-width:980px;
-      margin:0 auto;
-    }
-    h1{
-      margin:0 0 6px;
-      font-size:32px;
-      letter-spacing:.2px;
-    }
-    h2{
-      margin:28px 0 12px;
-      font-size:20px;
-    }
-    p{
-      color:var(--muted);
-      line-height:1.6;
-    }
-    nav a{
-      margin-right:16px;
-      text-decoration:none;
-      color:var(--accent);
-    }
-    nav a:hover{
-      text-decoration:underline;
-    }
-    .card{
-      border:1px solid #eee;
-      border-radius:12px;
-      padding:18px;
-      margin:12px 0;
-      background:#faf9f9;
-    }
-    .tag{
-      display:inline-block;
-      font-size:12px;
-      border:1px solid #eee;
-      border-radius:999px;
-      padding:4px 10px;
-      margin-right:8px;
-      color:var(--muted);
-    }
-    footer{
-      border-top:1px solid #eee;
-      margin-top:32px;
-      padding:24px 20px;
-      color:var(--muted);
-    }
-    a.btn{
-      display:inline-block;
-      padding:10px 14px;
-      border-radius:10px;
-      border:1px solid var(--accent);
-      color:var(--accent);
-      text-decoration:none;
-      transition:all 0.2s ease;
-    }
-    a.btn:hover{
-      background:var(--accent);
-      color:#fff;
-    }
+    :root{--ink:#111;--muted:#666;--accent:#7a1535;--bg:#fff}
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+    header{padding:48px 20px;border-bottom:1px solid #eee}
+    .wrap{max-width:980px;margin:0 auto}
+    h1{margin:0 0 6px;font-size:32px;letter-spacing:.2px}
+    h2{margin:28px 0 12px;font-size:20px}
+    p{color:var(--muted);line-height:1.6}
+    nav a{margin-right:16px;text-decoration:none;color:var(--accent)}
+    .card{border:1px solid #eee;border-radius:12px;padding:18px;margin:12px 0;background:#faf9f9}
+    .tag{display:inline-block;font-size:12px;border:1px solid #eee;border-radius:999px;padding:4px 10px;margin-right:8px;color:var(--muted)}
+    footer{border-top:1px solid #eee;margin-top:32px;padding:24px 20px;color:var(--muted)}
+    a.btn{display:inline-block;padding:10px 14px;border-radius:10px;border:1px solid var(--accent);color:var(--accent);text-decoration:none}
+    a.btn:hover{background:var(--accent);color:#fff}
+    .card{border:1px solid #eee;border-radius:12px;padding:18px;margin:12px 0;background:#faf9f9}
+    #retos{outline:3px dashed #7a1535;padding-top:8px;margin-top:24px}
+
   </style>
 </head>
-
 <body>
   <header>
     <div class="wrap">
       <h1>Luis Eduardo Romero</h1>
       <p>Blockchain · Inteligencia Artificial · Analítica de Datos · Real Estate</p>
       <nav>
-        <a href="projects.html">Proyectos</a>
-        <a href="certifications.html">Certificaciones</a>
-        <a href="about.html">Sobre mí</a>
-        <a href="retos/">Retos Blockchain</a>
+  <a href="projects.html">Proyectos</a>
+  <a href="certifications.html">Certificaciones</a>
+  <a href="about.html">Sobre mí</a>
+  <a href="retos/">Retos Blockchain</a>  <!-- 👈 Añade esta línea -->
+  <a href="./retos/">Retos Blockchain</a>
       </nav>
     </div>
   </header>
@@ -107,24 +54,33 @@
       <div class="card">
         <strong>Wine Market Dashboard (Power BI)</strong>
         <p>KPIs de mercado del vino, storytelling y segmentaciones. Publicación y medidas DAX.</p>
-        <span class="tag">Power BI</span>
-        <span class="tag">Data</span>
+        <span class="tag">Power BI</span><span class="tag">Data</span>
+        <!-- <a class="btn" href="URL_DEMO_O_REPO">Ver</a> -->
       </div>
 
       <div class="card">
         <strong>XRP Tokenization Concept</strong>
         <p>Prototipo de tokenización en XRP Ledger: flujo, metadata y compliance ISO 20022.</p>
-        <span class="tag">Blockchain</span>
-        <span class="tag">XRP</span>
+        <span class="tag">Blockchain</span><span class="tag">XRP</span>
       </div>
 
       <div class="card">
         <strong>On-Chain Analytics Metrics</strong>
         <p>Análisis de inflows/outflows, SOPR y comportamiento LTH/SLTH con datasets públicos.</p>
-        <span class="tag">On-Chain</span>
-        <span class="tag">Crypto</span>
+        <span class="tag">On-Chain</span><span class="tag">Crypto</span>
       </div>
     </section>
+
+      <section id="retos">
+        <h2>🔎 Retos Blockchain (TEST)</h2>
+
+        <div class="card">
+          <strong>Interoperabilidad entre cadenas</strong>
+          <p>Puentes entre redes: Polkadot, Cosmos, Chainlink y el caso XRP Ledger.</p>
+          <span class="tag">XRPL</span><span class="tag">Cosmos</span>
+          <a class="btn" href="retos/">Ver retos</a>
+        </div>
+      </section>
 
     <section id="certificaciones">
       <h2>Certificaciones & Logros</h2>
@@ -139,21 +95,12 @@
       <h2>Sobre mí</h2>
       <p>Analista que conecta IA, Blockchain y BI con visión estratégica. Fundador de <strong>Mi Mundo del Vino (MMDV)</strong>.</p>
       <p>
-        <a class="btn" href="https://linkedin.com/in/tu-perfil" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="btn" href="https://instagram.com/mimundodelvino" target="_blank" rel="noopener">Instagram</a>
+        <a class="btn" href="https://linkedin.com/in/tu-perfil">LinkedIn</a>
+        <a class="btn" href="https://instagram.com/mimundodelvino">Instagram</a>
+        <!-- <a class="btn" href="CV_URL">Descargar CV</a> -->
       </p>
     </section>
 
-    <section id="retos">
-      <h2>Retos Blockchain</h2>
-      <div class="card">
-        <strong>Interoperabilidad entre cadenas</strong>
-        <p>Puentes entre redes: Polkadot, Cosmos, Chainlink y el caso XRP Ledger.</p>
-        <span class="tag">XRPL</span>
-        <span class="tag">Cosmos</span>
-        <a class="btn" href="retos/">Ver retos</a>
-      </div>
-    </section>
   </main>
 
   <footer>
