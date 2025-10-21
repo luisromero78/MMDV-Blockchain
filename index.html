@@ -15,22 +15,78 @@
   <meta name="theme-color" content="#7A1535">
 
   <style>
-    :root{--ink:#111;--muted:#666;--accent:#7a1535;--bg:#fff}
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;color:var(--ink);background:var(--bg)}
-    header{padding:48px 20px;border-bottom:1px solid #eee}
-    .wrap{max-width:980px;margin:0 auto}
-    h1{margin:0 0 6px;font-size:32px;letter-spacing:.2px}
-    h2{margin:28px 0 12px;font-size:20px}
-    p{color:var(--muted);line-height:1.6}
-    nav a{margin-right:16px;text-decoration:none;color:var(--accent)}
-    nav a:hover{text-decoration:underline}
-    .card{border:1px solid #eee;border-radius:12px;padding:18px;margin:12px 0;background:#faf9f9}
-    .tag{display:inline-block;font-size:12px;border:1px solid #eee;border-radius:999px;padding:4px 10px;margin-right:8px;color:var(--muted)}
-    footer{border-top:1px solid #eee;margin-top:32px;padding:24px 20px;color:var(--muted)}
-    a.btn{display:inline-block;padding:10px 14px;border-radius:10px;border:1px solid var(--accent);color:var(--accent);text-decoration:none}
-    a.btn:hover{background:var(--accent);color:#fff}
-  </style>
+  :root{
+    --ink:#121212;
+    --muted:#6b6b6b;
+    --accent:#7a1535;        /* vino MMDV */
+    --accent-2:#d9b3c1;      /* vino claro */
+    --card:#ffffff;
+    --bg:#fafafa;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+
+  /* HEADER + HERO */
+  header{border-bottom:1px solid #eee;background:
+    radial-gradient(1200px 300px at 20% -50%, #fceff4 0%, transparent 60%),
+    linear-gradient(0deg,#fff, #fff)}
+  .hero{padding:44px 0 32px}
+  h1{margin:0 0 8px;font-size:34px;letter-spacing:.2px}
+  .subtitle{color:var(--muted);margin:0 0 16px}
+  nav a{margin-right:18px;text-decoration:none;color:var(--accent);font-weight:600}
+  nav a:hover{opacity:.8}
+
+  /* SECCIONES */
+  section{margin:36px 0}
+  section h2{
+    font-size:22px;margin:0 0 16px;
+    position:relative;padding-left:14px
+  }
+  section h2:before{
+    content:"";position:absolute;left:0;top:.45em;width:6px;height:1.2em;
+    background:linear-gradient(180deg,var(--accent),var(--accent-2));
+    border-radius:3px
+  }
+
+  /* GRID DE PROYECTOS/RETOS */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+
+  /* CARD */
+  .card{
+    background:var(--card);
+    border:1px solid #eee;border-radius:16px;padding:18px;
+    box-shadow:0 1px 0 rgba(17,17,17,.03), 0 8px 20px rgba(17,17,17,.04);
+    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease
+  }
+  .card:hover{
+    transform:translateY(-2px);
+    box-shadow:0 3px 0 rgba(17,17,17,.04), 0 14px 28px rgba(17,17,17,.08);
+    border-color:rgba(122,21,53,.15)
+  }
+  .card strong{display:block;margin-bottom:6px}
+
+  /* PILLS */
+  .tag{
+    display:inline-block;margin:8px 8px 0 0;padding:6px 10px;
+    font-size:12px;border-radius:999px;
+    background:rgba(122,21,53,.08);color:#5a2b37;border:1px solid rgba(122,21,53,.18)
+  }
+
+  /* BOTONES */
+  a.btn{
+    display:inline-block;margin-top:10px;padding:10px 14px;border-radius:12px;
+    border:1px solid var(--accent);color:#fff;background:var(--accent);
+    text-decoration:none;font-weight:600;box-shadow:0 6px 14px rgba(122,21,53,.18);
+    transition:transform .15s ease, box-shadow .15s ease, opacity .15s ease
+  }
+  a.btn:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(122,21,53,.22)}
+  a.btn.outline{background:transparent;color:var(--accent)}
+
+  /* FOOTER */
+  footer{border-top:1px solid #eee;margin-top:40px;padding:26px 20px;color:var(--muted)}
+</style>
+
 </head>
 <body>
   <header>
@@ -49,7 +105,7 @@
   <main class="wrap">
     <section id="proyectos">
       <h2>Proyectos</h2>
-
+       <div class="grid">
       <div class="card">
         <strong>Wine Market Dashboard (Power BI)</strong>
         <p>KPIs de mercado del vino, storytelling y segmentaciones. Publicación y medidas DAX.</p>
@@ -67,16 +123,20 @@
         <p>Análisis de inflows/outflows, SOPR y comportamiento LTH/SLTH con datasets públicos.</p>
         <span class="tag">On-Chain</span><span class="tag">Crypto</span>
       </div>
+         
+      </div>   
     </section>
 
     <section id="retos">
       <h2>Retos Blockchain</h2>
+      <div class="grid">
       <div class="card">
         <strong>Interoperabilidad entre cadenas</strong>
         <p>Puentes entre redes: Polkadot, Cosmos, Chainlink y el caso XRP Ledger.</p>
         <span class="tag">XRPL</span><span class="tag">Cosmos</span>
         <a class="btn" href="./retos/">Ver retos</a>
       </div>
+     </div>    
     </section>
 
     <section id="certificaciones">
