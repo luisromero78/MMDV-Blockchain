@@ -1,82 +1,94 @@
----
-layout: default
-title: MMDV-Blockchain · Retos
----
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Retos Blockchain · MMDV</title>
+  <meta name="description" content="Retos, estudios y experimentos técnicos – MMDV Blockchain.">
+  <style>
+    :root{--ink:#111;--muted:#666;--accent:#7a1535;--bg:#fff}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+    .wrap{max-width:880px;margin:0 auto;padding:40px 20px}
+    h1{margin:0 0 6px;font-size:28px;letter-spacing:.2px;font-weight:600}
+    h2{margin:28px 0 12px;font-size:18px;font-weight:600;color:var(--ink)}
+    p{color:var(--muted);line-height:1.7}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    header{padding:28px 20px;border-bottom:1px solid #eee}
+    nav a{margin-right:16px}
+    .lead{max-width:760px}
+    .list{margin:24px 0 8px;padding:0;list-style:none}
+    .item{padding:14px 0;border-bottom:1px solid #eee}
+    .item:last-child{border-bottom:none}
+    .meta{color:var(--muted);font-size:14px;margin-top:6px}
+    footer{border-top:1px solid #eee;margin-top:40px;padding:24px 20px;color:var(--muted);font-size:14px}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>MMDV-Blockchain</h1>
+      <p class="meta">Retos · Estudios · Experimentos técnicos</p>
+      <nav>
+        <a href="../">Inicio</a>
+        <a href="../projects.html">Proyectos</a>
+        <a href="../certifications.html">Certificaciones</a>
+        <a href="../about.html">Sobre mí</a>
+      </nav>
+    </div>
+  </header>
 
-<div align="center" style="margin-top:20px">
-  <h1 style="font-weight:600;letter-spacing:0.5px">MMDV-Blockchain</h1>
-  <h2 style="font-weight:400;color:#7a1535;margin-top:4px">🚀 Retos Blockchain – LuisRo</h2>
-</div>
+  <main class="wrap">
+    <h2 style="color:var(--accent);font-weight:600;margin-top:0">🚀 Retos Blockchain – LuisRo</h2>
+    <p class="lead">
+      Colección de <strong>retos, estudios y experimentos técnicos</strong> del curso
+      <em>Blockchain Nivel 3 (Fundae – Odisea)</em> y del programa <em>OnChain Analysis & AI</em>.
+      Enfoque editorial, limpio y profesional.
+    </p>
+    <p class="lead">Cada reto combina <em>análisis técnico</em>, <em>aplicación práctica</em> (XRPL, Ethereum, Cosmos…) y <em>visión estratégica</em>.</p>
 
-<br>
+    <section>
+      <h2>Retos disponibles</h2>
+      <ul class="list">
 
-<p align="center" style="max-width:760px;margin:auto;font-size:17px;line-height:1.6;color:#444;">
-  Bienvenido al archivo de <strong>retos, estudios y experimentos técnicos</strong> realizados durante el curso 
-  <em>Blockchain Nivel 3 (Fundae – Odisea)</em> y el programa formativo de <em>OnChain Analysis & AI</em>.
-</p>
+        <li class="item">
+          <div><strong>Reto 1 — Interoperabilidad entre cadenas</strong></div>
+          <div class="meta">Polkadot · Cosmos · Chainlink · XRP Ledger</div>
+          <p>Puentes entre redes y conexión con el sistema financiero tradicional.</p>
+          <a href="./Reto_1_Interoperabilidad/">Abrir Reto 1 →</a>
+        </li>
 
-<p align="center" style="max-width:760px;margin:auto;font-size:16px;color:#666;">
-  Cada reto se documenta como un <strong>caso práctico</strong>, combinando análisis técnico, visión estratégica y aplicación real 
-  en entornos blockchain (<em>Ethereum, XRP Ledger, Polkadot, Cosmos</em>).
-</p>
+        <li class="item">
+          <div><strong>Reto 2 — Criptografía y seguridad</strong></div>
+          <div class="meta">AES · RSA · SHA-256/Keccak · Firmas · Merkle · 51%/Sybil/Eclipse</div>
+          <p>Bases matemáticas de la confianza y principales vectores de ataque.</p>
+          <a href="./Reto_2_Criptografia_y_Seguridad/">Abrir Reto 2 →</a>
+        </li>
 
----
+        <li class="item">
+          <div><strong>Reto 3 — Cadena & Solidity</strong></div>
+          <div class="meta">EVM · Gas · Estado global · DApps · Contratos</div>
+          <p>Del bloque al contrato: ejecución determinista y lógica programable.</p>
+          <a href="./Reto_3_Cadena_y_Solidity/">Abrir Reto 3 →</a>
+        </li>
 
-## 🧭 Objetivo general
-Explorar de forma aplicada los **principios, tecnologías y retos reales** que impulsan la evolución del ecosistema blockchain.  
-Cada estudio se apoya en tres ejes:
+      </ul>
+    </section>
 
-- **Análisis técnico** — protocolos, criptografía y contratos inteligentes.  
-- **Aplicación práctica** — uso de redes reales (XRPL, Ethereum, Cosmos…).  
-- **Visión estratégica** — impacto en la adopción, interoperabilidad y economía digital.
+    <section>
+      <h2>Referencias base</h2>
+      <p>
+        Antonopoulos · Drescher · Tapscott ·
+        <a href="https://xrpl.org" target="_blank" rel="noopener">XRPL Docs</a> ·
+        <a href="https://soliditylang.org" target="_blank" rel="noopener">Solidity</a> ·
+        <a href="https://ethereum.org/en/whitepaper" target="_blank" rel="noopener">Ethereum Whitepaper</a>
+      </p>
+    </section>
+  </main>
 
----
-
-## 🧩 Retos actuales
-
-### 🔹 Reto 1 – Interoperabilidad entre cadenas  
-> *“Construyendo puentes en el archipiélago de Itópera.”*
-
-Análisis de **Polkadot, Cosmos, Chainlink** y **XRP Ledger** como soluciones de interoperabilidad.  
-Estudia su papel en la adopción masiva de blockchain y la conexión con sistemas financieros tradicionales.  
-📁 [`/Reto_1_Interoperabilidad`](./Reto_1_Interoperabilidad)
-
----
-
-### 🔹 Reto 2 – Criptografía y Seguridad  
-> *“Sin criptografía, no hay confianza.”*
-
-Cifrado simétrico/asimétrico, hashes, firmas digitales y árboles de Merkle.  
-Incluye análisis de ataques 51 %, Sybil y Eclipse y sus mecanismos de defensa.  
-📁 [`/Reto_2_Criptografia_y_Seguridad`](./Reto_2_Criptografia_y_Seguridad)
-
----
-
-### 🔹 Reto 3 – Funcionamiento de la cadena y Solidity  
-> *“Del bloque al contrato: el código también puede gobernar.”*
-
-Anatomía de una cadena: bloques, nodos, minería y consenso.  
-Ejecución de contratos inteligentes en **EVM**, con ejemplos de **Solidity** y **DApps**.  
-📁 [`/Reto_3_Cadena_y_Solidity`](./Reto_3_Cadena_y_Solidity)
-
----
-
-## 📚 Referencias base
-- **Antonopoulos, A. M. (2023).** *Mastering Bitcoin.* O’Reilly Media  
-- **Drescher, D. (2017).** *Blockchain Basics.* Apress  
-- **Tapscott, D. & Tapscott, A. (2016).** *Blockchain Revolution.* Portfolio  
-- **Ripple Docs.** *XRP Ledger Overview* → [xrpl.org](https://xrpl.org)  
-- **Solidity Docs.** → [soliditylang.org](https://soliditylang.org)  
-- **Ethereum Whitepaper.** → [ethereum.org/en/whitepaper](https://ethereum.org/en/whitepaper)
-
----
-
-<div align="center" style="margin-top:40px;font-size:15px;color:#555;">
-  <p><strong>Luis Eduardo Romero Ramos (@LuisRo)</strong><br>
-  Proyecto <strong>MMDV – Modern Minds Driving Value</strong><br>
-  <em>Blockchain · IA · Tokenización · Data & Vision</em></p>
-  <p style="font-style:italic;color:#777;">“Lo real no se instala. Se siente.”</p>
-  <p style="margin-top:12px;font-size:13px;color:#999;">
-    © 2025 Luis Eduardo Romero Ramos · Licencia Creative Commons CC BY 4.0
-  </p>
-</div>
+  <footer>
+    <div class="wrap">© 2025 Luis Eduardo Romero · MMDV — Licencia CC BY 4.0</div>
+  </footer>
+</body>
+</html>
