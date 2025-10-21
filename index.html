@@ -105,26 +105,55 @@
 
   /* FOOTER */
   footer{border-top:1px solid #eee;margin-top:40px;padding:26px 20px;color:var(--muted)}
+  
+  /* === MMDV BRAND LOGO === */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo {
+  height: 52px;
+  width: auto;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(122, 21, 53, 0.25);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 14px rgba(122, 21, 53, 0.35);
+}
+/* === FIN MMDV BRAND LOGO === */
+
+  
   </style>
 </head>
 <body>
 
   <header>
-    <div class="wrap">
-      <div class="nav-wrap">
+  <div class="wrap">
+    <div class="nav-wrap">
+      <div class="brand">
+        <img src="assets/mmdv-logo.png" alt="MMDV" class="logo">
         <div>
           <h1>Luis Eduardo Romero</h1>
           <p class="subtitle">Blockchain · Inteligencia Artificial · Analítica de Datos · Real Estate</p>
         </div>
-        <nav>
-          <a href="projects.html">Proyectos</a>
-          <a href="certifications.html">Certificaciones</a>
-          <a href="about.html">Sobre mí</a>
-        </nav>
-        <a class="btn outline" href="retos.html">Explorar Retos</a>
       </div>
+
+      <nav>
+        <a href="projects.html">Proyectos</a>
+        <a href="certifications.html">Certificaciones</a>
+        <a href="about.html">Sobre mí</a>
+      </nav>
+
+      <a class="btn outline" href="retos.html">Explorar Retos</a>
     </div>
-  </header>
+  </div>
+</header>
+
 
   <main class="wrap">
     <section id="proyectos">
