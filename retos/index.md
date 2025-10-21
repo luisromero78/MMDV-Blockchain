@@ -28,6 +28,7 @@
   section > h2::after{content:"";display:block;width:36px;height:2px;background:var(--accent);margin-top:10px;border-radius:2px;opacity:.2}
   /* Hover elegante sin “saltitos” (opcional: comenta la siguiente línea si quieres) */
   .list a:hover {color: var(--ink); /* letter-spacing: 0.3px; */ transition: color 0.15s ease-in-out;}
+  body > h1:first-of-type { display:none; } 
   </style>
 </head>
 <body>
