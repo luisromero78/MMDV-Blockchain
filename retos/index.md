@@ -1,3 +1,8 @@
+---
+layout: default
+title: Retos Blockchain
+---
+
 # 🚀 Retos Blockchain – MMDV / LuisRo  
 
 Bienvenido al archivo de **retos, estudios y experimentos técnicos** realizados durante el curso **Blockchain Nivel 3 (Fundae – Odisea)** y el programa formativo de **OnChain Analysis & AI**.  
