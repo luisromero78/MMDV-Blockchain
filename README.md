@@ -25,5 +25,14 @@ Combino experiencia en finanzas e inversión inmobiliaria con un enfoque innovad
 
 ---
 
+## 🧩 Retos del curso Blockchain Nivel 3
+
+📁 [Ver carpeta de retos](./retos)
+
+> Casos prácticos y estudios aplicados sobre interoperabilidad, criptografía y contratos inteligentes.
+Incluye ejemplos reales con **XRP Ledger, Ethereum, Polkadot** y más.
+
+---
+
 📫 **Contacto:**  
 [LinkedIn](https://www.linkedin.com/in/luiseduardoromeroramos/) · [Instagram @mimundodelvino](https://instagram.com/mimundodelvino) · MMDV
