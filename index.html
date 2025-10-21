@@ -23,6 +23,9 @@
     --card:#ffffff;
     --bg:#fafafa;
   }
+   html, body {
+  overflow-y: scroll; /* fuerza el scroll siempre visible */
+}
   *{box-sizing:border-box}
   body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;color:var(--ink);background:var(--bg)}
   .wrap{max-width:1000px;margin:0 auto;padding:0 20px}
@@ -152,10 +155,9 @@
 }
 
 body {
-  opacity: 0;
-  animation: fadeUp 0.8s ease forwards;
-  animation-delay: 0.3s;
+  opacity: 1; /* ← evita flash inicial */
 }
+
 
 /* Cards, secciones y títulos entran con ligero retardo */
 h1, h2, p, .card, nav a, .btn {
