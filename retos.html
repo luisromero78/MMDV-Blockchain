@@ -220,17 +220,33 @@ section h2 { animation-delay: 1s; }
   </footer>
   <script>
 const transition = document.getElementById('pageTransition');
+const body = document.body;
 
+// Añade fade-out cuando se hace clic en un enlace interno
 document.querySelectorAll('a[href]').forEach(link => {
   link.addEventListener('click', e => {
     const url = link.getAttribute('href');
     if (!url || url.startsWith('#') || url.startsWith('mailto:') || url.startsWith('http')) return;
     e.preventDefault();
+    
+    // Activa primero el fade-out
+    body.style.transition = "opacity 0.4s ease";
+    body.style.opacity = "0";
+
+    // Activa la capa vino
     transition.classList.add('active');
-    setTimeout(() => window.location.href = url, 400);
+
+    // Redirige tras la animación
+    setTimeout(() => window.location.href = url, 500);
   });
 });
+
+// Al cargar la página, restablece la opacidad
+window.addEventListener('pageshow', () => {
+  body.style.opacity = "1";
+});
 </script>
+
 
 </body>
 </html>
