@@ -109,7 +109,41 @@ nav a::after{
   transition:width .18s ease;
 }
 nav a:hover::after{width:100%}
- 
+
+  :root {
+    --ink:#121212;
+    --muted:#6b6b6b;
+    --accent:#7a1535;
+    ...
+  }
+  /* muchos estilos */
+
+    /* Línea superior color vino */
+header {
+  position: relative;
+}
+
+header::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #7a1535 0%, #b96a82 40%, #7a1535 100%);
+  opacity: .85;
+}
+
+/* Fondo tenue con textura (usa tu imagen en assets/mmdv-pattern.jpg) */
+header {
+  background:
+    linear-gradient(0deg, #fff, #fff),
+    radial-gradient(1200px 300px at 20% -50%, #fceff4 0%, transparent 60%),
+    url("assets/mmdv-pattern.jpg") center/cover no-repeat;
+  background-blend-mode: normal, normal, overlay;
+}
+
+    
 </style>
 
 </head>
