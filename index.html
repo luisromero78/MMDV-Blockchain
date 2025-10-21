@@ -143,7 +143,24 @@ header {
   background-blend-mode: normal, normal, overlay;
 }
 
-    
+  /* Header fijo arriba */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: #fff;
+  backdrop-filter: blur(6px); /* efecto cristal sutil */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+
+   /* Distribución flex entre menú y botón */
+.nav-wrap {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: space-between;
+}
+ 
 </style>
 
 </head>
@@ -158,12 +175,15 @@ header {
     </div>
   </div>
 
+  <div class="nav-wrap">
   <nav>
     <a href="projects.html">Proyectos</a>
     <a href="certifications.html">Certificaciones</a>
     <a href="about.html">Sobre mí</a>
-    <a href="retos.html">Retos Blockchain</a>
   </nav>
+  <a class="btn outline" href="retos.html">Explorar Retos</a>
+</div>
+
 </div>
     
   </header>
