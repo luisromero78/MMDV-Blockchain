@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style type="text/css"><![CDATA[
+      .bg { fill: #0f1014; }
+      .node { fill: #171821; stroke: #7A1535; stroke-width: 6; }
+      .label { fill: #ffffff; font-family: Arial, sans-serif; font-size: 36px; font-weight: 600; }
+      .small { fill: #d0d0d7; font-family: Arial, sans-serif; font-size: 26px; }
+      .title { fill: #ffffff; font-family: Arial, sans-serif; font-size: 60px; font-weight: 700; }
+      .arrow { stroke: #7A1535; stroke-width: 6; marker-end: url(#arrow); }
+    ]]></style>
+    <marker id="arrow" markerWidth="16" markerHeight="12" refX="16" refY="6" orient="auto">
+      <polygon points="0 0, 16 6, 0 12" fill="#7A1535"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1920" height="1080"/>
+
+  <text class="title" x="960" y="95" text-anchor="middle">Interoperabilidad XRPL · MMDV</text>
+
+  <!-- Center: XRPL -->
+  <circle class="node" cx="960" cy="560" r="170"/>
+  <text class="label" x="960" y="555" text-anchor="middle">XRP Ledger</text>
+  <text class="small" x="960" y="600" text-anchor="middle">RPCA · 3–5 s · &lt;0.0002 USD</text>
+
+  <!-- Top-left: RippleNet -->
+  <rect class="node" x="160" y="200" rx="20" ry="20" width="500" height="160"/>
+  <text class="label" x="410" y="260" text-anchor="middle">RippleNet</text>
+  <text class="small" x="410" y="310" text-anchor="middle">Banca tradicional · ISO 20022</text>
+
+  <!-- Bottom-left: CBDC Platform -->
+  <rect class="node" x="160" y="700" rx="20" ry="20" width="500" height="160"/>
+  <text class="label" x="410" y="760" text-anchor="middle">CBDC Platform</text>
+  <text class="small" x="410" y="810" text-anchor="middle">Emisores · Instituciones · Stablecoins</text>
+
+  <!-- Top-right: Ethereum / EVM -->
+  <rect class="node" x="1260" y="200" rx="20" ry="20" width="500" height="160"/>
+  <text class="label" x="1510" y="260" text-anchor="middle">Ethereum / EVM Sidechain</text>
+  <text class="small" x="1510" y="310" text-anchor="middle">Smart Contracts · Solidity</text>
+
+  <!-- Bottom-right: RWA & Stablecoins -->
+  <rect class="node" x="1260" y="700" rx="20" ry="20" width="500" height="160"/>
+  <text class="label" x="1510" y="760" text-anchor="middle">RWA &amp; Stablecoins</text>
+  <text class="small" x="1510" y="810" text-anchor="middle">Tokenización multi‑red</text>
+
+  <!-- Arrows -->
+  <line class="arrow" x1="660" y1="360" x2="830" y2="470"/>
+  <line class="arrow" x1="660" y1="800" x2="830" y2="650"/>
+
+  <line class="arrow" x1="1260" y1="360" x2="1090" y2="470"/>
+  <line class="arrow" x1="1260" y1="800" x2="1090" y2="650"/>
+
+  <!-- Legend -->
+  <g transform="translate(560, 980)">
+    <circle cx="0" cy="-12" r="8" fill="#7A1535"/><text class="small" x="20" y="-5">Integración</text>
+    <circle cx="240" cy="-12" r="8" fill="#7A1535"/><text class="small" x="260" y="-5">Seguridad</text>
+    <circle cx="460" cy="-12" r="8" fill="#7A1535"/><text class="small" x="480" y="-5">Eficiencia</text>
+    <circle cx="700" cy="-12" r="8" fill="#7A1535"/><text class="small" x="720" y="-5">Costes</text>
+  </g>
+</svg>
