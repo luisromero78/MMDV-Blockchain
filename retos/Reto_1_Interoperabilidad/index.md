@@ -8,7 +8,7 @@ layout: default
 > “El XRP Ledger no solo conecta redes, sino que redefine cómo entendemos la interoperabilidad financiera del siglo XXI.”
 
 <p align="center">
-  <img src="./resumen_visual_mmdv_xrpl.png" alt="Interoperabilidad XRPL – Esquema MMDV" width="100%">
+  <img src="./visual_xrpl.png" alt="Interoperabilidad XRPL – Esquema MMDV" width="100%">
 </p>
 
 ---
