@@ -1,60 +1,127 @@
----
-title: Reto 1 · Interoperabilidad (XRPL)
-layout: default
----
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reto 1 · Interoperabilidad (XRPL) — MMDV</title>
+<meta name="theme-color" content="#7A1535">
+<style>
+  :root{
+    --bg:#111216;
+    --card:#1b1c21;
+    --ink:#f5f6f7;
+    --muted:#a7abb2;
+    --accent:#7A1535;         /* vino MMDV */
+    --accent-2:#d8a2b3;       /* vino claro */
+    --stroke:rgba(122,21,53,.42);
+  }
+  html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif}
+  .wrap{max-width:980px;margin:0 auto;padding:26px 18px 60px}
+  /* Header */
+  .hero{
+    text-align:center;margin:12px 0 18px;
+  }
+  .hero h1{
+    margin:0;color:var(--accent);font-weight:800;letter-spacing:.2px;font-size:32px
+  }
+  .hero .quote{
+    color:var(--muted);font-style:italic;margin:10px auto 0;max-width:820px
+  }
+  hr.line{border:none;border-top:1px solid rgba(122,21,53,.25);margin:22px 0 28px}
+  /* Visual principal */
+  .visual{
+    display:block;margin:26px auto 28px;max-width:92%;
+    border:1px solid var(--stroke);border-radius:16px;
+    box-shadow:0 10px 28px rgba(122,21,53,.22);
+  }
+  /* Grid de tarjetas */
+  .grid{
+    display:grid;gap:16px;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  }
+  .card{
+    background:var(--card);
+    border:1px solid var(--stroke);
+    border-radius:14px;padding:16px 16px 14px;
+    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+  }
+  .card:hover{
+    transform:translateY(-3px);
+    border-color:var(--accent);
+    box-shadow:0 8px 24px rgba(122,21,53,.28);
+    background:#202129;
+  }
+  .card h3{margin:0 0 6px;font-size:17px;color:#f1eff2}
+  .card p{margin:0 0 10px;color:var(--muted);font-size:14px}
+  .card a{
+    display:inline-block;text-decoration:none;font-weight:700;
+    color:var(--accent-2);border:1px solid var(--accent);
+    padding:8px 12px;border-radius:10px;
+    transition:background .15s ease, color .15s ease, box-shadow .15s ease;
+  }
+  .card a:hover{
+    color:#fff;background:var(--accent);
+    box-shadow:0 0 16px rgba(122,21,53,.45);
+  }
+  /* Sección título “Archivos” */
+  .section-title{
+    font-weight:800;color:#eae9ec;margin:4px 0 10px;font-size:18px;
+    display:flex;align-items:center;gap:8px
+  }
+  .bar{width:8px;height:18px;background:linear-gradient(180deg,var(--accent),var(--accent-2));border-radius:3px}
+  /* Footer */
+  .foot{margin-top:34px;color:var(--muted);text-align:center;font-size:13px}
+</style>
+</head>
+<body>
+  <main class="wrap">
 
-<div align="center" style="margin-top:20px;margin-bottom:34px;">
-  <h1 style="color:#7A1535;font-weight:800;letter-spacing:.2px;margin:0;font-size:32px;">
-    🧩 Reto 1 · Interoperabilidad (XRPL)
-  </h1>
-  <p style="color:#9fa3a9;font-style:italic;margin:10px 0 0;font-size:16px;">
-    “El XRP Ledger no solo conecta redes, sino que redefine cómo entendemos la interoperabilidad financiera del siglo XXI.”
-  </p>
-</div>
+    <!-- Cabecera -->
+    <header class="hero">
+      <h1>🧩 Reto 1 · Interoperabilidad (XRPL)</h1>
+      <p class="quote">“El XRP Ledger no solo conecta redes, sino que redefine cómo entendemos la interoperabilidad financiera del siglo XXI.”</p>
+    </header>
 
-<hr style="border:none;border-top:1px solid rgba(122,21,53,.25);margin:10px 0 26px;">
+    <hr class="line">
 
-<!-- Visual principal -->
-<p align="center" style="margin:28px 0 32px;">
-  <img src="./visual_xrpl.png"
-       alt="Interoperabilidad XRPL – Esquema MMDV"
-       style="max-width:95%;border-radius:16px;border:1px solid rgba(122,21,53,.45);
-              box-shadow:0 8px 32px rgba(122,21,53,.25);">
-</p>
+    <!-- Visual principal -->
+    <p style="text-align:center">
+      <img class="visual" src="./visual_xrpl.png" alt="Interoperabilidad XRPL — Esquema editorial MMDV">
+    </p>
 
-<!-- Tarjetas de archivos -->
-<div style="display:block;margin:6px 0 18px;font-size:18px;color:#d8d8dc;font-weight:700;">
-  Archivos
-</div>
+    <!-- Archivos -->
+    <div class="section-title"><span class="bar"></span> Archivos</div>
+    <section class="grid">
 
-<div style="display:grid;grid-template-columns:1fr;gap:12px;">
-  <div style="padding:14px 16px;border:1px solid rgba(122,21,53,.35);border-radius:14px;background:#1b1c21;">
-    <div style="color:#d8d8dc;font-weight:700;">📑 Informe</div>
-    <div style="color:#a9acb3;font-size:14px;margin:2px 0 6px;">Desarrollo completo del reto y análisis de interoperabilidad en XRPL.</div>
-    <a href="./informe.md" style="color:#d8a2b3;font-weight:700;text-decoration:none;">Abrir informe →</a>
-  </div>
+      <article class="card">
+        <h3>📑 Informe</h3>
+        <p>Desarrollo completo del reto y análisis técnico de interoperabilidad en XRPL.</p>
+        <a href="./informe.md">Abrir informe →</a>
+      </article>
 
-  <div style="padding:14px 16px;border:1px solid rgba(122,21,53,.35);border-radius:14px;background:#1b1c21;">
-    <div style="color:#d8d8dc;font-weight:700;">🔗 Referencias</div>
-    <div style="color:#a9acb3;font-size:14px;margin:2px 0 6px;">Fuentes técnicas y bibliografía XRPL.</div>
-    <a href="./referencias.md" style="color:#d8a2b3;font-weight:700;text-decoration:none;">Ver referencias →</a>
-  </div>
+      <article class="card">
+        <h3>🔗 Referencias</h3>
+        <p>Documentación oficial, artículos técnicos y bibliografía consultada.</p>
+        <a href="./referencias.md">Ver referencias →</a>
+      </article>
 
-  <div style="padding:14px 16px;border:1px solid rgba(122,21,53,.35);border-radius:14px;background:#1b1c21;">
-    <div style="color:#d8d8dc;font-weight:700;">🖼️ Resumen visual</div>
-    <div style="color:#a9acb3;font-size:14px;margin:2px 0 6px;">Infografía editorial con el mapa conceptual de interoperabilidad XRPL.</div>
-    <a href="./visual_xrpl.png" style="color:#d8a2b3;font-weight:700;text-decoration:none;">Abrir imagen →</a>
-  </div>
+      <article class="card">
+        <h3>🖼️ Resumen visual</h3>
+        <p>Infografía editorial con el mapa conceptual de interoperabilidad XRPL.</p>
+        <a href="./visual_xrpl.png">Abrir imagen →</a>
+      </article>
 
-  <div style="padding:14px 16px;border:1px solid rgba(122,21,53,.35);border-radius:14px;background:#1b1c21;">
-    <div style="color:#d8d8dc;font-weight:700;">📘 PDF (MMDV)</div>
-    <div style="color:#a9acb3;font-size:14px;margin:2px 0 6px;">Versión descargable con maquetación MMDV.</div>
-    <a href="./docs/Interoperabilidad_XRPL_MMDV.pdf" style="color:#d8a2b3;font-weight:700;text-decoration:none;">Descargar PDF →</a>
-  </div>
-</div>
+      <article class="card">
+        <h3>📘 PDF (MMDV)</h3>
+        <p>Versión descargable con maquetación profesional MMDV.</p>
+        <a href="./docs/Interoperabilidad_XRPL_MMDV.pdf">Descargar PDF →</a>
+      </article>
 
-<hr style="border:none;border-top:1px solid rgba(122,21,53,.25);margin:26px 0 12px;">
+    </section>
 
-<div align="center" style="color:#a9acb3;font-size:13px;margin-bottom:10px;">
-  Proyecto <b>MMDV Blockchain</b> · Luis Romero · Octubre 2025
-</div>
+    <footer class="foot">
+      Proyecto <b>MMDV Blockchain</b> · Luis Romero · Octubre 2025
+    </footer>
+  </main>
+</body>
+</html>
