@@ -130,3 +130,12 @@ blockquote{margin:16px 0;padding:12px 14px;border-left:4px solid var(--accent);
 .card .btn{float:right}
 .card::after{content:"";display:block;clear:both}
 
+@media (max-width:640px){
+  .grid{grid-template-columns:1fr; gap:14px}
+  .card{padding:14px}
+}
+
+.card img{
+  box-shadow:0 6px 22px rgba(0,0,0,.35);
+}
+
