@@ -62,6 +62,29 @@ hr.line{border:none;border-top:1px solid rgba(122,21,53,.25);margin:22px 0 28px}
 }
 .btn:hover{transform:translateY(-1px);box-shadow:0 0 18px rgba(122,21,53,.45)}
 
+.btn-outline {
+  display:inline-block;
+  padding:9px 16px;
+  border:1px solid var(--accent);
+  border-radius:12px;
+  color:var(--accent-2);
+  background:transparent;
+  font-weight:600;
+  transition:all .18s ease;
+  text-decoration:none;
+}
+
+.btn-outline:hover {
+  background:var(--accent);
+  color:#fff;
+  box-shadow:0 0 14px rgba(122,21,53,.35);
+}
+
+.center-btn {
+  text-align:center;
+  margin-top:10px;
+}
+
 /* Back link */
 .back{display:inline-block;margin:6px 0 16px;padding:8px 12px;border-radius:10px;border:1px solid var(--accent);
   color:#fff;background:var(--accent);font-weight:700}
