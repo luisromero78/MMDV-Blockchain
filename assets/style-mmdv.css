@@ -104,3 +104,29 @@ a:focus, .btn:focus, .back:focus {outline:2px solid var(--accent-2);outline-offs
   color: #531029;
   border-color: #531029;
 }
+
+/* Cabeceras detalle */
+.page-header h1{margin:0 0 6px;color:#f1eff2}
+.subtitle{color:var(--muted);margin:0 0 18px}
+
+/* Tags (si no existen) */
+.tags{margin:6px 0 10px;display:flex;gap:8px;flex-wrap:wrap}
+.tag{display:inline-block;padding:6px 10px;border-radius:999px;
+     background:#26272d;color:#d1d4da;font-size:12px;border:1px solid rgba(122,21,53,.25)}
+
+/* Métricas lista */
+.metrics{margin:12px 0 16px;padding-left:0;list-style:none}
+.metrics li{margin:6px 0;color:#d8d8dc}
+
+/* Imágenes dentro de cards */
+.card img{width:100%;height:auto;border-radius:10px;display:block}
+
+/* Citas/notes */
+blockquote{margin:16px 0;padding:12px 14px;border-left:4px solid var(--accent);
+  background:#1f2026;border-radius:8px;color:#e9e9ee}
+.note{color:var(--muted);margin:14px 0}
+
+/* Botones dentro de cards a la derecha (opcional) */
+.card .btn{float:right}
+.card::after{content:"";display:block;clear:both}
+
