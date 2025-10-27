@@ -162,3 +162,20 @@ blockquote{margin:16px 0;padding:12px 14px;border-left:4px solid var(--accent);
   box-shadow:0 6px 22px rgba(0,0,0,.35);
 }
 
+.btn-outline{
+  display:inline-block;
+  padding:10px 14px;
+  border:1px solid var(--accent);
+  border-radius:10px;
+  color:var(--accent);
+  background:transparent;
+  font-weight:600;
+  transition:all .18s ease;
+  text-decoration:none;
+}
+.btn-outline:hover{
+  background:var(--accent);
+  color:#fff;
+  box-shadow:0 0 14px rgba(122,21,53,.35);
+}
+.center-btn{ text-align:center; margin-top:10px; }
