@@ -86,3 +86,21 @@ a:focus, .btn:focus, .back:focus {outline:2px solid var(--accent-2);outline-offs
 @media (max-width:520px){
   .hero .title{font-size:26px}
 }
+
+.dashboard-link {
+  text-align: center;
+  margin: 1.5rem 0;
+  font-weight: 500;
+}
+
+.dashboard-link a {
+  color: #7A1535;
+  text-decoration: none;
+  border-bottom: 1px solid #7A1535;
+  transition: color 0.3s, border-color 0.3s;
+}
+
+.dashboard-link a:hover {
+  color: #531029;
+  border-color: #531029;
+}
