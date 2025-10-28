@@ -4,22 +4,21 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Reto 2 — Análisis y simulación de una red blockchain | MMDV</title>
-  <meta name="description" content="Comparativa PoW vs PoS con simulación en Python. Documentación, presentación y reel del Reto 2 (MMDV Blockchain Lab)." />
+  <meta name="description" content="Comparativa PoW vs PoS con simulación en Python. Documentación, presentación, CSV y reel del Reto 2 (MMDV Blockchain Lab)." />
 
   <!-- Open Graph -->
   <meta property="og:title" content="Reto 2 — Análisis y simulación de una red blockchain" />
   <meta property="og:description" content="Comparativa PoW vs PoS con simulación en Python. Docs, slides y reel." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="../assets/mmdv-cover.png" />
 
-  <!-- Favicon / Logo (ajusta rutas si tu repo usa otras) -->
-  <link rel="icon" href="../../assets/favicon.ico" />
-  <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png" />
+  <!-- Favicon / Logo -->
+  <link rel="icon" href="../../favicon.ico" />
+  <link rel="apple-touch-icon" href="../../apple-touch-icon.png" />
 
-  <!-- Hook a tus estilos globales si existen -->
+  <!-- Tus estilos globales (si los tienes) -->
   <link rel="stylesheet" href="../../assets/styles.css" />
 
-  <!-- Fallback CSS mínimo (se ignora si tienes styles.css) -->
+  <!-- Fallback CSS mínimo + FIX del <pre><code> -->
   <style>
     :root { --vino:#7A1535; --gris:#2b2b2b; --gris-soft:#f5f5f7; }
     html,body{margin:0;padding:0;font-family:Inter,Calibri,system-ui,Segoe UI,Roboto,Arial,sans-serif;color:var(--gris);background:#fff}
@@ -27,7 +26,7 @@
     .hero{display:grid;gap:10px;padding:28px 0 10px}
     .hero h1{margin:0;font-size:clamp(28px,4vw,40px);line-height:1.1;color:var(--vino)}
     .hero p{margin:0;color:#555}
-    .row{display:flex;flex-wrap:wrap;gap:16px}
+    .row{display:flex;flex-wrap:wrap;gap:12px}
     .btn{display:inline-block;background:var(--vino);color:#fff;text-decoration:none;padding:10px 14px;border-radius:10px}
     .btn.ghost{background:#eee;color:#222}
     .card{background:#fff;border:1px solid #e6e6e9;border-radius:14px;padding:18px}
@@ -38,12 +37,13 @@
     td{border-bottom:1px solid #eee;padding:10px}
     .muted{color:#666}
     .tag{display:inline-block;background:#f2e8ec;color:var(--vino);padding:4px 8px;border-radius:999px;font-size:12px;margin-right:6px}
-    footer{margin:36px 0 12px;color:#777;font-size:14px}
     .logo{height:58px}
     .video-wrap{background:var(--gris-soft);border:1px solid #eee;border-radius:14px;padding:10px}
     video{width:100%;border-radius:10px;display:block;background:#000}
     code{background:#f7f7f7;padding:2px 6px;border-radius:6px}
     pre{background:#0e0e0e;color:#f3f3f3;padding:14px;border-radius:12px;overflow:auto}
+    /* FIX: evita “cajas blancas” dentro de bloques de código */
+    pre code{background:transparent;padding:0}
   </style>
 </head>
 <body>
@@ -59,8 +59,8 @@
       </div>
     </div>
     <picture>
-      <!-- Ajusta la ruta del logo si lo tienes en otra carpeta -->
-      <img class="logo" src="../../assets/mmdv-logo-dark.png" alt="MMDV" />
+      <!-- Usa el favicon de la raíz (suele existir en GitHub Pages). Cambia si tu logo está en otra ruta -->
+      <img class="logo" src="../../android-chrome-192x192.png" alt="MMDV" />
     </picture>
   </header>
 
@@ -75,7 +75,7 @@
       <ul>
         <li>Lenguaje: <strong>Python 3.11</strong> · Librerías: <code>hashlib</code>, <code>time</code>, <code>random</code>, <code>json</code>.</li>
         <li>PoW: prueba de trabajo con dificultad ajustable; mide <em>tiempo</em> e <em>intentos</em>.</li>
-        <li>PoS: selección ponderada por <em>stake</em>; validación ligera con latencia simulada.</li>
+        <li>PoS: selección ponderada por <em>stake</em>; validación ligera con retardo leve de propagación.</li>
         <li>Integridad: verificación de <strong>hash</strong> encadenado en ambas cadenas.</li>
       </ul>
 
@@ -90,16 +90,15 @@
         </tbody>
       </table>
       <p class="muted" style="margin-top:8px">Datos completos en <code>resultados_reto2_timings.csv</code>.</p>
-    </section>
 
-    <!-- Columna derecha -->
-    <aside class="card">
-      <h2 style="margin-top:0;">Reel del proyecto</h2>
-      <div class="video-wrap">
-        <!-- Póster opcional: coloca un PNG del cubo si lo tienes en assets -->
-        <video controls playsinline preload="metadata" src="./MMDV_Reto2_Reel_vFinal_Extended.mp4"></video>
-      </div>
-      <p class="muted">Formato vertical 9:16 · Música synthwave suave · Cierre con desintegración en partículas.</p>
+      <!-- NUEVO: Detalles de implementación aquí (debajo del resumen), ya no ocupa toda la página -->
+      <h3 style="margin-top:18px;">Detalles de implementación</h3>
+      <ul>
+        <li><strong>Bloques:</strong> índice, <code>prev_hash</code>, transacciones, <code>nonce</code> (PoW) o <code>validator</code> (PoS) y <code>hash</code> actual.</li>
+        <li><strong>PoW:</strong> minado buscando prefijo de ceros; se registra tiempo e intentos de hash.</li>
+        <li><strong>PoS:</strong> elección ponderada por stake (Alice/Bob/Carol), validación rápida con retardo leve de propagación.</li>
+        <li><strong>Integridad:</strong> función de verificación que recomputa cada hash y valida la cadena completa.</li>
+      </ul>
 
       <h3>Cómo ejecutar el script</h3>
       <pre><code># 1) Clona o descarga el repo
@@ -109,25 +108,22 @@ python Reto2_LuisRomero.py
 # Parámetros que puedes tocar en el main:
 # run_experiment(num_blocks=5, tx_per_block=3, difficulty=4)
 # Sube 'difficulty' para ver el impacto en PoW</code></pre>
+    </section>
+
+    <!-- Columna derecha -->
+    <aside class="card">
+      <h2 style="margin-top:0;">“Trust is not imposed, it is validated.”</h2>
+      <div class="video-wrap">
+        <video controls playsinline preload="metadata" src="./MMDV_Reto2_Reel_vFinal_Extended.mp4"></video>
+      </div>
+      <p class="muted">Formato vertical 9:16 · Música synthwave suave · Cierre con desintegración en partículas.</p>
     </aside>
   </main>
 
-  <section class="container card" style="margin-top:16px;">
-    <h2 style="margin-top:0;">Detalles de implementación</h2>
-    <ul>
-      <li><strong>Bloques:</strong> índice, <code>prev_hash</code>, transacciones, <code>nonce</code> (PoW) o <code>validator</code> (PoS) y <code>hash</code> actual.</li>
-      <li><strong>PoW:</strong> minado buscando prefijo de ceros; se registra tiempo e intentos de hash.</li>
-      <li><strong>PoS:</strong> elección ponderada por stake (Alice/Bob/Carol), validación rápida con retardo leve de propagación.</li>
-      <li><strong>Integridad:</strong> función de verificación que recomputa cada hash y valida la cadena completa.</li>
-    </ul>
-  </section>
-
-  <footer class="container">
+  <footer class="container" style="margin-top:16px;">
     <div class="row" style="align-items:center;justify-content:space-between">
       <p class="muted">© MMDV · Luis Romero · “Trust is not imposed, it is validated.”</p>
-      <div>
-        <a class="btn ghost" href="../">⟵ Volver a Retos</a>
-      </div>
+      <div><a class="btn ghost" href="../">⟵ Volver a Retos</a></div>
     </div>
   </footer>
 </body>
