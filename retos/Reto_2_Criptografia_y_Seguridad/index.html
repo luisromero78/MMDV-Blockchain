@@ -65,6 +65,14 @@
   <!-- fallback seguro: el 192x192 que ya confirmaste que existe -->
    <img class="logo" src="../../assets/mmdv-logo.png" alt="MMDV" />  
 </picture>
+    <script>
+  const logo = document.querySelector('.logo');
+  logo.addEventListener('error', () => {
+    // Intento alternativo con el icono de 192px
+    logo.src = '/assets/android-chrome-192x192.png?v=2';
+  });
+</script>
+
   </header>
 
   <main class="container grid cols-2">
@@ -127,6 +135,10 @@ python Reto2_LuisRomero.py
       <p class="muted">© MMDV · Luis Romero · “Trust is not imposed, it is validated.”</p>
       <div><a class="btn ghost" href="../../index.html">⟵ Volver a Retos</a></div>
     </div>
+    div class="row" style="align-items:center;justify-content:space-between">
+    <p class="muted">Proyecto <strong>MMDV Blockchain</strong> · Luis Romero · Octubre 2025</p>
+    <div><a class="btn ghost" href="../../retos.html">⟵ Volver a Retos</a></div>
+  </div>
   </footer>
 </body>
 </html>
