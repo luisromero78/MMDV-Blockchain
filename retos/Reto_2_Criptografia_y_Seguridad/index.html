@@ -11,9 +11,10 @@
   <meta property="og:description" content="Comparativa PoW vs PoS con simulación en Python. Docs, slides y reel." />
   <meta property="og:type" content="website" />
 
-  <!-- Favicon / Logo -->
-  <link rel="icon" href="../../favicon.ico" />
-  <link rel="apple-touch-icon" href="../../apple-touch-icon.png" />
+<!-- Favicon / Logo (usa la misma carpeta de assets/img) -->
+<link rel="icon" href="../../assets/img/favicon.ico" />
+<link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png" />
+<meta property="og:image" content="../../assets/img/android-chrome-512x512.png" />
 
   <!-- Tus estilos globales (si los tienes) -->
   <link rel="stylesheet" href="../../assets/styles.css" />
@@ -58,10 +59,12 @@
         <a class="btn ghost" href="./Reto2_LuisRomero.py">🧠 Código Python</a>
       </div>
     </div>
-    <picture>
-      <!-- Usa el favicon de la raíz (suele existir en GitHub Pages). Cambia si tu logo está en otra ruta -->
-       <img class="logo" src="../../assets/img/mmdv-logo.png" alt="MMDV" />
-    </picture>
+   <picture>
+  <!-- si existe uno grande, úsalo en pantallas retina -->
+  <source srcset="../../assets/img/mmdv-logo.png" media="(min-width: 600px)">
+  <!-- fallback seguro: el 192x192 que ya confirmaste que existe -->
+  <img class="logo" src="../../assets/img/android-chrome-192x192.png" alt="MMDV" />
+</picture>
   </header>
 
   <main class="container grid cols-2">
