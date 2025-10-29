@@ -14,134 +14,53 @@
 <meta name="theme-color" content="#7A1535">
 
 <style>
-:root{
-  --ink:#111;--muted:#666;--accent:#7a1535;--bg:#fff;
-  --gray-light:#f5f6f7;
-}
+:root{ --ink:#111; --muted:#666; --accent:#7a1535; --bg:#fff; --stroke:#e5e5e5; }
 *{box-sizing:border-box}
 body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;color:var(--ink);background:var(--bg)}
 .wrap{max-width:980px;margin:0 auto;padding:24px 20px}
 
-/* Barra superior clara estilo Retos */
-.hero {
-  background: linear-gradient(180deg,#f3f4f6 0%, #ffffff 100%);
-  border-bottom: 1px solid #e5e5e5;
-  padding: 14px 0;             /* compacto */
-  margin-bottom: 16px;
-}
-.hero .row {
-  display:flex;
-  align-items:center;
-  justify-content:space-between; /* menú a la derecha */
-  gap:16px;
-}
-.hero h1 {
-  font-size:28px; margin:0; letter-spacing:.2px;
-}
-.hero p { margin:4px 0 0; color:var(--muted); font-size:15px; }
-
-/* nav dentro del hero */
-.hero nav a {
-  margin-left:16px;
-  color:var(--accent);
-  text-decoration:none;
-  font-weight:500;
-}
-.hero nav a:hover { text-decoration:underline; }
-
-
-
-/* Por defecto: 1 columna (cards sin botón no se estiran) */
-.card{
-  border:1px solid #eee; border-radius:12px; padding:18px; margin:12px 0; background:#fff;
-  box-shadow:0 2px 8px rgba(0,0,0,.03);
-  display:block;
-}
-
-/* Solo las cards con botón usan 2 columnas */
-.card.has-actions{
-  display:grid;
-  grid-template-columns: 1fr auto; /* texto | botón */
-  gap:8px 12px;
-  align-items:start;
-}
-
-.card .title{ margin:0 0 4px; font-weight:700; }
-.card p{ margin:0 0 6px; }
-.card .tags{ margin-top:8px; } /* detalle visual */
-
-/* Botón compacto */
-.actions{ align-self:start; }
-.btn-inline{
-  display:inline-block; padding:8px 12px;
-  border:1px solid var(--accent); border-radius:8px;
-  font-weight:600; text-decoration:none;
-}
-.btn-inline.btn-vino{ background:var(--accent); color:#fff; }
-.btn-inline.btn-ghost{ background:transparent; color:var(--accent); }
-.btn-inline.btn-ghost:hover{ background:rgba(122,21,53,.06); }
-
-/* (Opcional) Responsive: en móvil, aunque tenga botón, cae a 1 columna */
-@media (max-width: 520px){
-  .card.has-actions{ grid-template-columns: 1fr; }
-  .actions{ margin-top:6px; }
-}
-
-
-/* Botón compacto */
-.btn-inline{
-  display:inline-block; padding:8px 12px;
-  border:1px solid var(--accent); border-radius:8px;
-  font-weight:600; text-decoration:none;
-}
-.btn-inline.btn-vino{ background:var(--accent); color:#fff; }
-.btn-inline.btn-ghost{ background:transparent; color:var(--accent); }
-.btn-inline.btn-ghost:hover{ background:rgba(122,21,53,.06); }
-
-
-/* -------- BOTONES -------- */
-.btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;}
-.btn-vino,.btn-ghost,.btn-outline{
-  display:inline-block;padding:10px 14px;border-radius:10px;
-  border:1px solid var(--accent);text-decoration:none;
-  font-weight:600;transition:all .2s ease;
-}
-.btn-vino{background:var(--accent);color:#fff;}
-.btn-vino:hover{filter:brightness(.93);}
-.btn-ghost{color:var(--accent);background:transparent;}
-.btn-ghost:hover{background:rgba(122,21,53,.06);}
-.center-btn{text-align:center;margin-top:10px;}
-.btn-outline{color:var(--accent);background:transparent;}
-.btn-outline:hover{background:var(--accent);color:#fff;box-shadow:0 0 14px rgba(122,21,53,.35);}
-  /* Barra superior clara estilo Retos (compacta) */
+/* HERO + nav (claro, compacto) */
 .hero{
   background:linear-gradient(180deg,#f3f4f6 0%,#ffffff 100%);
-  border-bottom:1px solid #e5e5e5;
+  border-bottom:1px solid var(--stroke);
   padding:14px 0; margin-bottom:16px;
 }
-.hero .row{ display:flex; align-items:center; justify-content:space-between; gap:16px; }
-.hero h1{ font-size:28px; margin:0; letter-spacing:.2px; }
-.hero p{ margin:4px 0 0; color:var(--muted); font-size:15px; }
-.hero nav a{ margin-left:16px; color:var(--accent); text-decoration:none; font-weight:500; }
-.hero nav a:hover{ text-decoration:underline; }
+.hero .row{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.hero h1{font-size:28px;margin:0;letter-spacing:.2px}
+.hero p{margin:4px 0 0;color:var(--muted);font-size:15px}
+.hero nav a{margin-left:16px;color:var(--accent);text-decoration:none;font-weight:500}
+.hero nav a:hover{text-decoration:underline}
 
-/* Cards con botón alineado a la derecha, al nivel del texto */
-.card{ display:grid; grid-template-columns:1fr auto; gap:8px 12px; align-items:start; }
-.card .title{ margin:0 0 4px; font-weight:700; }
-.card p{ margin:0 0 6px; }
-.card .tags{ grid-column:1 / -1; }
-.actions{ align-self:start; }
-.btn-inline{ display:inline-block; padding:8px 12px; border:1px solid var(--accent); border-radius:8px; font-weight:600; text-decoration:none; }
-.btn-inline.btn-vino{ background:var(--accent); color:#fff; }
-.btn-inline.btn-ghost{ background:transparent; color:var(--accent); }
-.btn-inline.btn-ghost:hover{ background:rgba(122,21,53,.06); }
-
-/* Responsive: en móvil el botón baja debajo del texto */
-@media (max-width: 520px){
-  .card{ grid-template-columns: 1fr; }
-  .actions{ justify-self:start; }
+/* Cards base */
+.card{
+  background:#fff;border:1px solid #eee;border-radius:12px;
+  padding:18px;margin:12px 0;box-shadow:0 2px 8px rgba(0,0,0,.03)
 }
+/* Cards con botón: grid (contenido | acción) */
+.card.has-actions{
+  display:grid;grid-template-columns:1fr auto;gap:8px 12px;align-items:start
+}
+.content .title{margin:0 0 6px;font-weight:700}
+.content p{margin:0 0 8px;color:var(--muted)}
+.tags{margin-top:8px}
+.tag{
+  display:inline-block;font-size:12px;border:1px solid #eee;border-radius:999px;
+  padding:6px 10px;margin-right:8px;color:var(--muted);background:#fafafa
+}
+.actions{align-self:start;display:flex;gap:8px}
+.btn-inline{
+  display:inline-block;padding:9px 12px;border-radius:10px;border:1px solid var(--accent);
+  font-weight:600;text-decoration:none
+}
+.btn-inline.btn-vino{background:var(--accent);color:#fff}
+.btn-inline.btn-ghost{background:transparent;color:var(--accent)}
+.btn-inline.btn-ghost:hover{background:rgba(122,21,53,.06)}
+.btn-inline.is-soon{opacity:.6;pointer-events:none;border-style:dashed}
 
+@media (max-width:520px){
+  .card.has-actions{grid-template-columns:1fr}
+  .actions{margin-top:8px}
+}
 </style>
 </head>
 
@@ -166,45 +85,65 @@ body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;color:var(--ink);back
   </div>
 </section>
 
-
 <!-- CONTENIDO -->
 <main class="wrap">
-  <!-- PROJECT CARDS -->
-<div class="card has-actions">
-  <div>
-    <div class="title">Wine Market Dashboard (Power BI)</div>
-    <p>KPIs del mercado del vino, storytelling y segmentaciones. Medidas DAX documentadas.</p>
-    <div class="tags"><span class="tag">Power BI</span><span class="tag">Data</span></div>
-  </div>
-  <div class="actions">
-    <a class="btn-inline btn-vino" href="/MMDV-Blockchain/projects/data-analytics/">🔎 Ver ficha</a>
-  </div>
-</div>
 
-
-  <div class="card">
-    <strong>XRP Tokenization Concept</strong>
-    <p>Prototipo de tokenización en XRP Ledger con esquema ISO 20022.</p>
-    <span class="tag">Blockchain</span><span class="tag">XRP</span>
+  <!-- Wine Market (CTA Ver ficha) -->
+  <div class="card has-actions">
+    <div class="content">
+      <div class="title">Wine Market Dashboard (Power BI)</div>
+      <p>KPIs del mercado del vino, storytelling y segmentaciones. Medidas DAX documentadas.</p>
+      <div class="tags">
+        <span class="tag">Power BI</span><span class="tag">Data</span>
+      </div>
+    </div>
+    <div class="actions">
+      <a class="btn-inline btn-vino" href="/MMDV-Blockchain/projects/data-analytics/">🔎 Ver ficha</a>
+    </div>
   </div>
 
-<div class="card has-actions">
-  <div>
-    <div class="title">On-Chain Analytics Metrics</div>
-    <p>Inflows/outflows, SOPR, LTH/SLTH con datasets públicos.</p>
-    <div class="tags"><span class="tag">On-Chain</span><span class="tag">Crypto</span></div>
+  <!-- XRP Tokenization (Próximamente) -->
+  <div class="card has-actions">
+    <div class="content">
+      <div class="title">XRP Tokenization Concept</div>
+      <p>Prototipo de tokenización en XRP Ledger con esquema ISO 20022.</p>
+      <div class="tags">
+        <span class="tag">Blockchain</span><span class="tag">XRP</span>
+      </div>
+    </div>
+    <div class="actions">
+      <a class="btn-inline btn-ghost is-soon">Próximamente</a>
+    </div>
   </div>
-  <div class="actions">
-    <a href="onchain.html" class="btn-inline btn-ghost">Ver análisis</a>
-  </div>
-</div>
 
-
-  <div class="card">
-    <strong>AI Social Media Agent</strong>
-    <p>Agente que genera y programa posts (IG/X/LinkedIn) con Make + GPT.</p>
-    <span class="tag">Automation</span><span class="tag">AI</span>
+  <!-- On-Chain Analytics (CTA Ver análisis) -->
+  <div class="card has-actions">
+    <div class="content">
+      <div class="title">On-Chain Analytics Metrics</div>
+      <p>Inflows/outflows, SOPR, LTH/SLTH con datasets públicos.</p>
+      <div class="tags">
+        <span class="tag">On-Chain</span><span class="tag">Crypto</span>
+      </div>
+    </div>
+    <div class="actions">
+      <a class="btn-inline btn-ghost" href="/MMDV-Blockchain/onchain.html">Ver análisis</a>
+    </div>
   </div>
+
+  <!-- AI Social Media Agent (Próximamente) -->
+  <div class="card has-actions">
+    <div class="content">
+      <div class="title">AI Social Media Agent</div>
+      <p>Agente que genera y programa posts (IG/X/LinkedIn) con Make + GPT.</p>
+      <div class="tags">
+        <span class="tag">Automation</span><span class="tag">AI</span>
+      </div>
+    </div>
+    <div class="actions">
+      <a class="btn-inline btn-ghost is-soon">Próximamente</a>
+    </div>
+  </div>
+
 </main>
 
 <footer><div class="wrap">© 2025 Luis Eduardo Romero · MMDV</div></footer>
