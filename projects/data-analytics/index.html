@@ -5,11 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Data Analytics · MMDV</title>
 
-  <!-- CSS base global (tu style principal) -->
+  <!-- CSS global del sitio -->
   <link rel="stylesheet" href="/MMDV-Blockchain/assets/style.css">
 
   <style>
-    /* ---- Tokens / colores ---- */
     :root{
       --bg:#ffffff; --ink:#111216; --muted:#60646c; --accent:#7A1535;
       --card:#f7f8f9; --stroke:#e6e8eb; --chip:#f1e6ea;
@@ -17,34 +16,22 @@
     body{ background:var(--bg); color:var(--ink); font-family:Inter,system-ui,Arial,sans-serif; margin:0; }
     .wrap{ max-width:1100px; margin:0 auto; padding:28px 18px 70px; }
 
-    /* ---- Topbar / header con menu a la derecha (estilo retos pero claro) ---- */
-    .site-top{
-      border-bottom:1px solid var(--stroke);
-      background:linear-gradient(180deg,#fbfbfc, #fff);
-    }
-    .site-top .wrap{ display:flex; align-items:center; gap:20px; padding:18px 18px; }
-    .site-title{ font-weight:800; font-size:18px; color:var(--accent); margin-right:auto; }
-    nav.primary{ margin-left:auto; }
-    nav.primary a{ color:var(--accent); text-decoration:none; margin-left:18px; font-weight:600; }
-    nav.primary a:hover{ text-decoration:underline; }
-
     /* Breadcrumb */
-    .breadcrumb{ font-size:14px; color:var(--muted); margin:12px 0 0 2px; }
+    .breadcrumb{ font-size:14px; color:var(--muted); margin:10px 0 0 2px; }
     .breadcrumb a{ color:var(--accent); text-decoration:none; }
     .breadcrumb a:hover{ text-decoration:underline; }
 
-    /* ---- Hero compacto ---- */
+    /* Hero compacto (en claro) */
     .mast{
       background:linear-gradient(180deg,#f3f4f6 0%,#ffffff 100%);
       border-bottom:1px solid var(--stroke);
       padding:18px 0 14px;
-      margin:18px 0;
+      margin-bottom:18px;
     }
-    .mast .wrap{ padding:6px 18px; }
     .mast h1{ font-size:28px; margin:0 0 6px; letter-spacing:.2px; color:var(--ink); }
     .mast p{ margin:0; color:var(--muted); font-size:15px; }
 
-    /* ---- Feature (destacado) 2 columnas ---- */
+    /* ---- Proyecto destacado (2 columnas) ---- */
     .feature{
       display:grid; grid-template-columns: 520px 1fr; gap:22px;
       padding:18px; border:1px solid var(--stroke); background:var(--card); border-radius:18px;
@@ -61,7 +48,7 @@
       display:block;
     }
     @media (max-width: 1024px){
-      .feature{ grid-template-columns: 1fr; }
+      .feature{ grid-template-columns:1fr; }
       .feature .shot img{ width:75%; max-width:600px; }
     }
 
@@ -70,7 +57,7 @@
     .kicker{ color:var(--muted); font-size:13px; margin:2px 0 10px; }
 
     .btns{ display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
-    .btn-vino, .btn-ghost{
+    .btn-vino,.btn-ghost{
       display:inline-block; padding:11px 14px; border-radius:12px; text-decoration:none; font-weight:650;
       border:1px solid var(--accent);
     }
@@ -87,71 +74,29 @@
       box-shadow:0 0 0 2px rgba(122,21,53,.12);
     }
 
-    /* ---- Grid de cards y comportamiento botón ---- */
-    .grid{ display:grid; grid-template-columns:1fr; gap:22px; margin-top:18px; }
-
-    /* Card por defecto (1 columna) */
+    /* ---- Cards secundarias (sin efectos raros) ---- */
+    .grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:22px; margin-top:18px; }
     .card{
       background:var(--card); border:1px solid var(--stroke); border-radius:14px; padding:16px;
-      transition:transform .18s ease, box-shadow .18s ease; display:block;
+      box-shadow:0 2px 12px rgba(0,0,0,.06);
+      transition:none;         /* anulamos cualquier hover global */
     }
-    .card:hover{ transform:translateY(-2px); box-shadow:0 6px 24px rgba(0,0,0,.06); }
+    .card:hover{ background:var(--card); box-shadow:0 2px 12px rgba(0,0,0,.06); }
 
-    /* Card con botón (dos columnas: texto | acciones) */
-    .card.has-actions{
-      display:grid; grid-template-columns: 1fr auto; gap:12px 18px; align-items:start;
-    }
-
-    .card .title{ margin:0 0 6px; font-weight:700; font-size:16px; color:#111; }
-    .card p{ margin:0 0 8px; color:var(--muted); }
-    .card .tags{ margin-top:8px; }
-    .tag{
-      display:inline-block;font-size:12px;border:1px solid #eee;border-radius:999px;
-      padding:6px 10px;margin-right:8px;color:var(--muted); background:#fff;
-    }
-
-    .actions{ align-self:start; display:flex; align-items:center; justify-content:flex-end; }
-    .btn-inline{
-      display:inline-block; padding:9px 12px; border-radius:10px; border:1px solid var(--accent);
-      font-weight:600; text-decoration:none; color:var(--accent); background:transparent;
-    }
-    .btn-inline.btn-vino{ background:var(--accent); color:#fff; border-color:var(--accent); }
-
-    @media (max-width:520px){
-      .card.has-actions{ grid-template-columns:1fr; }
-      .actions{ justify-content:flex-start; margin-top:10px; }
-    }
-
-    /* micro-spacing footer (por si falta) */
-    footer{ padding:28px 18px; color:var(--muted); font-size:14px; }
+    .project-img{ width:100%; height:auto; border-radius:12px; display:block; margin-bottom:10px; box-shadow:0 2px 12px rgba(0,0,0,.06); }
+    .meta{ color:var(--muted); font-size:13px; margin-top:-4px; }
   </style>
 </head>
 <body>
 
-  <!-- Topbar con menu a la derecha -->
-  <div class="site-top">
-    <div class="wrap">
-      <div class="site-title">MMDV · Proyectos</div>
-      <nav class="primary" aria-label="principal">
-        <a href="/MMDV-Blockchain/">Inicio</a>
-        <a href="/MMDV-Blockchain/projects.html">Proyectos</a>
-        <a href="/MMDV-Blockchain/certifications.html">Certificaciones</a>
-        <a href="/MMDV-Blockchain/retos.html">Retos</a>
-        <a href="/MMDV-Blockchain/about.html">Sobre mí</a>
-      </nav>
-    </div>
-  </div>
-
   <!-- Breadcrumb -->
-  <div class="wrap" style="padding-top:12px;">
-    <nav class="breadcrumb" aria-label="breadcrumb">
-      <a href="/MMDV-Blockchain/">Inicio</a> ›
-      <a href="/MMDV-Blockchain/projects.html">Proyectos</a> ›
-      <span>Data Analytics</span>
-    </nav>
-  </div>
+  <nav class="breadcrumb">
+    <a href="/MMDV-Blockchain/">Inicio</a> ›
+    <a href="/MMDV-Blockchain/projects.html">Proyectos</a> ›
+    <span>Data Analytics</span>
+  </nav>
 
-  <!-- HERO compacto -->
+  <!-- HERO -->
   <header class="mast">
     <div class="wrap">
       <h1>Data Analytics Projects</h1>
@@ -162,9 +107,9 @@
   <!-- CONTENIDO -->
   <main class="wrap">
 
-    <!-- Proyecto destacado -->
+    <!-- Proyecto destacado: Wine Market -->
     <section class="feature" aria-labelledby="wine-title">
-      <div class="shot" role="img" aria-label="Vista del dashboard">
+      <div class="shot" role="img" aria-label="Vista del dashboard Wine Market">
         <img src="/MMDV-Blockchain/projects/data-analytics/WineMarket_Dashboard.jpg"
              alt="Wine Market Dashboard" />
       </div>
@@ -180,8 +125,8 @@
           integración de <strong>APIs</strong> (OIV, Vivino, Wine-Searcher, FAO) y <strong>Azure ML</strong> para previsión.
         </p>
 
-        <div class="btns" aria-hidden="false">
-          <a class="btn-vino" href="/MMDV-Blockchain/projects/data-analytics/WineMarket_MMDV_v3.pdf">📄 Ver documentación</a>
+        <div class="btns">
+          <a class="btn-vino"  href="/MMDV-Blockchain/projects/data-analytics/WineMarket_MMDV_v3.pdf">📄 Ver documentación</a>
           <a class="btn-ghost" href="/MMDV-Blockchain/projects/data-analytics/WineMarket.pbix">📊 Descargar PBIX</a>
         </div>
 
@@ -194,54 +139,13 @@
       </div>
     </section>
 
-    <!-- Grid con otras cards -->
+    <!-- Cards secundarias -->
     <section class="grid" aria-label="Otros proyectos">
-
-      <!-- Card con botón: Ver ficha (alineado a la derecha) -->
-      <div class="card has-actions" role="group" aria-labelledby="wine-card">
-        <div>
-          <div id="wine-card" class="title">Wine Market Dashboard (Power BI)</div>
-          <p>KPIs del mercado del vino, storytelling y segmentaciones. Medidas DAX documentadas.</p>
-          <div class="tags">
-            <span class="tag">Power BI</span>
-            <span class="tag">Data</span>
-          </div>
-        </div>
-        <div class="actions">
-          <a class="btn-inline btn-vino" href="/MMDV-Blockchain/projects/data-analytics/">🔎 Ver ficha</a>
-        </div>
-      </div>
-
-      <!-- Card sin botón: XRP (queda en 1 columna y no se estira) -->
-      <div class="card" role="article" aria-labelledby="xrp-title">
-        <div id="xrp-title" class="title">XRP Tokenization Concept</div>
-        <p>Prototipo de tokenización en XRP Ledger con esquema ISO 20022.</p>
-        <div class="tags">
-          <span class="tag">Blockchain</span>
-          <span class="tag">XRP</span>
-        </div>
-      </div>
-
-      <!-- Card con botón: On-Chain (botón alineado a la derecha) -->
-      <div class="card has-actions" role="group" aria-labelledby="onchain-title">
-        <div>
-          <div id="onchain-title" class="title">On-Chain Analytics Metrics</div>
-          <p>Inflows/outflows, SOPR, LTH/SLTH con datasets públicos.</p>
-          <div class="tags">
-            <span class="tag">On-Chain</span>
-            <span class="tag">Crypto</span>
-          </div>
-        </div>
-        <div class="actions">
-          <a class="btn-inline" href="/MMDV-Blockchain/onchain.html">Ver análisis</a>
-        </div>
-      </div>
-
-      <!-- Consumer Insights: card limpia con imagen (no incrustes CSS) -->
+      <!-- Consumer Insights (limpia, sin CSS incrustado) -->
       <article class="card" role="article" aria-labelledby="consumer-title">
         <img class="project-img" src="/MMDV-Blockchain/assets/placeholder-wide.jpg"
              alt="Consumer Insights Dashboard" />
-        <h3 id="consumer-title" class="title">📈 Consumer Insights Dashboard</h3>
+        <h3 id="consumer-title">📈 Consumer Insights Dashboard</h3>
         <div class="meta">NLP · Ratings · Preferencias</div>
         <p>
           Análisis de sentimiento y correlaciones precio–rating–canal.
@@ -251,25 +155,8 @@
           <a class="btn-ghost" href="#">🧭 Roadmap</a>
         </div>
       </article>
-
-      <!-- AI Social Media Agent (sin botón) -->
-      <div class="card" role="article" aria-labelledby="agent-title">
-        <div id="agent-title" class="title">AI Social Media Agent</div>
-        <p>Agente que genera y programa posts (IG/X/LinkedIn) con Make + GPT.</p>
-        <div class="tags">
-          <span class="tag">Automation</span>
-          <span class="tag">AI</span>
-        </div>
-      </div>
-
     </section>
+
   </main>
-
-  <footer>
-    <div class="wrap">
-      © 2025 Luis Eduardo Romero · MMDV
-    </div>
-  </footer>
-
 </body>
 </html>
