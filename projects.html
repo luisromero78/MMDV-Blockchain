@@ -51,33 +51,42 @@ body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;color:var(--ink);back
 
 
 
-/* -------- CARDS -------- */
+/* Por defecto: 1 columna (cards sin botón no se estiran) */
 .card{
-  border:1px solid #eee;
-  border-radius:12px;
-  padding:18px;
-  margin:12px 0;
-  background:#fff;
+  border:1px solid #eee; border-radius:12px; padding:18px; margin:12px 0; background:#fff;
   box-shadow:0 2px 8px rgba(0,0,0,.03);
+  display:block;
 }
-h2{margin:22px 0 10px}
-h3{margin:10px 0 6px}
-.tag{
-  display:inline-block;font-size:12px;
-  border:1px solid #eee;border-radius:999px;
-  padding:4px 10px;margin-right:8px;color:var(--muted)
-}
-  /* Cards en grid con botón a la derecha, a la altura del texto */
-.card{
+
+/* Solo las cards con botón usan 2 columnas */
+.card.has-actions{
   display:grid;
   grid-template-columns: 1fr auto; /* texto | botón */
   gap:8px 12px;
   align-items:start;
 }
+
 .card .title{ margin:0 0 4px; font-weight:700; }
 .card p{ margin:0 0 6px; }
-.card .tags{ grid-column:1 / -1; }         /* ocupan toda la fila */
-.card .actions{ align-self:start; }        /* botón arriba a la derecha */
+.card .tags{ margin-top:8px; } /* detalle visual */
+
+/* Botón compacto */
+.actions{ align-self:start; }
+.btn-inline{
+  display:inline-block; padding:8px 12px;
+  border:1px solid var(--accent); border-radius:8px;
+  font-weight:600; text-decoration:none;
+}
+.btn-inline.btn-vino{ background:var(--accent); color:#fff; }
+.btn-inline.btn-ghost{ background:transparent; color:var(--accent); }
+.btn-inline.btn-ghost:hover{ background:rgba(122,21,53,.06); }
+
+/* (Opcional) Responsive: en móvil, aunque tenga botón, cae a 1 columna */
+@media (max-width: 520px){
+  .card.has-actions{ grid-template-columns: 1fr; }
+  .actions{ margin-top:6px; }
+}
+
 
 /* Botón compacto */
 .btn-inline{
@@ -161,13 +170,11 @@ h3{margin:10px 0 6px}
 <!-- CONTENIDO -->
 <main class="wrap">
   <!-- PROJECT CARDS -->
-<div class="card">
+<div class="card has-actions">
   <div>
     <div class="title">Wine Market Dashboard (Power BI)</div>
     <p>KPIs del mercado del vino, storytelling y segmentaciones. Medidas DAX documentadas.</p>
-    <div class="tags">
-      <span class="tag">Power BI</span><span class="tag">Data</span>
-    </div>
+    <div class="tags"><span class="tag">Power BI</span><span class="tag">Data</span></div>
   </div>
   <div class="actions">
     <a class="btn-inline btn-vino" href="/MMDV-Blockchain/projects/data-analytics/">🔎 Ver ficha</a>
@@ -181,13 +188,11 @@ h3{margin:10px 0 6px}
     <span class="tag">Blockchain</span><span class="tag">XRP</span>
   </div>
 
- <div class="card">
+<div class="card has-actions">
   <div>
     <div class="title">On-Chain Analytics Metrics</div>
     <p>Inflows/outflows, SOPR, LTH/SLTH con datasets públicos.</p>
-    <div class="tags">
-      <span class="tag">On-Chain</span><span class="tag">Crypto</span>
-    </div>
+    <div class="tags"><span class="tag">On-Chain</span><span class="tag">Crypto</span></div>
   </div>
   <div class="actions">
     <a href="onchain.html" class="btn-inline btn-ghost">Ver análisis</a>
