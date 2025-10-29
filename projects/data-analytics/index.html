@@ -3,33 +3,97 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Data Analytics Projects · MMDV</title>
+  <title>Proyectos · MMDV</title>
   <link rel="stylesheet" href="/assets/style.css">
+  <style>
+    /* ---- Overrides modo claro para Proyectos ---- */
+    :root{
+      --bg:#ffffff;
+      --ink:#111216;
+      --muted:#60646c;
+      --accent:#7A1535;   /* vino MMDV */
+      --card:#f7f8f9;
+      --stroke:#e6e8eb;
+    }
+    body{ background:var(--bg); color:var(--ink); }
+    header, footer{ background:#fff; }
+    .wrap{ max-width:1080px; margin:0 auto; padding:34px 18px 60px; }
+
+    /* ---- Galería de proyectos ---- */
+    .page-title{ font-size:32px; margin:0 0 8px; }
+    .page-sub{ color:var(--muted); margin:0 0 26px; }
+    .grid-projects{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+      gap:24px;
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--stroke);
+      border-radius:16px;
+      padding:16px;
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 6px 24px rgba(0,0,0,.08);
+    }
+    .project-img{
+      width:100%; height:auto; border-radius:12px;
+      display:block; margin:0 0 12px;
+      box-shadow:0 2px 12px rgba(0,0,0,.06);
+    }
+    .card h2{ margin:6px 0 6px; font-size:20px; }
+    .card p{ margin:0 0 14px; color:var(--muted); }
+    .meta{ font-size:13px; color:var(--muted); margin-top:-6px; margin-bottom:10px; }
+
+    /* ---- Botones (si no existen en tu CSS base) ---- */
+    .btns{ display:flex; flex-wrap:wrap; gap:10px; }
+    .btn-vino, .btn-ghost{
+      display:inline-block; padding:10px 14px; border-radius:12px; text-decoration:none;
+      font-weight:600; border:1px solid var(--accent);
+    }
+    .btn-vino{ background:var(--accent); color:#fff; }
+    .btn-vino:hover{ filter:brightness(.93); }
+    .btn-ghost{ color:var(--accent); background:transparent; }
+    .btn-ghost:hover{ background:rgba(122,21,53,.06); }
+    .tag{ display:inline-block; font-size:12px; color:var(--accent); background:rgba(122,21,53,.08);
+      padding:4px 8px; border-radius:999px; margin-bottom:8px; }
+  </style>
 </head>
 <body>
   <main class="wrap">
-    <h1>Data Analytics Projects</h1>
+    <h1 class="page-title">Data Analytics Projects</h1>
+    <p class="page-sub">Selección de paneles y modelos analíticos desarrollados por MMDV.</p>
 
-    <section class="card">
-      <h2>🍷 Wine Market Dashboard</h2>
-      <p>Este dashboard fue desarrollado en Power BI como parte del proyecto <strong>Mi Mundo del Vino</strong>.  
-      Incluye indicadores clave sobre precios medios por denominación, ventas por canal, márgenes y evolución temporal.</p>
+    <section class="grid-projects">
 
-      <ul>
-        <li>🔹 Herramienta: Microsoft Power BI</li>
-        <li>🔹 Dataset: Wine Market Dataset (xlsx)</li>
-        <li>🔹 Modelado semántico con medidas DAX personalizadas</li>
-      </ul>
+      <!-- CARD · Wine Market Dashboard -->
+      <article class="card">
+        <span class="tag">Power BI</span>
+        <img src="./data-analytics/WineMarket_Dashboard.jpg" alt="Wine Market Dashboard" class="project-img">
+        <h2>🍷 Wine Market Dashboard (2021–2025)</h2>
+        <div class="meta">Producción · Exportaciones · Precio medio · Calidad</div>
+        <p>Panel analítico con KPIs globales del mercado del vino, ranking de exportadores y mapa mundial. Proyecto en curso con roadmap (Bodega Report, Consumer Insights, Azure ML, APIs externas).</p>
+        <div class="btns">
+          <a class="btn-vino" href="./data-analytics/WineMarket_MMDV_v3.pdf">📄 Ver documentación</a>
+          <a class="btn-ghost" href="./data-analytics/WineMarket.pbix">📊 Descargar PBIX</a>
+          <a class="btn-ghost" href="./data-analytics/index.html">🔎 Ficha del proyecto</a>
+        </div>
+      </article>
 
-      <div id="recursos"></div>
-      <script src="/MMDV-Blockchain/templates/recursos_template.js"></script>
-      <script>
-        recursosMMDV({
-          titulo: "Recursos técnicos",
-          pdf: "Documentacion_WineMarket_MMDV-clean.pdf",
-          codigo: "WineMarket.pbix"
-        });
-      </script>
+      <!-- CARD · Placeholder para el siguiente proyecto (opcional, puedes borrar) -->
+      <article class="card">
+        <span class="tag">Próximamente</span>
+        <img src="/assets/placeholder-wide.jpg" alt="Próximo proyecto" class="project-img">
+        <h2>📈 Consumer Insights Dashboard</h2>
+        <div class="meta">NLP · Ratings · Preferencias</div>
+        <p>Análisis de sentimiento y correlaciones precio–rating–canal. Integración con Azure AI Language y dataset enriquecido.</p>
+        <div class="btns">
+          <a class="btn-ghost" href="#">🧭 Roadmap</a>
+        </div>
+      </article>
+
     </section>
   </main>
 </body>
