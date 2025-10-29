@@ -22,30 +22,33 @@
 body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;color:var(--ink);background:var(--bg)}
 .wrap{max-width:980px;margin:0 auto;padding:24px 20px}
 
-/* -------- NAV -------- */
-header,footer{border-bottom:1px solid #eee}
-footer{border-top:1px solid #eee;border-bottom:0}
-nav a{margin-right:16px;color:var(--accent);text-decoration:none;font-weight:500}
-nav a:hover{text-decoration:underline}
+/* Barra superior clara estilo Retos */
+.hero {
+  background: linear-gradient(180deg,#f3f4f6 0%, #ffffff 100%);
+  border-bottom: 1px solid #e5e5e5;
+  padding: 14px 0;             /* compacto */
+  margin-bottom: 16px;
+}
+.hero .row {
+  display:flex;
+  align-items:center;
+  justify-content:space-between; /* menú a la derecha */
+  gap:16px;
+}
+.hero h1 {
+  font-size:28px; margin:0; letter-spacing:.2px;
+}
+.hero p { margin:4px 0 0; color:var(--muted); font-size:15px; }
 
-/* -------- HERO (versión compacta estilo Retos, modo claro) -------- */
-.hero{
-  background:linear-gradient(180deg,#f3f4f6 0%,#ffffff 100%);
-  border-bottom:1px solid #e5e5e5;
-  padding:18px 0 14px;   /* antes 36px 0 30px — reducido */
-  margin-bottom:18px;
+/* nav dentro del hero */
+.hero nav a {
+  margin-left:16px;
+  color:var(--accent);
+  text-decoration:none;
+  font-weight:500;
 }
-.hero h1{
-  font-size:28px;
-  margin:0;
-  letter-spacing:.2px;
-  color:var(--ink);
-}
-.hero p{
-  margin:2px 0 0;
-  color:var(--muted);
-  font-size:15px;
-}
+.hero nav a:hover { text-decoration:underline; }
+
 
 
 /* -------- CARDS -------- */
@@ -64,6 +67,28 @@ h3{margin:10px 0 6px}
   border:1px solid #eee;border-radius:999px;
   padding:4px 10px;margin-right:8px;color:var(--muted)
 }
+  /* Cards en grid con botón a la derecha, a la altura del texto */
+.card{
+  display:grid;
+  grid-template-columns: 1fr auto; /* texto | botón */
+  gap:8px 12px;
+  align-items:start;
+}
+.card .title{ margin:0 0 4px; font-weight:700; }
+.card p{ margin:0 0 6px; }
+.card .tags{ grid-column:1 / -1; }         /* ocupan toda la fila */
+.card .actions{ align-self:start; }        /* botón arriba a la derecha */
+
+/* Botón compacto */
+.btn-inline{
+  display:inline-block; padding:8px 12px;
+  border:1px solid var(--accent); border-radius:8px;
+  font-weight:600; text-decoration:none;
+}
+.btn-inline.btn-vino{ background:var(--accent); color:#fff; }
+.btn-inline.btn-ghost{ background:transparent; color:var(--accent); }
+.btn-inline.btn-ghost:hover{ background:rgba(122,21,53,.06); }
+
 
 /* -------- BOTONES -------- */
 .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;}
@@ -84,24 +109,22 @@ h3{margin:10px 0 6px}
 
 <body>
 
-<!-- NAV -->
-<header>
-  <div class="wrap">
-    <nav>
-      <a href="index.html">Inicio</a>
-      <a href="projects.html">Proyectos</a>
-      <a href="certifications.html">Certificaciones</a>
-      <a href="retos.html">Retos</a>
-      <a href="about.html">Sobre mí</a>
-    </nav>
-  </div>
-</header>
-
-<!-- HERO -->
+<!-- HERO + NAV en el mismo bloque -->
 <section class="hero">
   <div class="wrap">
-    <h1>Proyectos</h1>
-    <p>Explora los proyectos de <b>Data Analytics</b> y <b>On-Chain Intelligence</b> desarrollados dentro del ecosistema MMDV: Power BI, Azure, Blockchain y XRPL.</p>
+    <div class="row">
+      <div>
+        <h1>Proyectos</h1>
+        <p>Explora los proyectos de <b>Data Analytics</b> y <b>On-Chain Intelligence</b> del ecosistema MMDV.</p>
+      </div>
+      <nav>
+        <a href="index.html">Inicio</a>
+        <a href="projects.html">Proyectos</a>
+        <a href="certifications.html">Certificaciones</a>
+        <a href="retos.html">Retos</a>
+        <a href="about.html">Sobre mí</a>
+      </nav>
+    </div>
   </div>
 </section>
 
@@ -109,9 +132,13 @@ h3{margin:10px 0 6px}
 <main class="wrap">
   <!-- PROJECT CARDS -->
  <div class="card">
-  <strong>Wine Market Dashboard (Power BI)</strong>
-  <p>KPIs del mercado del vino, storytelling y segmentaciones. Medidas DAX documentadas.</p>
-  <span class="tag">Power BI</span><span class="tag">Data</span>
+  <div>
+    <div class="title">Wine Market Dashboard (Power BI)</div>
+    <p>KPIs del mercado del vino, storytelling y segmentaciones. Medidas DAX documentadas.</p>
+    <div class="tags">
+      <span class="tag">Power BI</span><span class="tag">Data</span>
+    </div>
+  </div>
   <div class="actions">
     <a class="btn-inline btn-vino" href="/MMDV-Blockchain/projects/data-analytics/">🔎 Ver ficha</a>
   </div>
@@ -123,16 +150,19 @@ h3{margin:10px 0 6px}
     <span class="tag">Blockchain</span><span class="tag">XRP</span>
   </div>
 
-  <div class="card">
-  <h3>On-Chain Analytics Metrics</h3>
-  <p>Inflows/outflows, SOPR, LTH/SLTH con datasets públicos.</p>
-  <div class="tags">
-    <span class="tag">On-Chain</span><span class="tag">Crypto</span>
+ <div class="card">
+  <div>
+    <div class="title">On-Chain Analytics Metrics</div>
+    <p>Inflows/outflows, SOPR, LTH/SLTH con datasets públicos.</p>
+    <div class="tags">
+      <span class="tag">On-Chain</span><span class="tag">Crypto</span>
+    </div>
   </div>
   <div class="actions">
     <a href="onchain.html" class="btn-inline btn-ghost">Ver análisis</a>
   </div>
 </div>
+
 
 
   <div class="card">
