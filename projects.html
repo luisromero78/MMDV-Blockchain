@@ -28,15 +28,25 @@ footer{border-top:1px solid #eee;border-bottom:0}
 nav a{margin-right:16px;color:var(--accent);text-decoration:none;font-weight:500}
 nav a:hover{text-decoration:underline}
 
-/* -------- HERO -------- */
+/* -------- HERO (versión compacta estilo Retos, modo claro) -------- */
 .hero{
-  background:linear-gradient(180deg,var(--gray-light) 0%,#fff 100%);
+  background:linear-gradient(180deg,#f3f4f6 0%,#ffffff 100%);
   border-bottom:1px solid #e5e5e5;
-  padding:36px 0 30px;
-  margin-bottom:24px;
+  padding:18px 0 14px;   /* antes 36px 0 30px — reducido */
+  margin-bottom:18px;
 }
-.hero h1{font-size:34px;margin:0 0 6px;}
-.hero p{margin:0;color:var(--muted);font-size:15px;}
+.hero h1{
+  font-size:28px;
+  margin:0;
+  letter-spacing:.2px;
+  color:var(--ink);
+}
+.hero p{
+  margin:2px 0 0;
+  color:var(--muted);
+  font-size:15px;
+}
+
 
 /* -------- CARDS -------- */
 .card{
