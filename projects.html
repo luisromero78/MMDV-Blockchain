@@ -104,12 +104,41 @@ h3{margin:10px 0 6px}
 .center-btn{text-align:center;margin-top:10px;}
 .btn-outline{color:var(--accent);background:transparent;}
 .btn-outline:hover{background:var(--accent);color:#fff;box-shadow:0 0 14px rgba(122,21,53,.35);}
+  /* Barra superior clara estilo Retos (compacta) */
+.hero{
+  background:linear-gradient(180deg,#f3f4f6 0%,#ffffff 100%);
+  border-bottom:1px solid #e5e5e5;
+  padding:14px 0; margin-bottom:16px;
+}
+.hero .row{ display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.hero h1{ font-size:28px; margin:0; letter-spacing:.2px; }
+.hero p{ margin:4px 0 0; color:var(--muted); font-size:15px; }
+.hero nav a{ margin-left:16px; color:var(--accent); text-decoration:none; font-weight:500; }
+.hero nav a:hover{ text-decoration:underline; }
+
+/* Cards con botón alineado a la derecha, al nivel del texto */
+.card{ display:grid; grid-template-columns:1fr auto; gap:8px 12px; align-items:start; }
+.card .title{ margin:0 0 4px; font-weight:700; }
+.card p{ margin:0 0 6px; }
+.card .tags{ grid-column:1 / -1; }
+.actions{ align-self:start; }
+.btn-inline{ display:inline-block; padding:8px 12px; border:1px solid var(--accent); border-radius:8px; font-weight:600; text-decoration:none; }
+.btn-inline.btn-vino{ background:var(--accent); color:#fff; }
+.btn-inline.btn-ghost{ background:transparent; color:var(--accent); }
+.btn-inline.btn-ghost:hover{ background:rgba(122,21,53,.06); }
+
+/* Responsive: en móvil el botón baja debajo del texto */
+@media (max-width: 520px){
+  .card{ grid-template-columns: 1fr; }
+  .actions{ justify-self:start; }
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- HERO + NAV en el mismo bloque -->
+<!-- HERO + NAV juntos -->
 <section class="hero">
   <div class="wrap">
     <div class="row">
@@ -128,10 +157,11 @@ h3{margin:10px 0 6px}
   </div>
 </section>
 
+
 <!-- CONTENIDO -->
 <main class="wrap">
   <!-- PROJECT CARDS -->
- <div class="card">
+<div class="card">
   <div>
     <div class="title">Wine Market Dashboard (Power BI)</div>
     <p>KPIs del mercado del vino, storytelling y segmentaciones. Medidas DAX documentadas.</p>
@@ -143,6 +173,7 @@ h3{margin:10px 0 6px}
     <a class="btn-inline btn-vino" href="/MMDV-Blockchain/projects/data-analytics/">🔎 Ver ficha</a>
   </div>
 </div>
+
 
   <div class="card">
     <strong>XRP Tokenization Concept</strong>
@@ -162,7 +193,6 @@ h3{margin:10px 0 6px}
     <a href="onchain.html" class="btn-inline btn-ghost">Ver análisis</a>
   </div>
 </div>
-
 
 
   <div class="card">
