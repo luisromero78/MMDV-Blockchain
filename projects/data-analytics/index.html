@@ -4,103 +4,48 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Proyectos · MMDV</title>
-  <link rel="stylesheet" href="/assets/style.css">
+  <<link rel="stylesheet" href="/MMDV-Blockchain/assets/style.css"><!-- prefijo correcto -->
   <style>
-    /* ---- Modo claro / tokens ---- */
-    :root{
-      --bg:#ffffff; --ink:#111216; --muted:#60646c; --accent:#7A1535;
-      --card:#f7f8f9; --stroke:#e6e8eb; --chip:#f1e6ea;
-    }
+    :root{ --bg:#fff; --ink:#111216; --muted:#60646c; --accent:#7A1535; --card:#f7f8f9; --stroke:#e6e8eb; --chip:#f1e6ea; }
     body{ background:var(--bg); color:var(--ink); }
     .wrap{ max-width:1100px; margin:0 auto; padding:28px 18px 70px; }
 
-    /* ---- Breadcrumb ---- */
+    /* Breadcrumb */
     .breadcrumb{ font-size:14px; color:var(--muted); margin:10px 0 0 2px; }
     .breadcrumb a{ color:var(--accent); text-decoration:none; }
     .breadcrumb a:hover{ text-decoration:underline; }
 
-    /* ---- Hero ---- */
-    .hero{ margin:10px 0 28px; }
-    .hero h1{ font-size:36px; margin:0 0 6px; letter-spacing:.2px; }
-    .hero p{ color:var(--muted); margin:0; }
-
-    /* ---- Proyecto destacado (2 cols) ---- */
-    .feature{
-      display:grid; grid-template-columns: 520px 1fr; gap:22px;
-      padding:18px; border:1px solid var(--stroke); background:var(--card); border-radius:18px;
-      box-shadow: 0 4px 26px rgba(0,0,0,.06);
-    }
-    .feature .shot{
-      background:#fff; border-radius:14px; padding:10px; border:1px solid var(--stroke);
-      box-shadow:0 2px 16px rgba(0,0,0,.05);
-    }
-    .feature .shot img{ width:100%; height:auto; border-radius:10px; display:block; }
-    .chip{ display:inline-block; background:var(--chip); color:var(--accent);
-      padding:6px 10px; border-radius:999px; font-size:12px; font-weight:600; margin-bottom:8px;}
-    .kicker{ color:var(--muted); font-size:13px; margin:2px 0 10px; }
-    .btns{ display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
-    .btn-vino,.btn-ghost{
-      display:inline-block; padding:11px 14px; border-radius:12px; text-decoration:none; font-weight:650;
-      border:1px solid var(--accent);
-    }
-    .btn-vino{ background:var(--accent); color:#fff; }
-    .btn-vino:hover{ filter:brightness(.93); }
-    .btn-ghost{ background:transparent; color:var(--accent); }
-    .btn-ghost:hover{ background:rgba(122,21,53,.06); }
-    .roadmap{ margin-top:12px; }
-    .roadmap li{ margin:4px 0; }
-    .roadmap b{ color:var(--accent); }
-
-    /* ---- Grid secundarios ---- */
-    .grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:22px; margin-top:24px; }
-    .card{
-      background:var(--card); border:1px solid var(--stroke); border-radius:16px; padding:16px;
-      transition:transform .2s ease, box-shadow .2s ease;
-    }
-    .card:hover{ transform:translateY(-2px); box-shadow:0 6px 24px rgba(0,0,0,.08); }
-    .card img{ width:100%; border-radius:12px; margin-bottom:10px; }
-
-    /* ---- Micro separadores ---- */
-    .meta{ color:var(--muted); font-size:13px; margin-top:-4px; }
+    /* Mast (hero gris) – única cabecera */
     .mast{
-  background: linear-gradient(180deg, #f2f3f5 0%, #ffffff 100%);
-  border-bottom: 1px solid var(--stroke);
-  margin: 8px 0 22px;
-  padding: 26px 0 22px;
-}
-.mast h1{ font-size: 36px; margin: 0 0 6px; }
-.mast p{ color: var(--muted); margin: 0; }
-    .roadmap{ margin-top: 12px; padding-left: 0; list-style: none; }
-.roadmap li{ margin: 6px 0; position: relative; padding-left: 18px; }
-.roadmap li::before{
-  content:""; width:8px; height:8px; border-radius:50%;
-  background: var(--accent); position:absolute; left:0; top:.55em;
-  box-shadow:0 0 0 2px rgba(122,21,53,.12);
-}
+      background: linear-gradient(180deg, #f2f3f5 0%, #ffffff 100%);
+      border-bottom: 1px solid var(--stroke);
+      margin: 8px 0 22px; padding: 26px 0 22px;
+    }
+    .mast h1{ font-size: 36px; margin: 0 0 6px; }
+    .mast p{ color: var(--muted); margin: 0; }
 
+    /* (resto de tus estilos: feature, grid, card, botones, roadmap…) */
   </style>
 </head>
 <body>
 
   <!-- Breadcrumb -->
   <nav class="breadcrumb">
-    <a href="/MMDV-Blockchain/">Inicio</a> › 
-     <a href="/MMDV-Blockchain/projects/">Proyectos</a> › 
+    <a href="/MMDV-Blockchain/">Inicio</a> ›
+    <a href="/MMDV-Blockchain/projects/">Proyectos</a> ›
     <span>Data Analytics</span>
   </nav>
 
-  <main class="wrap">
-    <!-- Hero -->
-    <header class="hero">
+  <!-- ÚNICO hero -->
+  <header class="mast">
+    <div class="wrap">
       <h1>Data Analytics Projects</h1>
-      <p>Selección de paneles y modelos analíticos desarrollados por MMDV (Power BI · Azure · Python).</p>
-    </header>
-<header class="mast">
-  <div class="wrap">
-    <h1>Data Analytics Projects</h1>
-    <p>Paneles y modelos analíticos de MMDV (Power BI · Azure · Python).</p>
-  </div>
-</header>
+      <p>Paneles y modelos analíticos de MMDV (Power BI · Azure · Python).</p>
+    </div>
+  </header>
+
+  <!-- Contenido -->
+  <main class="wrap">
 
     <!-- Proyecto destacado -->
     <section class="feature">
