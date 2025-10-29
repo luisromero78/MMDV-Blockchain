@@ -107,6 +107,38 @@
 
   /* ======= FOOTER ======= */
   footer{border-top:1px solid var(--stroke); margin-top:40px; padding:26px 20px; color:var(--muted)}
+    /* Aterrizaje suave (solo si no hay reduce-motion) */
+@media (prefers-reduced-motion: no-preference) {
+  body {
+    opacity: 0;
+    animation: fadeBody .45s ease forwards;   /* 450ms */
+  }
+  @keyframes fadeBody {
+    from { opacity: .02; }
+    to   { opacity: 1; }
+  }
+
+  /* Halo vino que aparece y se desvanece */
+  body::after{
+    content:"";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(60vmax 35vmax at 50% 20%,
+        rgba(122,21,53,.18) 0%,
+        rgba(122,21,53,.10) 35%,
+        rgba(122,21,53,0) 70%);
+    opacity: 0;
+    animation: vinoGlow .9s ease forwards;    /* 900ms */
+  }
+  @keyframes vinoGlow {
+    0%   { opacity: .75; }
+    100% { opacity: 0; }
+  }
+}
+.reveal{ animation: fadeInUp .45s ease forwards; opacity:0; transform:translateY(8px); }
+@keyframes fadeInUp{ to { opacity:1; transform:none; } }
+
   </style>
 </head>
 
@@ -176,16 +208,17 @@
     </section>
 
     <!-- SOBRE MÍ -->
-    <section id="about">
-      <h2 class="section-title">Sobre mí</h2>
-      <div class="card reveal delay-3">
-        <p>Analista que conecta IA, Blockchain y BI con visión estratégica. Fundador de <strong>Mi Mundo del Vino (MMDV)</strong>.</p>
-        <p style="margin:12px 0 0">
-          <a class="btn" href="https://linkedin.com/in/luiseduardoromeroramos" target="_blank" rel="noopener">LinkedIn</a>
-          <a class="btn" href="https://instagram.com/mimundodelvino" target="_blank" rel="noopener">Instagram</a>
-        </p>
-      </div>
-    </section>
+   <section id="about">
+  <h2 class="section-title">Sobre mí</h2>
+  <div class="card reveal delay-3">
+    <p>Analista que conecta IA, Blockchain y BI con visión estratégica.
+       Fundador de <strong>Mi Mundo del Vino (MMDV)</strong>.</p>
+    <p style="margin:12px 0 0">
+      <a class="btn" href="https://linkedin.com/in/luiseduardoromeroramos" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="https://instagram.com/mimundodelvino" target="_blank" rel="noopener">Instagram</a>
+    </p>
+  </div>
+</section>
   </main>
 
   <!-- FOOTER -->
