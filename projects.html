@@ -1,93 +1,142 @@
-<!doctype html><html lang="es"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Proyectos · Luis Eduardo Romero</title>
-<!-- FAVICONS (root + assets, con cache-busting) -->
+
+<!-- Favicons -->
 <link rel="shortcut icon" href="favicon.ico?v=4">
 <link rel="icon" type="image/x-icon" href="favicon.ico?v=4">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png?v=4">
 <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png?v=4">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png?v=4">
 <meta name="theme-color" content="#7A1535">
+
 <style>
-:root{--ink:#111;--muted:#666;--accent:#7a1535;--bg:#fff}
-*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;color:var(--ink);background:#fff}
-header,footer{border-bottom:1px solid #eee} footer{border-top:1px solid #eee;border-bottom:0}
+:root{
+  --ink:#111;--muted:#666;--accent:#7a1535;--bg:#fff;
+  --gray-light:#f5f6f7;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;color:var(--ink);background:var(--bg)}
 .wrap{max-width:980px;margin:0 auto;padding:24px 20px}
-a{color:var(--accent);text-decoration:none}
-h1{margin:0 0 6px} h2{margin:22px 0 10px}
-.card{border:1px solid #eee;border-radius:12px;padding:18px;margin:12px 0}
-.tag{display:inline-block;font-size:12px;border:1px solid #eee;border-radius:999px;padding:4px 10px;margin-right:8px;color:var(--muted)}
-.btn{display:inline-block;padding:10px 14px;border-radius:10px;border:1px solid var(--accent);color:var(--accent)}
-.btn:hover{background:var(--accent);color:#fff}
-nav a{margin-right:16px}
-  /* Botón outline centrado (Projects) */
-.center-btn{ text-align:center; margin-top:10px; }
 
-.btn-outline{
-  display:inline-block;
-  padding:10px 14px;
-  border:1px solid var(--accent);
-  border-radius:10px;
-  color:var(--accent);
-  background:transparent;
-  font-weight:600;
-  text-decoration:none;
-  transition:all .18s ease;
+/* -------- NAV -------- */
+header,footer{border-bottom:1px solid #eee}
+footer{border-top:1px solid #eee;border-bottom:0}
+nav a{margin-right:16px;color:var(--accent);text-decoration:none;font-weight:500}
+nav a:hover{text-decoration:underline}
+
+/* -------- HERO -------- */
+.hero{
+  background:linear-gradient(180deg,var(--gray-light) 0%,#fff 100%);
+  border-bottom:1px solid #e5e5e5;
+  padding:36px 0 30px;
+  margin-bottom:24px;
 }
-.btn-outline:hover{
-  background:var(--accent);
-  color:#fff;
-  box-shadow:0 0 14px rgba(122,21,53,.35);
+.hero h1{font-size:34px;margin:0 0 6px;}
+.hero p{margin:0;color:var(--muted);font-size:15px;}
+
+/* -------- CARDS -------- */
+.card{
+  border:1px solid #eee;
+  border-radius:12px;
+  padding:18px;
+  margin:12px 0;
+  background:#fff;
+  box-shadow:0 2px 8px rgba(0,0,0,.03);
+}
+h2{margin:22px 0 10px}
+h3{margin:10px 0 6px}
+.tag{
+  display:inline-block;font-size:12px;
+  border:1px solid #eee;border-radius:999px;
+  padding:4px 10px;margin-right:8px;color:var(--muted)
 }
 
-</style></head><body>
-<header><div class="wrap">
-  <h1>Proyectos</h1>
-  <section class="card">
-  <h2>💼 Proyectos</h2>
-  <p>Proyectos de <b>Data Analytics</b> y <b>On-Chain Intelligence</b> (Power BI, Azure, Blockchain, XRPL).</p>
-  <div class="btns">
-    <a class="btn-vino"  href="/MMDV-Blockchain/projects/">📊 Ver proyectos Data</a>
-    <a class="btn-ghost" href="/MMDV-Blockchain/onchain.html">🔗 Ver proyectos On-Chain</a>
+/* -------- BOTONES -------- */
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;}
+.btn-vino,.btn-ghost,.btn-outline{
+  display:inline-block;padding:10px 14px;border-radius:10px;
+  border:1px solid var(--accent);text-decoration:none;
+  font-weight:600;transition:all .2s ease;
+}
+.btn-vino{background:var(--accent);color:#fff;}
+.btn-vino:hover{filter:brightness(.93);}
+.btn-ghost{color:var(--accent);background:transparent;}
+.btn-ghost:hover{background:rgba(122,21,53,.06);}
+.center-btn{text-align:center;margin-top:10px;}
+.btn-outline{color:var(--accent);background:transparent;}
+.btn-outline:hover{background:var(--accent);color:#fff;box-shadow:0 0 14px rgba(122,21,53,.35);}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<header>
+  <div class="wrap">
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="projects.html">Proyectos</a>
+      <a href="certifications.html">Certificaciones</a>
+      <a href="retos.html">Retos</a>
+      <a href="about.html">Sobre mí</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <h1>Proyectos</h1>
+    <p>Explora los proyectos de <b>Data Analytics</b> y <b>On-Chain Intelligence</b> desarrollados dentro del ecosistema MMDV: Power BI, Azure, Blockchain y XRPL.</p>
   </div>
 </section>
-  <nav>
-    <a href="index.html">Inicio</a>
-    <a href="projects.html">Proyectos</a>
-    <a href="certifications.html">Certificaciones</a>
-    <a href="/MMDV-Blockchain/retos.html">Retos</a> 
-    <a href="about.html">Sobre mí</a>
-  </nav>
-</div></header>
 
+<!-- CONTENIDO -->
 <main class="wrap">
+
+  <!-- BLOQUE GENERAL -->
+  <section class="card">
+    <h2>💼 Áreas de proyectos</h2>
+    <p>Proyectos que combinan <b>datos</b>, <b>IA</b> y <b>blockchain</b> para crear soluciones analíticas y descentralizadas.</p>
+    <div class="btns">
+      <a class="btn-vino" href="/MMDV-Blockchain/projects/">📊 Ver proyectos Data</a>
+      <a class="btn-ghost" href="/MMDV-Blockchain/onchain.html">🔗 Ver proyectos On-Chain</a>
+    </div>
+  </section>
+
+  <!-- PROJECT CARDS -->
   <div class="card">
     <strong>Wine Market Dashboard (Power BI)</strong>
     <p>KPIs del mercado del vino, storytelling y segmentaciones. Medidas DAX documentadas.</p>
     <span class="tag">Power BI</span><span class="tag">Data</span>
-    <!-- <a class="btn" href="URL_DEMO">Demo</a> -->
     <div class="btns">
-  <a class="btn-vino"  href="/MMDV-Blockchain/projects/data-analytics/WineMarket_MMDV_v3.pdf">📄 Ver documentación</a>
-  <a class="btn-ghost" href="/MMDV-Blockchain/projects/data-analytics/WineMarket.pbix">📊 Descargar PBIX</a>
-  <a class="btn-ghost" href="/MMDV-Blockchain/projects/data-analytics/">🔎 Ver ficha (Data)</a> <!-- NUEVO -->
-</div>
+      <a class="btn-vino" href="/MMDV-Blockchain/projects/data-analytics/WineMarket_MMDV_v3.pdf">📄 Ver documentación</a>
+      <a class="btn-ghost" href="/MMDV-Blockchain/projects/data-analytics/WineMarket.pbix">📊 Descargar PBIX</a>
+      <a class="btn-ghost" href="/MMDV-Blockchain/projects/data-analytics/">🔎 Ver ficha (Data)</a>
+    </div>
   </div>
+
   <div class="card">
     <strong>XRP Tokenization Concept</strong>
     <p>Prototipo de tokenización en XRP Ledger con esquema ISO 20022.</p>
     <span class="tag">Blockchain</span><span class="tag">XRP</span>
   </div>
-<div class="card">
-  <h3>On-Chain Analytics Metrics</h3>
-  <p>Inflows/outflows, SOPR, LTH/SLTH con datasets públicos.</p>
-  <div class="tags">
-    <span class="tag">On-Chain</span>
-    <span class="tag">Crypto</span>
+
+  <div class="card">
+    <h3>On-Chain Analytics Metrics</h3>
+    <p>Inflows/outflows, SOPR, LTH/SLTH con datasets públicos.</p>
+    <div class="tags">
+      <span class="tag">On-Chain</span><span class="tag">Crypto</span>
+    </div>
+    <div class="center-btn">
+      <a href="onchain.html" class="btn-outline">Ver análisis</a>
+    </div>
   </div>
-  <div class="center-btn">
-    <a href="onchain.html" class="btn-outline">Ver análisis</a>
-  </div>
-</div>
+
   <div class="card">
     <strong>AI Social Media Agent</strong>
     <p>Agente que genera y programa posts (IG/X/LinkedIn) con Make + GPT.</p>
@@ -96,4 +145,6 @@ nav a{margin-right:16px}
 </main>
 
 <footer><div class="wrap">© 2025 Luis Eduardo Romero · MMDV</div></footer>
-</body></html>
+
+</body>
+</html>
