@@ -62,6 +62,22 @@
 
     /* ---- Micro separadores ---- */
     .meta{ color:var(--muted); font-size:13px; margin-top:-4px; }
+    .mast{
+  background: linear-gradient(180deg, #f2f3f5 0%, #ffffff 100%);
+  border-bottom: 1px solid var(--stroke);
+  margin: 8px 0 22px;
+  padding: 26px 0 22px;
+}
+.mast h1{ font-size: 36px; margin: 0 0 6px; }
+.mast p{ color: var(--muted); margin: 0; }
+    .roadmap{ margin-top: 12px; padding-left: 0; list-style: none; }
+.roadmap li{ margin: 6px 0; position: relative; padding-left: 18px; }
+.roadmap li::before{
+  content:""; width:8px; height:8px; border-radius:50%;
+  background: var(--accent); position:absolute; left:0; top:.55em;
+  box-shadow:0 0 0 2px rgba(122,21,53,.12);
+}
+
   </style>
 </head>
 <body>
@@ -79,6 +95,12 @@
       <h1>Data Analytics Projects</h1>
       <p>Selección de paneles y modelos analíticos desarrollados por MMDV (Power BI · Azure · Python).</p>
     </header>
+<header class="mast">
+  <div class="wrap">
+    <h1>Data Analytics Projects</h1>
+    <p>Paneles y modelos analíticos de MMDV (Power BI · Azure · Python).</p>
+  </div>
+</header>
 
     <!-- Proyecto destacado -->
     <section class="feature">
