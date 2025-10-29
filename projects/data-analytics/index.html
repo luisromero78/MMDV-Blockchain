@@ -15,16 +15,42 @@
     .breadcrumb a{ color:var(--accent); text-decoration:none; }
     .breadcrumb a:hover{ text-decoration:underline; }
 
-    /* Mast (hero gris) – única cabecera */
-    .mast{
-      background: linear-gradient(180deg, #f2f3f5 0%, #ffffff 100%);
-      border-bottom: 1px solid var(--stroke);
-      margin: 8px 0 22px; padding: 26px 0 22px;
-    }
-    .mast h1{ font-size: 36px; margin: 0 0 6px; }
-    .mast p{ color: var(--muted); margin: 0; }
+/* ---- HERO compacto (modo claro) ---- */
+.hero, .mast{
+  background:linear-gradient(180deg,#f3f4f6 0%,#ffffff 100%);
+  border-bottom:1px solid #e5e5e5;
+  padding:18px 0 14px;
+  margin-bottom:18px;
+}
+.hero h1, .mast h1{
+  font-size:28px;
+  margin:0;
+  letter-spacing:.2px;
+  color:var(--ink);
+}
+.hero p, .mast p{
+  margin:2px 0 0;
+  color:var(--muted);
+  font-size:15px;
+}
+/* Imagen principal del dashboard reducida */
+.feature .shot img{
+  width:85%;
+  height:auto;
+  display:block;
+  margin:0 auto;
+  border-radius:10px;
+  box-shadow:0 4px 18px rgba(0,0,0,.08);
+}
+    .project-img{
+  width:100%;
+  height:auto;
+  border-radius:12px;
+  display:block;
+  margin-bottom:10px;
+  box-shadow:0 2px 12px rgba(0,0,0,.06);
+}
 
-    /* (resto de tus estilos: feature, grid, card, botones, roadmap…) */
   </style>
 </head>
 <body>
@@ -51,7 +77,7 @@
     <section class="feature">
       <div class="shot">
         <img src="/MMDV-Blockchain/projects/data-analytics/WineMarket_Dashboard.jpg" alt="Wine Market Dashboard">
-      </div>
+          </div>
       <div class="content">
         <span class="chip">Power BI</span>
         <h2>🍷 Wine Market Dashboard (2021–2025)</h2>
@@ -75,15 +101,17 @@
 
     <!-- Otros proyectos / Próximamente -->
     <section class="grid">
-      <article class="card">
-        <img src="/assets/placeholder-wide.jpg" alt="Consumer Insights Dashboard">
-        <h3>📈 Consumer Insights Dashboard</h3>
-        <div class="meta">NLP · Ratings · Preferencias</div>
-        <p>Análisis de sentimiento y correlaciones precio–rating–canal. Integración con Azure AI Language y dataset enriquecido.</p>
-        <div class="btns">
-          <a class="btn-ghost" href="#">🧭 Roadmap</a>
-        </div>
-      </article>
+     <article class="card">
+  <img src="/MMDV-Blockchain/assets/placeholder-wide.jpg"
+       alt="Consumer Insights Dashboard" class="project-img">
+  <h3>📈 Consumer Insights Dashboard</h3>
+  <div class="meta">NLP · Ratings · Preferencias</div>
+  <p>Análisis de sentimiento y correlaciones precio–rating–canal. Integración con Azure AI Language y dataset enriquecido.</p>
+  <div class="btns">
+    <a class="btn-ghost" href="#">🧭 Roadmap</a>
+  </div>
+</article>
+
       <!-- Añade aquí más cards cuando quieras -->
     </section>
   </main>
