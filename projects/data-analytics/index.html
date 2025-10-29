@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Data Analytics · MMDV</title>
 
-  <!-- CSS global del sitio -->
+  <!-- CSS global -->
   <link rel="stylesheet" href="/MMDV-Blockchain/assets/style.css">
 
   <style>
@@ -14,77 +14,80 @@
       --card:#f7f8f9; --stroke:#e6e8eb; --chip:#f1e6ea;
     }
     body{ background:var(--bg); color:var(--ink); font-family:Inter,system-ui,Arial,sans-serif; margin:0; }
-    .wrap{ max-width:1100px; margin:0 auto; padding:28px 18px 70px; }
 
-    /* Breadcrumb */
+    .wrap{ max-width:1100px; margin:0 auto; padding:28px 18px; }
+
+    /* -------- Breadcrumb -------- */
     .breadcrumb{ font-size:14px; color:var(--muted); margin:10px 0 0 2px; }
     .breadcrumb a{ color:var(--accent); text-decoration:none; }
     .breadcrumb a:hover{ text-decoration:underline; }
 
-    /* Hero compacto (en claro) */
+    /* -------- Mast (igual estructura que retos, en claro) -------- */
     .mast{
       background:linear-gradient(180deg,#f3f4f6 0%,#ffffff 100%);
       border-bottom:1px solid var(--stroke);
-      padding:18px 0 14px;
-      margin-bottom:18px;
+      padding:20px 0 18px;
+      margin-bottom:14px;
     }
-    .mast h1{ font-size:28px; margin:0 0 6px; letter-spacing:.2px; color:var(--ink); }
-    .mast p{ margin:0; color:var(--muted); font-size:15px; }
+    .mast .wrap{ padding: 6px 18px; }
+    .mast h1{ font-size:32px; margin:0 0 6px; letter-spacing:.2px; }
+    .mast .sub{ margin:0; color:var(--muted); }
 
-    /* ---- Proyecto destacado (2 columnas) ---- */
-    .feature{
-      display:grid; grid-template-columns: 520px 1fr; gap:22px;
-      padding:18px; border:1px solid var(--stroke); background:var(--card); border-radius:18px;
-      box-shadow: 0 4px 26px rgba(0,0,0,.06); margin-bottom:22px;
+    /* -------- Callout resumen -------- */
+    .callout{
+      background:var(--card);
+      border:1px solid var(--stroke);
+      border-radius:14px;
+      padding:16px 18px;
+      margin: 10px 0 18px;
+      box-shadow:0 2px 10px rgba(0,0,0,.04);
     }
-    .feature .shot{
-      background:#fff; border-radius:14px; padding:14px; border:1px solid var(--stroke);
-      box-shadow:0 2px 16px rgba(0,0,0,.05);
-      display:flex; align-items:center; justify-content:center;
-    }
-    .feature .shot img{
-      max-width:420px; width:85%; height:auto; border-radius:10px;
-      box-shadow:0 4px 18px rgba(0,0,0,.08);
-      display:block;
-    }
-    @media (max-width: 1024px){
-      .feature{ grid-template-columns:1fr; }
-      .feature .shot img{ width:75%; max-width:600px; }
-    }
+    .lead{ margin:0 0 10px; line-height:1.55; }
 
-    .chip{ display:inline-block; background:var(--chip); color:var(--accent);
-      padding:6px 10px; border-radius:999px; font-size:12px; font-weight:600; margin-bottom:8px;}
-    .kicker{ color:var(--muted); font-size:13px; margin:2px 0 10px; }
-
-    .btns{ display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+    /* -------- Botones -------- */
+    .btns{ display:flex; flex-wrap:wrap; gap:10px; }
     .btn-vino,.btn-ghost{
-      display:inline-block; padding:11px 14px; border-radius:12px; text-decoration:none; font-weight:650;
-      border:1px solid var(--accent);
+      display:inline-block; padding:10px 14px; border-radius:10px; font-weight:650;
+      border:1px solid var(--accent); text-decoration:none;
     }
     .btn-vino{ background:var(--accent); color:#fff; }
     .btn-vino:hover{ filter:brightness(.93); }
     .btn-ghost{ background:transparent; color:var(--accent); }
     .btn-ghost:hover{ background:rgba(122,21,53,.06); }
 
-    .roadmap{ margin-top:12px; padding-left:0; list-style:none; }
-    .roadmap li{ margin:6px 0; position:relative; padding-left:20px; color:var(--muted); }
-    .roadmap li::before{
-      content:""; width:8px; height:8px; border-radius:50%;
-      background: var(--accent); position:absolute; left:0; top:.65em;
-      box-shadow:0 0 0 2px rgba(122,21,53,.12);
+    /* -------- Visor PDF -------- */
+    .viewer{
+      margin-top:14px;
+      border:1px solid var(--stroke);
+      border-radius:14px;
+      background:#fff;
+      box-shadow:0 3px 16px rgba(0,0,0,.06);
+      overflow:hidden;
+    }
+    .viewer iframe{
+      width:100%;
+      height: 80vh;           /* altura cómoda en desktop */
+      display:block;
+      border:0;
+    }
+    @media (max-width: 900px){
+      .viewer iframe{ height:70vh; }
     }
 
-    /* ---- Cards secundarias (sin efectos raros) ---- */
-    .grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:22px; margin-top:18px; }
-    .card{
-      background:var(--card); border:1px solid var(--stroke); border-radius:14px; padding:16px;
-      box-shadow:0 2px 12px rgba(0,0,0,.06);
-      transition:none;         /* anulamos cualquier hover global */
+    /* -------- Feature (mini) arriba del callout (opcional) -------- */
+    .feature{
+      display:grid; grid-template-columns: 520px 1fr; gap:22px;
+      padding:16px; border:1px solid var(--stroke); background:var(--card); border-radius:14px;
+      box-shadow:0 4px 22px rgba(0,0,0,.05); margin-bottom:18px;
     }
-    .card:hover{ background:var(--card); box-shadow:0 2px 12px rgba(0,0,0,.06); }
-
-    .project-img{ width:100%; height:auto; border-radius:12px; display:block; margin-bottom:10px; box-shadow:0 2px 12px rgba(0,0,0,.06); }
-    .meta{ color:var(--muted); font-size:13px; margin-top:-4px; }
+    .shot{
+      background:#fff; border:1px solid var(--stroke); border-radius:12px; padding:12px;
+      display:flex; align-items:center; justify-content:center;
+      box-shadow:0 2px 14px rgba(0,0,0,.05);
+    }
+    .shot img{ max-width:420px; width:85%; height:auto; border-radius:10px; display:block; }
+    .meta{ color:var(--muted); font-size:13px; margin-top:4px; }
+    @media (max-width: 1024px){ .feature{ grid-template-columns:1fr; } .shot img{ width:75%; } }
   </style>
 </head>
 <body>
@@ -96,65 +99,55 @@
     <span>Data Analytics</span>
   </nav>
 
-  <!-- HERO -->
+  <!-- Mast (título + sublínea, estilo retos en claro) -->
   <header class="mast">
     <div class="wrap">
       <h1>Data Analytics Projects</h1>
-      <p>Paneles y modelos analíticos de MMDV (Power BI · Azure · Python).</p>
+      <p class="sub">Paneles y modelos analíticos de MMDV (Power BI · Azure · Python).</p>
     </div>
   </header>
 
-  <!-- CONTENIDO -->
   <main class="wrap">
 
-    <!-- Proyecto destacado: Wine Market -->
+    <!-- Mini feature con la captura del dashboard -->
     <section class="feature" aria-labelledby="wine-title">
       <div class="shot" role="img" aria-label="Vista del dashboard Wine Market">
         <img src="/MMDV-Blockchain/projects/data-analytics/WineMarket_Dashboard.jpg"
              alt="Wine Market Dashboard" />
       </div>
-
-      <div class="content">
-        <span class="chip">Power BI</span>
-        <h2 id="wine-title">🍷 Wine Market Dashboard (2021–2025)</h2>
-        <div class="kicker">Producción · Exportaciones · Precio medio · Calidad</div>
-
-        <p>
-          Panel analítico con KPIs globales del mercado del vino, ranking de exportadores y mapa mundial.
-          Proyecto en curso con hoja de ruta para <strong>Bodega Report</strong>, <strong>Consumer Insights</strong>,
-          integración de <strong>APIs</strong> (OIV, Vivino, Wine-Searcher, FAO) y <strong>Azure ML</strong> para previsión.
+      <div>
+        <h2 id="wine-title" style="margin:0 0 6px;">🍷 Wine Market Dashboard (2021–2025)</h2>
+        <div class="meta">Producción · Exportaciones · Precio medio · Calidad</div>
+        <p class="lead" style="margin-top:10px;">
+          KPIs globales del mercado del vino, ranking de exportadores y mapa mundial. Roadmap:
+          <b>Bodega Report</b>, <b>Consumer Insights</b>, conexión de <b>APIs</b> (OIV, Vivino, Wine-Searcher, FAO) y
+          <b>Azure ML</b> para previsión.
         </p>
-
         <div class="btns">
-          <a class="btn-vino"  href="/MMDV-Blockchain/projects/data-analytics/WineMarket_MMDV.pdf">📄 Ver documentación</a>
+          <a class="btn-vino"  href="/MMDV-Blockchain/projects/data-analytics/WineMarket_MMDV_v3.pdf">📄 Ver documentación</a>
           <a class="btn-ghost" href="/MMDV-Blockchain/projects/data-analytics/WineMarket.pbix">📊 Descargar PBIX</a>
         </div>
-
-        <ul class="roadmap" aria-label="Hoja de ruta">
-          <li>🎯 <b>Fase 2:</b> Bodega Report (ranking, márgenes, distribución).</li>
-          <li>🎯 <b>Fase 3:</b> Consumer Insights (NLP, correlaciones, comportamiento).</li>
-          <li>🎯 <b>Fase 4:</b> Conexión BBDD externas (APIs OIV, Vivino, FAO…).</li>
-          <li>🎯 <b>Fase 5:</b> AI Forecast (Azure ML para demanda y precios).</li>
-        </ul>
       </div>
     </section>
 
-    <!-- Cards secundarias -->
-    <section class="grid" aria-label="Otros proyectos">
-      <!-- Consumer Insights (limpia, sin CSS incrustado) -->
-      <article class="card" role="article" aria-labelledby="consumer-title">
-        <img class="project-img" src="/MMDV-Blockchain/assets/placeholder-wide.jpg"
-             alt="Consumer Insights Dashboard" />
-        <h3 id="consumer-title">📈 Consumer Insights Dashboard</h3>
-        <div class="meta">NLP · Ratings · Preferencias</div>
-        <p>
-          Análisis de sentimiento y correlaciones precio–rating–canal.
-          Integración con Azure AI Language y dataset enriquecido.
-        </p>
-        <div class="btns">
-          <a class="btn-ghost" href="#">🧭 Roadmap</a>
-        </div>
-      </article>
+    <!-- Resumen estilo “retos” + botones -->
+    <section class="callout">
+      <p class="lead">
+        Dossier técnico con <b>historia del mercado</b>, <b>exportaciones</b>, precios medios y calidad por país,
+        además del roadmap de integración con <b>APIs</b> y <b>Azure ML</b> para forecast.
+      </p>
+      <div class="btns" style="margin-top:8px;">
+        <a class="btn-vino"  href="/MMDV-Blockchain/projects/data-analytics/WineMarket_MMDV_v3.pdf" target="_blank" rel="noopener">Abrir PDF (v3)</a>
+        <a class="btn-ghost" href="/MMDV-Blockchain/projects.html">Volver a Proyectos</a>
+      </div>
+    </section>
+
+    <!-- Visor PDF (como en Retos) -->
+    <section class="viewer" aria-label="Visor PDF">
+      <iframe
+        src="/MMDV-Blockchain/projects/data-analytics/WineMarket_MMDV_v3.pdf#view=FitH&toolbar=1&navpanes=1"
+        title="WineMarket_MMDV.pdf">
+      </iframe>
     </section>
 
   </main>
