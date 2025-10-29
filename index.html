@@ -160,11 +160,8 @@
   100% { opacity: 1; transform: translateY(0); }
 }
 
-/* Evita doble fade inicial (igual que Retos) */
-body { opacity: 1; }
-
 /* Carga secuencial: mismos selectores que Retos */
-h1, p, nav a, .btn, section h2 {
+h1, p, nav a, .btn {
   opacity: 0;
   transform: translateY(10px);
   animation: fadeUp 0.8s ease forwards;
@@ -226,8 +223,7 @@ section h2 { animation-delay: 1s; }
   <main class="wrap">
     <!-- PROYECTOS -->
     <h2 id="proyectos-title" class="section-title">Proyectos</h2>
-    <h2 class="section-title">Proyectos</h2>
-    <section class="card reveal">
+       <section class="card reveal">
       <p>Selección de proyectos desarrollados en las áreas de <b>Data Analytics</b>, <b>Blockchain</b> y <b>On-Chain Intelligence</b>. Incluye dashboards en Power BI, prototipos en XRP Ledger y modelos de análisis de métricas on-chain.</p>
 
       <ul style="margin:10px 0 0; padding-left:18px;">
@@ -242,8 +238,7 @@ section h2 { animation-delay: 1s; }
     <!-- RETOS -->
     <section id="retos">
       <h2 id="retos-title" class="section-title">Retos Blockchain</h2>
-      <h2 class="section-title">Retos Blockchain</h2>
-      <div class="card reveal delay-1" style="display:grid; grid-template-columns: 1fr auto; gap:12px; align-items:center;">
+            <div class="card reveal delay-1" style="display:grid; grid-template-columns: 1fr auto; gap:12px; align-items:center;">
         <div>
           <strong>Interoperabilidad entre cadenas</strong>
           <p>Puentes entre redes: Polkadot, Cosmos, Chainlink y el caso XRP Ledger.</p>
@@ -256,8 +251,7 @@ section h2 { animation-delay: 1s; }
     <!-- CERTIFICACIONES -->
     <section id="certificaciones">
       <h2 id="cert-title" class="section-title">Certificaciones & Logros</h2>
-      <h2 class="section-title">Certificaciones & Logros</h2>
-      <div class="card reveal delay-2">
+           <div class="card reveal delay-2">
         <ul style="margin:0">
           <li>FIME · IA & Mercados (Nivel 1–3)</li>
           <li>Azure AI Fundamentals</li>
@@ -269,8 +263,7 @@ section h2 { animation-delay: 1s; }
     <!-- SOBRE MÍ -->
    <section id="about">
      <h2 id="about-title" class="section-title">Sobre mí</h2>
-  <h2 class="section-title">Sobre mí</h2>
-  <div class="card reveal delay-3">
+   <div class="card reveal delay-3">
     <p>Analista que conecta IA, Blockchain y BI con visión estratégica.
        Fundador de <strong>Mi Mundo del Vino (MMDV)</strong></p>
     <p style="margin:12px 0 0">
