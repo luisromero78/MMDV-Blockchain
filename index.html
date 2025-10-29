@@ -192,6 +192,25 @@ section h2 { animation-delay: 1s; }
   border:1px solid #7A1535; background:#7A1535; color:#fff; font-weight:700; text-decoration:none;
 }
 .btn-vino:hover{ filter:brightness(.93); }
+/* 1) Título de sección 100% nítido (sin animación / sin opacidad) */
+h2.section-title{
+  color: var(--ink);
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+}
+
+/* 2) Evitar efecto "negrita" al hacer hover en cards */
+.card{ will-change: box-shadow, border-color; }
+.card:hover{
+  transform: none !important;                      /* sin moverla */
+  box-shadow: 0 8px 20px rgba(17,17,17,.06);       /* mantiene efecto suave */
+  border-color: rgba(122,21,53,.12);
+}
+
+/* 3) Menú: mantener el mismo grosor siempre (por si el navegador re-renderiza) */
+header nav a{ font-weight:600; }
+header nav a:hover{ font-weight:600; }             /* fija el peso */
 
   
   </style>
