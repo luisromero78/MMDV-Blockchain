@@ -7,48 +7,52 @@
   <meta name="theme-color" content="#7A1535">
   <style>
     :root{
-      --bg:#0f0f14;--panel:#17171f;--wine:#7A1535;--text:#e8e8ef;
-      --muted:#a5a5b3;--stroke:#2a2a35;--radius:16px;
+      --bg:#111216;--panel:#17171f;--ink:#f5f6f7;--muted:#a7abb2;
+      --accent:#7A1535;--accent-2:#d8a2b3;--stroke:rgba(122,21,53,.42);
     }
-    body{margin:0;background:var(--bg);color:var(--text);
-         font:16px/1.6 system-ui,Inter,Arial,sans-serif}
-    header,footer{background:var(--panel);border-bottom:1px solid var(--stroke)}
-    .wrap{max-width:980px;margin:0 auto;padding:24px 18px}
-    h1{margin:0 0 6px}
-    .subtitle{color:var(--muted);margin:0 0 12px}
-    .breadcrumb{font-size:.9rem;margin:0 0 18px;color:var(--muted)}
-    .breadcrumb a{color:var(--wine);text-decoration:none}
-    .breadcrumb a:hover{text-decoration:underline}
-    .phrase{font-style:italic;color:var(--muted);margin-bottom:18px}
+    html,body{margin:0;background:var(--bg);color:var(--ink);
+      font:16px/1.55 system-ui,Inter,Arial,sans-serif}
+    .wrap{max-width:980px;margin:0 auto;padding:26px 18px 60px}
+    /* Cabecera moderna */
+    header{margin-bottom:18px}
+    header h1{margin:0;color:var(--ink);font-weight:800;font-size:30px}
+    header p{margin:2px 0 8px;color:var(--muted)}
+    nav.breadcrumb{font-size:.9rem;margin:0 0 18px;color:var(--muted)}
+    nav.breadcrumb a{color:var(--accent);text-decoration:none}
+    nav.breadcrumb a:hover{text-decoration:underline}
+    /* Tarjetas */
     section.card{
       background:linear-gradient(180deg,rgba(122,21,53,.08),transparent 20%),var(--panel);
-      border:1px solid var(--stroke);border-radius:16px;padding:18px;margin-bottom:18px
+      border:1px solid var(--stroke);border-radius:16px;padding:18px;margin-bottom:18px;
     }
     .card h2{margin:0 0 6px}
+    /* Botones */
     .btns{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 0}
     .btn{
-      background:var(--wine);color:#fff;border:1px solid #8b2140;
+      background:var(--accent);color:#fff;border:1px solid #8b2140;
       border-radius:10px;padding:8px 14px;text-decoration:none;font-weight:600
     }
-    .btn.ghost{background:transparent;color:var(--text);border:1px solid var(--stroke)}
+    .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--stroke)}
+    /* Medios */
     iframe, video{width:100%;border:1px solid var(--stroke);
       border-radius:12px;background:#0b0b0f;margin-top:10px}
     .note{color:var(--muted);font-size:.92rem;margin-top:8px}
-    /* Esquema SVG responsivo */
+    /* Esquema SVG */
     .diagram{display:block;width:100%;max-width:920px;margin:8px auto 0}
     .legend{color:var(--muted);font-size:.92rem;margin-top:10px}
     footer{margin-top:28px;text-align:center;padding:16px 0;font-size:.9rem;color:var(--muted)}
   </style>
 </head>
-<body>
-  <header>
-    <div class="wrap">
-      <h1>Reto 2 — Criptografía y Seguridad</h1>
-      <p class="subtitle">Nivel 1 · Curso Blockchain (FUNDAE – Odisea) · Proyecto MMDV</p>
-    </div>
-  </header>
 
+<body>
   <main class="wrap">
+
+    <!-- Cabecera -->
+    <header>
+      <h1>Reto 2 — Criptografía y Seguridad</h1>
+      <p>Nivel 1 · Curso Blockchain (FUNDAE – Odisea) · Proyecto MMDV</p>
+    </header>
+
     <!-- Breadcrumb -->
     <nav class="breadcrumb">
       <a href="/MMDV-Blockchain/retos.html">Retos</a> ›
@@ -56,15 +60,12 @@
       <span>Reto 2 — Criptografía y Seguridad</span>
     </nav>
 
-    <p class="phrase">“Trust is not imposed, it is validated.”</p>
-
-    <!-- Resumen + CTAs -->
+    <!-- Resumen + CTAs principales -->
     <section class="card">
       <h2>Resumen técnico</h2>
       <p>
-        Mini-blockchain educativa para comparar <strong>PoW</strong> y <strong>PoS</strong> en tiempos de validación y esfuerzo
-        computacional. Se emplean <em>hash</em> encadenado, firmas y verificación de integridad; se registran métricas
-        en CSV para análisis posterior y se acompaña de presentación y vídeo.
+        Mini-blockchain educativa para comparar <strong>PoW</strong> y <strong>PoS</strong> en validación y esfuerzo computacional.
+        Implementa <em>hash</em> encadenado, firmas digitales y registro de métricas (CSV). Incluye presentación y vídeo demo.
       </p>
       <div class="btns">
         <a class="btn" href="./Documentacion_Reto2_LuisRomero_MMDV-clean.pdf">📄 Documentación técnica (PDF)</a>
@@ -73,7 +74,7 @@
       </div>
     </section>
 
-    <!-- Esquema inline (sustituye al PNG vacío) -->
+    <!-- Esquema inline -->
     <section class="card">
       <h2>Esquema de hash y validación</h2>
       <svg class="diagram" viewBox="0 0 960 240" xmlns="http://www.w3.org/2000/svg">
@@ -82,74 +83,60 @@
             <stop offset="0" stop-color="#7A1535" stop-opacity=".45"/>
             <stop offset="1" stop-color="#7A1535" stop-opacity=".12"/>
           </linearGradient>
+          <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="#a5a5b3"/>
+          </marker>
         </defs>
-        <!-- Bloques -->
         <g fill="url(#g)" stroke="#8b2140" stroke-width="1.2">
           <rect x="40" y="60" width="140" height="80" rx="10"/>
           <rect x="240" y="60" width="140" height="80" rx="10"/>
           <rect x="440" y="60" width="140" height="80" rx="10"/>
           <rect x="640" y="60" width="140" height="80" rx="10"/>
         </g>
-        <!-- Textos -->
         <g fill="#e8e8ef" font-family="Inter,Arial" font-size="14" text-anchor="middle">
           <text x="110" y="105">Bloque n</text>
           <text x="310" y="105">Bloque n+1</text>
           <text x="510" y="105">Bloque n+2</text>
           <text x="710" y="105">Bloque n+3</text>
         </g>
-        <!-- Flechas -->
         <g stroke="#a5a5b3" stroke-width="1.6" fill="none" marker-end="url(#arrow)">
-          <defs>
-            <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-              <path d="M0,0 L6,3 L0,6 Z" fill="#a5a5b3"/>
-            </marker>
-          </defs>
           <line x1="180" y1="100" x2="240" y2="100"/>
           <line x1="380" y1="100" x2="440" y2="100"/>
           <line x1="580" y1="100" x2="640" y2="100"/>
         </g>
-        <!-- Hash pointers -->
-        <g fill="#a5a5b3" font-family="Inter,Arial" font-size="12">
+        <g fill="#a5a5b3" font-size="12">
           <text x="200" y="90">hash(n)</text>
           <text x="400" y="90">hash(n+1)</text>
           <text x="600" y="90">hash(n+2)</text>
         </g>
-        <!-- PoW/PoS ramas -->
-        <g stroke="#2a2a35" stroke-width="1.2" fill="none" marker-end="url(#arrow)">
-          <path d="M710,140 C710,170 760,170 820,170"/>
-          <path d="M710,60  C710,30  760,30  820,30"/>
-        </g>
-        <g fill="#e8e8ef" font-size="12">
-          <text x="830" y="35">PoW (dificultad)</text>
-          <text x="830" y="175">PoS (stake)</text>
-        </g>
       </svg>
-      <p class="legend">Encadenamiento por hash + ramificaciones de consenso PoW/PoS (vista conceptual).</p>
+      <p class="legend">Encadenamiento por hash y flujo de validación (vista conceptual MMDV).</p>
     </section>
 
-    <!-- Recursos técnicos (solo los válidos) -->
+    <!-- Recursos técnicos: BOTONES -->
     <section class="card">
       <h2>Recursos técnicos</h2>
-      <ul>
-        <li><a href="./Reto2_LuisRomero.py" target="_blank">Código fuente (Python)</a></li>
-        <li><a href="./resultados_reto2_timings.csv" target="_blank">Resultados de tiempos (CSV)</a></li>
-      </ul>
+      <div class="btns">
+        <a class="btn" href="./Reto2_LuisRomero.py" download>🐍 Código Python</a>
+        <a class="btn ghost" href="./resultados_reto2_timings.csv" download>📊 CSV de tiempos</a>
+      </div>
     </section>
 
     <!-- Vídeo -->
     <section class="card">
-      <h2>Video demostrativo</h2>
+      <h2>Vídeo demostrativo</h2>
       <video controls playsinline preload="metadata"
              poster="data:image/svg+xml;utf8,<?xml version='1.0'?><svg xmlns='http://www.w3.org/2000/svg' width='1280' height='720'><rect width='100%' height='100%' fill='%2317171f'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%23a5a5b3' font-family='Arial' font-size='28'>MMDV · Reto 2 — Demo</text></svg>">
         <source src="./MMDV_Reto2_Reel_vFinal_Extended.mp4" type="video/mp4">
-        Tu navegador no soporta reproducción de video. Abre el archivo <a href="./MMDV_Reto2_Reel_vFinal_Extended.mp4">aquí</a>.
+        Tu navegador no soporta reproducción de video. <a href="./MMDV_Reto2_Reel_vFinal_Extended.mp4">Abrir directamente</a>.
       </video>
-      <p class="note">Si ves pantalla negra, suele ser por códecs. Lo ideal es MP4 (H.264 + AAC). Este archivo ya debería reproducirse en GitHub Pages; si no, abre el enlace directo.</p>
+      <p class="note">Si algún navegador no reproduce el MP4, usa el enlace directo. Formato recomendado: H.264 + AAC.</p>
     </section>
-  </main>
 
-  <footer>
-    <div class="wrap">© 2025 Luis Romero · Proyecto MMDV Blockchain</div>
-  </footer>
+    <footer>
+      Proyecto <b>MMDV Blockchain</b> · Luis Romero · Octubre 2025
+    </footer>
+
+  </main>
 </body>
 </html>
