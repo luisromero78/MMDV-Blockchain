@@ -188,4 +188,31 @@ blockquote{margin:16px 0;padding:12px 14px;border-left:4px solid var(--accent);
 }
 .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--stroke)}
 
+/* ---- Botones MMDV (estilo vino) ---- */
+.btn-vino,
+.btn-ghost {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  border: 1px solid var(--accent);
+  transition: all .2s ease-in-out;
+}
+.btn-vino {
+  background: var(--accent);
+  color: #fff;
+}
+.btn-vino:hover {
+  filter: brightness(.93);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--accent);
+}
+.btn-ghost:hover {
+  background: rgba(122,21,53,.06);
+}
+
+
 
