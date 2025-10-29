@@ -59,9 +59,35 @@
     .btn-ghost:hover{ background:rgba(122,21,53,.06); }
     .tag{ display:inline-block; font-size:12px; color:var(--accent); background:rgba(122,21,53,.08);
       padding:4px 8px; border-radius:999px; margin-bottom:8px; }
+    /* ---- Breadcrumb ---- */
+.breadcrumb{
+  font-size:14px;
+  color:var(--muted);
+  margin:18px 0 0 18px;
+}
+.breadcrumb a{
+  color:var(--accent);
+  text-decoration:none;
+}
+.breadcrumb a:hover{
+  text-decoration:underline;
+}
+.breadcrumb span{
+  color:var(--muted);
+}
+
   </style>
 </head>
 <body>
+  <body>
+  <nav class="breadcrumb">
+    <a href="/">Inicio</a> › 
+    <a href="/proyectos/">Proyectos</a> › 
+    <span>Data Analytics</span>
+  </nav>
+
+  <main class="wrap">
+
   <main class="wrap">
     <h1 class="page-title">Data Analytics Projects</h1>
     <p class="page-sub">Selección de paneles y modelos analíticos desarrollados por MMDV.</p>
@@ -76,7 +102,7 @@
         <div class="meta">Producción · Exportaciones · Precio medio · Calidad</div>
         <p>Panel analítico con KPIs globales del mercado del vino, ranking de exportadores y mapa mundial. Proyecto en curso con roadmap (Bodega Report, Consumer Insights, Azure ML, APIs externas).</p>
         <div class="btns">
-          <a class="btn-vino" href="./data-analytics/WineMarket_MMDV_v3.pdf">📄 Ver documentación</a>
+          <a class="btn-vino" href="./data-analytics/WineMarket_MMDV.pdf">📄 Ver documentación</a>
           <a class="btn-ghost" href="./data-analytics/WineMarket.pbix">📊 Descargar PBIX</a>
           <a class="btn-ghost" href="./data-analytics/index.html">🔎 Ficha del proyecto</a>
         </div>
