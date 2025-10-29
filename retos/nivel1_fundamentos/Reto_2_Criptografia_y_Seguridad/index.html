@@ -1,31 +1,45 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Reto 2 — Criptografía y Seguridad · Nivel 1</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Reto 2 — Criptografía y Seguridad · MMDV Blockchain</title>
   <link rel="shortcut icon" href="/MMDV-Blockchain/favicon.ico">
   <meta name="theme-color" content="#7A1535">
   <style>
-    :root{--bg:#0f0f14;--panel:#17171f;--wine:#7A1535;--text:#e8e8ef;--muted:#a5a5b3;--stroke:#2a2a35;--radius:16px;}
-    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,Inter,Arial,sans-serif}
-    header,footer{background:var(--panel);border-bottom:1px solid var(--stroke)}
-    .wrap{max-width:980px;margin:0 auto;padding:24px 18px}
-    h1{margin:0 0 6px}
-    .subtitle{color:var(--muted);margin:0 0 12px}
-    .breadcrumb{font-size:.9rem;margin:0 0 18px;color:var(--muted)}
-    .breadcrumb a{color:var(--wine);text-decoration:none}
-    hr{border:0;border-top:1px solid var(--stroke);margin:16px 0}
-    .phrase{font-style:italic;color:var(--muted);margin-bottom:22px}
-    .card{background:linear-gradient(180deg,rgba(122,21,53,.08),transparent 20%),var(--panel);
-      border:1px solid var(--stroke);border-radius:16px;padding:18px;margin:0 0 16px}
-    .btns{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 0}
-    .btn{background:var(--wine);color:#fff;border:1px solid #8b2140;border-radius:10px;
-      padding:8px 12px;text-decoration:none;font-weight:600}
-    .btn.ghost{background:transparent;color:var(--text);border:1px solid var(--stroke)}
-    iframe{width:100%;height:70vh;border:1px solid var(--stroke);border-radius:12px;background:#0b0b0f}
-    footer{margin-top:28px;text-align:center;padding:16px 0;font-size:.9rem;color:var(--muted)}
+    :root{
+      --bg:#0f0f14;--panel:#17171f;--wine:#7A1535;--text:#e8e8ef;
+      --muted:#a5a5b3;--stroke:#2a2a35;--radius:16px;
+    }
+    body{margin:0;background:var(--bg);color:var(--text);
+         font:16px/1.6 system-ui,Inter,Arial,sans-serif;}
+    header,footer{background:var(--panel);border-bottom:1px solid var(--stroke);}
+    .wrap{max-width:980px;margin:0 auto;padding:24px 18px;}
+    h1{margin:0 0 6px;}
+    .subtitle{color:var(--muted);margin:0 0 12px;}
+    .breadcrumb{font-size:.9rem;margin:0 0 18px;color:var(--muted);}
+    .breadcrumb a{color:var(--wine);text-decoration:none;}
+    .breadcrumb a:hover{text-decoration:underline;}
+    .phrase{font-style:italic;color:var(--muted);margin-bottom:20px;}
+    hr{border:0;border-top:1px solid var(--stroke);margin:16px 0 24px;}
+    section.card{
+      background:linear-gradient(180deg,rgba(122,21,53,.08),transparent 20%),var(--panel);
+      border:1px solid var(--stroke);border-radius:16px;padding:18px;margin-bottom:18px;
+    }
+    .card h2{margin-top:0;color:#fff;}
+    .btns{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0;}
+    .btn{
+      background:var(--wine);color:#fff;border:1px solid #8b2140;
+      border-radius:10px;padding:8px 14px;text-decoration:none;font-weight:600;
+    }
+    .btn.ghost{background:transparent;color:var(--text);border:1px solid var(--stroke);}
+    iframe, video{width:100%;border:1px solid var(--stroke);
+      border-radius:12px;background:#0b0b0f;margin-top:10px;}
+    img{max-width:100%;border-radius:12px;border:1px solid var(--stroke);}
+    footer{margin-top:28px;text-align:center;padding:16px 0;font-size:.9rem;color:var(--muted);}
   </style>
 </head>
+
 <body>
   <header>
     <div class="wrap">
@@ -35,33 +49,55 @@
   </header>
 
   <main class="wrap">
+    <!-- Breadcrumb -->
     <nav class="breadcrumb">
-      <a href="/MMDV-Blockchain/retos/">Inicio</a> ›
+      <a href="/MMDV-Blockchain/retos.html">Retos</a> ›
       <a href="/MMDV-Blockchain/retos/nivel1_fundamentos/">Nivel 1</a> ›
       <span>Reto 2 — Criptografía y Seguridad</span>
     </nav>
 
-    <hr>
     <p class="phrase">“Trust is not imposed, it is validated.”</p>
 
     <section class="card">
+      <h2>Resumen técnico</h2>
       <p>
-        Mini-blockchain educativa para comparar <strong>PoW</strong> y <strong>PoS</strong> en tiempos de validación y esfuerzo computacional.
-        Uso de funciones <em>hash</em>, firmas y árboles de Merkle; análisis de vectores de ataque (Sybil/Eclipse) y
-        verificación de integridad entre bloques enlazados.
+        Este reto implementa una <strong>mini-blockchain educativa</strong> para comparar los mecanismos de consenso
+        <strong>Proof of Work (PoW)</strong> y <strong>Proof of Stake (PoS)</strong>.  
+        Se miden tiempos de validación, esfuerzo computacional y resistencia a ataques
+        <em>Sybil</em> o <em>Eclipse</em>.  
+        Incluye validación por <strong>hash encadenado</strong>, firmas digitales y registros en CSV.
       </p>
+
       <div class="btns">
-        <!-- Ajusta los nombres si usas otros archivos -->
-        <a class="btn" href="./Reto2_Criptografia_Seguridad_MMDV.pdf">📄 Documentación técnica (PDF)</a>
-        <a class="btn ghost" href="../">← Volver al Nivel 1</a>
+        <a class="btn" href="./Documentacion_Reto2_LuisRomero_MMDV-clean.pdf">📄 Documentación técnica (PDF)</a>
+        <a class="btn ghost" href="./MMDV_Reto2_Presentacion_v4.pdf">🎞️ Presentación (PDF)</a>
+        <a class="btn ghost" href="./MMDV_Reto2_Reel_vFinal_Extended.mp4">▶️ Video demostrativo</a>
+        <a class="btn ghost" href="/MMDV-Blockchain/retos.html">← Volver a Retos</a>
       </div>
     </section>
 
     <section class="card">
-      <div class="meta" style="color:var(--muted)">Visor rápido del PDF:</div>
-      <iframe src="./Reto2_Criptografia_Seguridad_MMDV.pdf#view=FitH" title="Reto 2 · PDF"></iframe>
+      <h2>Esquema de hash y validación</h2>
+      <p>Visualización del proceso de encadenamiento y verificación de bloques.</p>
+      <img src="./esquema_hash.png" alt="Esquema de hash encadenado - MMDV">
     </section>
 
+    <section class="card">
+      <h2>Recursos técnicos</h2>
+      <ul>
+        <li><a href="./Reto2_LuisRomero.py" target="_blank">Código fuente (Python)</a></li>
+        <li><a href="./notas_tecnicas.md" target="_blank">Notas técnicas</a></li>
+        <li><a href="./resultados_reto2_timings.csv" target="_blank">Resultados (CSV)</a></li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Video demostrativo</h2>
+      <video controls poster="./esquema_hash.png">
+        <source src="./MMDV_Reto2_Reel_vFinal_Extended.mp4" type="video/mp4">
+        Tu navegador no soporta reproducción de video.
+      </video>
+    </section>
   </main>
 
   <footer>
