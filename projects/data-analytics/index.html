@@ -6,120 +6,116 @@
   <title>Proyectos · MMDV</title>
   <link rel="stylesheet" href="/assets/style.css">
   <style>
-    /* ---- Overrides modo claro para Proyectos ---- */
+    /* ---- Modo claro / tokens ---- */
     :root{
-      --bg:#ffffff;
-      --ink:#111216;
-      --muted:#60646c;
-      --accent:#7A1535;   /* vino MMDV */
-      --card:#f7f8f9;
-      --stroke:#e6e8eb;
+      --bg:#ffffff; --ink:#111216; --muted:#60646c; --accent:#7A1535;
+      --card:#f7f8f9; --stroke:#e6e8eb; --chip:#f1e6ea;
     }
     body{ background:var(--bg); color:var(--ink); }
-    header, footer{ background:#fff; }
-    .wrap{ max-width:1080px; margin:0 auto; padding:34px 18px 60px; }
+    .wrap{ max-width:1100px; margin:0 auto; padding:28px 18px 70px; }
 
-    /* ---- Galería de proyectos ---- */
-    .page-title{ font-size:32px; margin:0 0 8px; }
-    .page-sub{ color:var(--muted); margin:0 0 26px; }
-    .grid-projects{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-      gap:24px;
-    }
-    .card{
-      background:var(--card);
-      border:1px solid var(--stroke);
-      border-radius:16px;
-      padding:16px;
-      transition:transform .2s ease, box-shadow .2s ease;
-    }
-    .card:hover{
-      transform:translateY(-2px);
-      box-shadow:0 6px 24px rgba(0,0,0,.08);
-    }
-    .project-img{
-      width:100%; height:auto; border-radius:12px;
-      display:block; margin:0 0 12px;
-      box-shadow:0 2px 12px rgba(0,0,0,.06);
-    }
-    .card h2{ margin:6px 0 6px; font-size:20px; }
-    .card p{ margin:0 0 14px; color:var(--muted); }
-    .meta{ font-size:13px; color:var(--muted); margin-top:-6px; margin-bottom:10px; }
+    /* ---- Breadcrumb ---- */
+    .breadcrumb{ font-size:14px; color:var(--muted); margin:10px 0 0 2px; }
+    .breadcrumb a{ color:var(--accent); text-decoration:none; }
+    .breadcrumb a:hover{ text-decoration:underline; }
 
-    /* ---- Botones (si no existen en tu CSS base) ---- */
-    .btns{ display:flex; flex-wrap:wrap; gap:10px; }
-    .btn-vino, .btn-ghost{
-      display:inline-block; padding:10px 14px; border-radius:12px; text-decoration:none;
-      font-weight:600; border:1px solid var(--accent);
+    /* ---- Hero ---- */
+    .hero{ margin:10px 0 28px; }
+    .hero h1{ font-size:36px; margin:0 0 6px; letter-spacing:.2px; }
+    .hero p{ color:var(--muted); margin:0; }
+
+    /* ---- Proyecto destacado (2 cols) ---- */
+    .feature{
+      display:grid; grid-template-columns: 520px 1fr; gap:22px;
+      padding:18px; border:1px solid var(--stroke); background:var(--card); border-radius:18px;
+      box-shadow: 0 4px 26px rgba(0,0,0,.06);
+    }
+    .feature .shot{
+      background:#fff; border-radius:14px; padding:10px; border:1px solid var(--stroke);
+      box-shadow:0 2px 16px rgba(0,0,0,.05);
+    }
+    .feature .shot img{ width:100%; height:auto; border-radius:10px; display:block; }
+    .chip{ display:inline-block; background:var(--chip); color:var(--accent);
+      padding:6px 10px; border-radius:999px; font-size:12px; font-weight:600; margin-bottom:8px;}
+    .kicker{ color:var(--muted); font-size:13px; margin:2px 0 10px; }
+    .btns{ display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+    .btn-vino,.btn-ghost{
+      display:inline-block; padding:11px 14px; border-radius:12px; text-decoration:none; font-weight:650;
+      border:1px solid var(--accent);
     }
     .btn-vino{ background:var(--accent); color:#fff; }
     .btn-vino:hover{ filter:brightness(.93); }
-    .btn-ghost{ color:var(--accent); background:transparent; }
+    .btn-ghost{ background:transparent; color:var(--accent); }
     .btn-ghost:hover{ background:rgba(122,21,53,.06); }
-    .tag{ display:inline-block; font-size:12px; color:var(--accent); background:rgba(122,21,53,.08);
-      padding:4px 8px; border-radius:999px; margin-bottom:8px; }
-    /* ---- Breadcrumb ---- */
-.breadcrumb{
-  font-size:14px;
-  color:var(--muted);
-  margin:18px 0 0 18px;
-}
-.breadcrumb a{
-  color:var(--accent);
-  text-decoration:none;
-}
-.breadcrumb a:hover{
-  text-decoration:underline;
-}
-.breadcrumb span{
-  color:var(--muted);
-}
+    .roadmap{ margin-top:12px; }
+    .roadmap li{ margin:4px 0; }
+    .roadmap b{ color:var(--accent); }
 
+    /* ---- Grid secundarios ---- */
+    .grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:22px; margin-top:24px; }
+    .card{
+      background:var(--card); border:1px solid var(--stroke); border-radius:16px; padding:16px;
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .card:hover{ transform:translateY(-2px); box-shadow:0 6px 24px rgba(0,0,0,.08); }
+    .card img{ width:100%; border-radius:12px; margin-bottom:10px; }
+
+    /* ---- Micro separadores ---- */
+    .meta{ color:var(--muted); font-size:13px; margin-top:-4px; }
   </style>
 </head>
 <body>
-  <body>
+
+  <!-- Breadcrumb -->
   <nav class="breadcrumb">
-    <a href="/">Inicio</a> › 
-    <a href="/proyectos/">Proyectos</a> › 
-    <span>Data Analytics</span>
+    <a href="/">Inicio</a> › <a href="/projects/">Proyectos</a> › <span>Data Analytics</span>
   </nav>
 
   <main class="wrap">
+    <!-- Hero -->
+    <header class="hero">
+      <h1>Data Analytics Projects</h1>
+      <p>Selección de paneles y modelos analíticos desarrollados por MMDV (Power BI · Azure · Python).</p>
+    </header>
 
-  <main class="wrap">
-    <h1 class="page-title">Data Analytics Projects</h1>
-    <p class="page-sub">Selección de paneles y modelos analíticos desarrollados por MMDV.</p>
-
-    <section class="grid-projects">
-
-      <!-- CARD · Wine Market Dashboard -->
-      <article class="card">
-        <span class="tag">Power BI</span>
-        <img src="./data-analytics/WineMarket_Dashboard.jpg" alt="Wine Market Dashboard" class="project-img">
+    <!-- Proyecto destacado -->
+    <section class="feature">
+      <div class="shot">
+        <img src="./data-analytics/WineMarket_Dashboard.jpg" alt="Wine Market Dashboard">
+      </div>
+      <div class="content">
+        <span class="chip">Power BI</span>
         <h2>🍷 Wine Market Dashboard (2021–2025)</h2>
-        <div class="meta">Producción · Exportaciones · Precio medio · Calidad</div>
-        <p>Panel analítico con KPIs globales del mercado del vino, ranking de exportadores y mapa mundial. Proyecto en curso con roadmap (Bodega Report, Consumer Insights, Azure ML, APIs externas).</p>
-        <div class="btns">
-          <a class="btn-vino" href="./WineMarket_MMDV.pdf">📄 Ver documentación</a>
-          <a class="btn-ghost" href="./WineMarket.pbix">📊 Descargar PBIX</a>
-          <a class="btn-ghost" href="./index.html">🔎 Ficha del proyecto</a>
-        </div>
-      </article>
+        <div class="kicker">Producción · Exportaciones · Precio medio · Calidad</div>
+        <p>Panel analítico con KPIs globales del mercado del vino, ranking de exportadores y mapa mundial. 
+           Proyecto en curso con hoja de ruta para <b>Bodega Report</b>, <b>Consumer Insights</b>, integración de <b>APIs</b> (OIV, Vivino, Wine-Searcher, FAO) y <b>Azure ML</b> para previsión.</p>
 
-      <!-- CARD · Placeholder para el siguiente proyecto (opcional, puedes borrar) -->
+        <div class="btns">
+          <a class="btn-vino"  href="./data-analytics/WineMarket_MMDV_v3.pdf">📄 Ver documentación</a>
+          <a class="btn-ghost" href="./data-analytics/WineMarket.pbix">📊 Descargar PBIX</a>
+        </div>
+
+        <ul class="roadmap">
+          <li>🎯 <b>Fase 2:</b> Bodega Report (ranking, márgenes, distribución).</li>
+          <li>🎯 <b>Fase 3:</b> Consumer Insights (NLP, correlaciones, comportamiento).</li>
+          <li>🎯 <b>Fase 4:</b> Conexión BBDD externas (APIs OIV, Vivino, FAO…).</li>
+          <li>🎯 <b>Fase 5:</b> AI Forecast (Azure ML para demanda y precios).</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Otros proyectos / Próximamente -->
+    <section class="grid">
       <article class="card">
-        <span class="tag">Próximamente</span>
-        <img src="/assets/placeholder-wide.jpg" alt="Próximo proyecto" class="project-img">
-        <h2>📈 Consumer Insights Dashboard</h2>
+        <img src="/assets/placeholder-wide.jpg" alt="Consumer Insights Dashboard">
+        <h3>📈 Consumer Insights Dashboard</h3>
         <div class="meta">NLP · Ratings · Preferencias</div>
         <p>Análisis de sentimiento y correlaciones precio–rating–canal. Integración con Azure AI Language y dataset enriquecido.</p>
         <div class="btns">
           <a class="btn-ghost" href="#">🧭 Roadmap</a>
         </div>
       </article>
-
+      <!-- Añade aquí más cards cuando quieras -->
     </section>
   </main>
 </body>
