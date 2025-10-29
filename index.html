@@ -138,11 +138,55 @@
 }
 .reveal{ animation: fadeInUp .45s ease forwards; opacity:0; transform:translateY(8px); }
 @keyframes fadeInUp{ to { opacity:1; transform:none; } }
+/* === TRANSICIÓN VINO SUAVE (igual que Retos) === */
+.page-transition {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center,
+    rgba(122, 21, 53, 0.25) 0%,
+    rgba(122, 21, 53, 0.18) 35%,
+    rgba(122, 21, 53, 0) 80%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.2s ease;
+  z-index: 9999;
+}
+.page-transition.active { opacity: 1; }
+
+/* === ANIMACIÓN DE ENTRADA MMDV (igual que Retos) === */
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(15px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Evita doble fade inicial (igual que Retos) */
+body { opacity: 1; }
+
+/* Carga secuencial: mismos selectores que Retos */
+h1, p, .card, nav a, .btn, section h2 {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeUp 0.8s ease forwards;
+}
+h2.section-title{opacity:1; transform:none; animation:none;}
+    
+/* Misma cadencia de aparición */
+h1 { animation-delay: 0.4s; }
+.subtitle { animation-delay: 0.5s; }
+nav a:nth-child(1) { animation-delay: 0.6s; }
+nav a:nth-child(2) { animation-delay: 0.7s; }
+nav a:nth-child(3) { animation-delay: 0.8s; }
+.btn.outline { animation-delay: 0.9s; }
+section h2 { animation-delay: 1s; }
+.card:nth-child(1) { animation-delay: 1.1s; }
+.card:nth-child(2) { animation-delay: 1.2s; }
+.card:nth-child(3) { animation-delay: 1.3s; }
 
   </style>
 </head>
 
 <body>
+  <div class="page-transition" id="pageTransition"></div>
   <!-- HEADER -->
   <header>
     <div class="wrap">
@@ -225,5 +269,29 @@
   <footer>
     <div class="wrap">© 2025 Luis Eduardo Romero · MMDV</div>
   </footer>
+  <script>
+const transition = document.getElementById('pageTransition');
+const body = document.body;
+
+// Fade-out + overlay vino al navegar por enlaces internos
+document.querySelectorAll('a[href]').forEach(link => {
+  link.addEventListener('click', e => {
+    const url = link.getAttribute('href');
+    if (!url || url.startsWith('#') || url.startsWith('mailto:') || url.startsWith('http')) return;
+    e.preventDefault();
+
+    body.style.transition = "opacity 0.4s ease";
+    body.style.opacity = "0";
+    transition.classList.add('active');
+    setTimeout(() => window.location.href = url, 500);
+  });
+});
+
+// Al cargar, restaurar opacidad (como Retos)
+window.addEventListener('pageshow', () => {
+  body.style.opacity = "1";
+});
+</script>
+
 </body>
 </html>
