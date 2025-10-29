@@ -3,10 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Proyectos · MMDV</title>
-  <<link rel="stylesheet" href="/MMDV-Blockchain/assets/style.css"><!-- prefijo correcto -->
+  <title>Data Analytics · MMDV</title>
+
+  <!-- CSS base del sitio -->
+  <link rel="stylesheet" href="/MMDV-Blockchain/assets/style.css">
+
   <style>
-    :root{ --bg:#fff; --ink:#111216; --muted:#60646c; --accent:#7A1535; --card:#f7f8f9; --stroke:#e6e8eb; --chip:#f1e6ea; }
+    :root{
+      --bg:#ffffff; --ink:#111216; --muted:#60646c; --accent:#7A1535;
+      --card:#f7f8f9; --stroke:#e6e8eb; --chip:#f1e6ea;
+    }
     body{ background:var(--bg); color:var(--ink); }
     .wrap{ max-width:1100px; margin:0 auto; padding:28px 18px 70px; }
 
@@ -15,50 +21,67 @@
     .breadcrumb a{ color:var(--accent); text-decoration:none; }
     .breadcrumb a:hover{ text-decoration:underline; }
 
-/* ---- HERO compacto (modo claro) ---- */
-.hero, .mast{
-  background:linear-gradient(180deg,#f3f4f6 0%,#ffffff 100%);
-  border-bottom:1px solid #e5e5e5;
-  padding:18px 0 14px;
-  margin-bottom:18px;
-}
-.hero h1, .mast h1{
-  font-size:28px;
-  margin:0;
-  letter-spacing:.2px;
-  color:var(--ink);
-}
-.hero p, .mast p{
-  margin:2px 0 0;
-  color:var(--muted);
-  font-size:15px;
-}
-/* Imagen principal del dashboard reducida */
-.feature .shot img{
-  width:85%;
-  height:auto;
-  display:block;
-  margin:0 auto;
-  border-radius:10px;
-  box-shadow:0 4px 18px rgba(0,0,0,.08);
-}
-    .project-img{
-  width:100%;
-  height:auto;
-  border-radius:12px;
-  display:block;
-  margin-bottom:10px;
-  box-shadow:0 2px 12px rgba(0,0,0,.06);
-}
-/* HERO compacto modo claro */
-.hero, .mast{
-  background:linear-gradient(180deg,#f3f4f6 0%,#ffffff 100%);
-  border-bottom:1px solid #e5e5e5;
-  padding:18px 0 14px; margin-bottom:18px;
-}
-.hero h1, .mast h1{ font-size:28px; margin:0; letter-spacing:.2px; color:var(--ink); }
-.hero p, .mast p{ margin:2px 0 0; color:var(--muted); font-size:15px; }
+    /* HERO compacto (modo claro) */
+    .mast{
+      background:linear-gradient(180deg,#f3f4f6 0%,#ffffff 100%);
+      border-bottom:1px solid var(--stroke);
+      padding:18px 0 14px;
+      margin-bottom:18px;
+    }
+    .mast h1{ font-size:28px; margin:0; letter-spacing:.2px; color:var(--ink); }
+    .mast p{ margin:2px 0 0; color:var(--muted); font-size:15px; }
 
+    /* Proyecto destacado (2 columnas) */
+    .feature{
+      display:grid; grid-template-columns: 520px 1fr; gap:22px;
+      padding:18px; border:1px solid var(--stroke); background:var(--card); border-radius:18px;
+      box-shadow: 0 4px 26px rgba(0,0,0,.06);
+      margin-bottom:22px;
+    }
+    .feature .shot{
+      background:#fff; border-radius:14px; padding:10px; border:1px solid var(--stroke);
+      box-shadow:0 2px 16px rgba(0,0,0,.05);
+    }
+    .feature .shot img{
+      width:85%; height:auto; display:block; margin:0 auto; border-radius:10px;
+      box-shadow:0 4px 18px rgba(0,0,0,.08);
+    }
+    @media (max-width: 1024px){
+      .feature{ grid-template-columns:1fr; }
+      .feature .shot img{ width:75%; }
+    }
+
+    .chip{ display:inline-block; background:var(--chip); color:var(--accent);
+      padding:6px 10px; border-radius:999px; font-size:12px; font-weight:600; margin-bottom:8px;}
+    .kicker{ color:var(--muted); font-size:13px; margin:2px 0 10px; }
+
+    .btns{ display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+    .btn-vino,.btn-ghost{
+      display:inline-block; padding:11px 14px; border-radius:12px; text-decoration:none; font-weight:650;
+      border:1px solid var(--accent);
+    }
+    .btn-vino{ background:var(--accent); color:#fff; }
+    .btn-vino:hover{ filter:brightness(.93); }
+    .btn-ghost{ background:transparent; color:var(--accent); }
+    .btn-ghost:hover{ background:rgba(122,21,53,.06); }
+
+    .roadmap{ margin-top:12px; padding-left:0; list-style:none; }
+    .roadmap li{ margin:6px 0; position:relative; padding-left:18px; }
+    .roadmap li::before{
+      content:""; width:8px; height:8px; border-radius:50%;
+      background: var(--accent); position:absolute; left:0; top:.55em;
+      box-shadow:0 0 0 2px rgba(122,21,53,.12);
+    }
+
+    /* Grid de tarjetas secundarias */
+    .grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:22px; }
+    .card{
+      background:var(--card); border:1px solid var(--stroke); border-radius:16px; padding:16px;
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .card:hover{ transform:translateY(-2px); box-shadow:0 6px 24px rgba(0,0,0,.08); }
+    .project-img{ width:100%; height:auto; border-radius:12px; display:block; margin-bottom:10px; box-shadow:0 2px 12px rgba(0,0,0,.06); }
+    .meta{ color:var(--muted); font-size:13px; margin-top:-4px; }
   </style>
 </head>
 <body>
@@ -66,11 +89,11 @@
   <!-- Breadcrumb -->
   <nav class="breadcrumb">
     <a href="/MMDV-Blockchain/">Inicio</a> ›
-    <a href="/MMDV-Blockchain/projects/">Proyectos</a> ›
+    <a href="/MMDV-Blockchain/projects.html">Proyectos</a> ›
     <span>Data Analytics</span>
   </nav>
 
-  <!-- ÚNICO hero -->
+  <!-- HERO -->
   <header class="mast">
     <div class="wrap">
       <h1>Data Analytics Projects</h1>
@@ -78,20 +101,23 @@
     </div>
   </header>
 
-  <!-- Contenido -->
+  <!-- CONTENIDO -->
   <main class="wrap">
 
     <!-- Proyecto destacado -->
     <section class="feature">
       <div class="shot">
         <img src="/MMDV-Blockchain/projects/data-analytics/WineMarket_Dashboard.jpg" alt="Wine Market Dashboard">
-          </div>
+      </div>
       <div class="content">
         <span class="chip">Power BI</span>
         <h2>🍷 Wine Market Dashboard (2021–2025)</h2>
         <div class="kicker">Producción · Exportaciones · Precio medio · Calidad</div>
-        <p>Panel analítico con KPIs globales del mercado del vino, ranking de exportadores y mapa mundial. 
-           Proyecto en curso con hoja de ruta para <b>Bodega Report</b>, <b>Consumer Insights</b>, integración de <b>APIs</b> (OIV, Vivino, Wine-Searcher, FAO) y <b>Azure ML</b> para previsión.</p>
+        <p>
+          Panel analítico con KPIs globales del mercado del vino, ranking de exportadores y mapa mundial.
+          Proyecto en curso con hoja de ruta para <b>Bodega Report</b>, <b>Consumer Insights</b>,
+          integración de <b>APIs</b> (OIV, Vivino, Wine-Searcher, FAO) y <b>Azure ML</b> para previsión.
+        </p>
 
         <div class="btns">
           <a class="btn-vino"  href="/MMDV-Blockchain/projects/data-analytics/WineMarket_MMDV.pdf">📄 Ver documentación</a>
@@ -109,19 +135,18 @@
 
     <!-- Otros proyectos / Próximamente -->
     <section class="grid">
-     <article class="card">
-  <img src="/MMDV-Blockchain/assets/placeholder-wide.jpg"
-       alt="Consumer Insights Dashboard" class="project-img">
-  <h3>📈 Consumer Insights Dashboard</h3>
-  <div class="meta">NLP · Ratings · Preferencias</div>
-  <p>Análisis de sentimiento y correlaciones precio–rating–canal. Integración con Azure AI Language y dataset enriquecido.</p>
-  <div class="btns">
-    <a class="btn-ghost" href="#">🧭 Roadmap</a>
-  </div>
-</article>
-
+      <article class="card">
+        <img src="/MMDV-Blockchain/assets/placeholder-wide.jpg" alt="Consumer Insights Dashboard" class="project-img">
+        <h3>📈 Consumer Insights Dashboard</h3>
+        <div class="meta">NLP · Ratings · Preferencias</div>
+        <p>Análisis de sentimiento y correlaciones precio–rating–canal. Integración con Azure AI Language y dataset enriquecido.</p>
+        <div class="btns">
+          <a class="btn-ghost" href="#">🧭 Roadmap</a>
+        </div>
+      </article>
       <!-- Añade aquí más cards cuando quieras -->
     </section>
+
   </main>
 </body>
 </html>
