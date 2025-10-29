@@ -1,139 +1,71 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Reto 2 — Análisis y simulación de una red blockchain | MMDV</title>
-  <meta name="description" content="Comparativa PoW vs PoS con simulación en Python. Documentación, presentación, CSV y reel del Reto 2 (MMDV Blockchain Lab)." />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Reto 2 — Análisis y simulación de una red blockchain" />
-  <meta property="og:description" content="Comparativa PoW vs PoS con simulación en Python. Docs, slides y reel." />
-  <meta property="og:type" content="website" />
-
-<!-- Favicon / Logo (usa la misma carpeta de assets/img) -->
-<link rel="icon" href="../../assets/favicon.ico" />
-<link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png" />
-<meta property="og:image" content="../../assets/android-chrome-512x512.png" />
-
-  <!-- Tus estilos globales (si los tienes) -->
-  <link rel="stylesheet" href="../../assets/styles.css" />
-
-  <!-- Fallback CSS mínimo + FIX del <pre><code> -->
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Reto 2 — Criptografía y Seguridad · Nivel 1</title>
+  <link rel="shortcut icon" href="/MMDV-Blockchain/favicon.ico">
+  <meta name="theme-color" content="#7A1535">
   <style>
-    :root { --vino:#7A1535; --gris:#2b2b2b; --gris-soft:#f5f5f7; }
-    html,body{margin:0;padding:0;font-family:Inter,Calibri,system-ui,Segoe UI,Roboto,Arial,sans-serif;color:var(--gris);background:#fff}
-    .container{max-width:1100px;margin:0 auto;padding:24px}
-    .hero{display:grid;gap:10px;padding:28px 0 10px}
-    .hero h1{margin:0;font-size:clamp(28px,4vw,40px);line-height:1.1;color:var(--vino)}
-    .hero p{margin:0;color:#555}
-    .row{display:flex;flex-wrap:wrap;gap:12px}
-    .btn{display:inline-block;background:var(--vino);color:#fff;text-decoration:none;padding:10px 14px;border-radius:10px}
-    .btn.ghost{background:#eee;color:#222}
-    .card{background:#fff;border:1px solid #e6e6e9;border-radius:14px;padding:18px}
-    .grid{display:grid;gap:16px}
-    @media(min-width:900px){ .grid.cols-2{grid-template-columns:1.3fr 1fr} }
-    table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden}
-    thead th{background:var(--vino);color:#fff;text-align:left;padding:10px}
-    td{border-bottom:1px solid #eee;padding:10px}
-    .muted{color:#666}
-    .tag{display:inline-block;background:#f2e8ec;color:var(--vino);padding:4px 8px;border-radius:999px;font-size:12px;margin-right:6px}
-    .logo{height:58px}
-    .video-wrap{background:var(--gris-soft);border:1px solid #eee;border-radius:14px;padding:10px}
-    video{width:100%;border-radius:10px;display:block;background:#000}
-    code{background:#f7f7f7;padding:2px 6px;border-radius:6px}
-    pre{background:#0e0e0e;color:#f3f3f3;padding:14px;border-radius:12px;overflow:auto}
-    /* FIX: evita “cajas blancas” dentro de bloques de código */
-    pre code{background:transparent;padding:0}
+    :root{--bg:#0f0f14;--panel:#17171f;--wine:#7A1535;--text:#e8e8ef;--muted:#a5a5b3;--stroke:#2a2a35;--radius:16px;}
+    body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,Inter,Arial,sans-serif}
+    header,footer{background:var(--panel);border-bottom:1px solid var(--stroke)}
+    .wrap{max-width:980px;margin:0 auto;padding:24px 18px}
+    h1{margin:0 0 6px}
+    .subtitle{color:var(--muted);margin:0 0 12px}
+    .breadcrumb{font-size:.9rem;margin:0 0 18px;color:var(--muted)}
+    .breadcrumb a{color:var(--wine);text-decoration:none}
+    hr{border:0;border-top:1px solid var(--stroke);margin:16px 0}
+    .phrase{font-style:italic;color:var(--muted);margin-bottom:22px}
+    .card{background:linear-gradient(180deg,rgba(122,21,53,.08),transparent 20%),var(--panel);
+      border:1px solid var(--stroke);border-radius:16px;padding:18px;margin:0 0 16px}
+    .btns{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 0}
+    .btn{background:var(--wine);color:#fff;border:1px solid #8b2140;border-radius:10px;
+      padding:8px 12px;text-decoration:none;font-weight:600}
+    .btn.ghost{background:transparent;color:var(--text);border:1px solid var(--stroke)}
+    iframe{width:100%;height:70vh;border:1px solid var(--stroke);border-radius:12px;background:#0b0b0f}
+    footer{margin-top:28px;text-align:center;padding:16px 0;font-size:.9rem;color:var(--muted)}
   </style>
 </head>
 <body>
-  <header class="container" style="display:flex;align-items:center;justify-content:space-between;gap:14px;">
-    <div class="hero">
-      <h1>Reto 2 — Análisis y simulación del funcionamiento de una red blockchain</h1>
-      <p class="muted">Comparativa entre <strong>Proof of Work (PoW)</strong> y <strong>Proof of Stake (PoS)</strong> · MMDV Blockchain Lab</p>
-      <div class="row" style="margin-top:8px;">
-        <a class="btn" href="./Documentacion_Reto2_LuisRomero_MMDV_clean.pdf">📄 Documentación técnica (PDF)</a>
-        <a class="btn ghost" href="./MMDV_Reto2_Presentacion_v4.pdf">📊 Presentación (PDF)</a>
-        <a class="btn ghost" href="./resultados_reto2_timings.csv">📈 CSV resultados</a>
-        <a class="btn ghost" href="./Reto2_LuisRomero.py">🧠 Código Python</a>
-      </div>
+  <header>
+    <div class="wrap">
+      <h1>Reto 2 — Criptografía y Seguridad</h1>
+      <p class="subtitle">Nivel 1 · Curso Blockchain (FUNDAE – Odisea) · Proyecto MMDV</p>
     </div>
-   <picture>
-  <!-- si existe uno grande, úsalo en pantallas retina -->
-  <source srcset="../../assets/mmdv-logo.png" media="(min-width: 600px)">
-  <!-- fallback seguro: el 192x192 que ya confirmaste que existe -->
-   <img class="logo" src="../../assets/mmdv-logo.png" alt="MMDV" />  
-</picture>
-    <script>
-  const logo = document.querySelector('.logo');
-  logo.addEventListener('error', () => {
-    // Intento alternativo con el icono de 192px
-    logo.src = '/assets/android-chrome-192x192.png?v=2';
-  });
-</script>
-
   </header>
 
-  <main class="container grid cols-2">
-    <!-- Columna izquierda -->
+  <main class="wrap">
+    <nav class="breadcrumb">
+      <a href="/MMDV-Blockchain/retos/">Inicio</a> ›
+      <a href="/MMDV-Blockchain/retos/nivel1_fundamentos/">Nivel 1</a> ›
+      <span>Reto 2 — Criptografía y Seguridad</span>
+    </nav>
+
+    <hr>
+    <p class="phrase">“Trust is not imposed, it is validated.”</p>
+
     <section class="card">
-      <h2 style="margin-top:0;">Resumen técnico</h2>
       <p>
-        Este proyecto implementa una mini-blockchain educativa y compara dos mecanismos de consenso:
-        <span class="tag">PoW</span> y <span class="tag">PoS</span>, midiendo tiempos de validación y esfuerzo computacional.
+        Mini-blockchain educativa para comparar <strong>PoW</strong> y <strong>PoS</strong> en tiempos de validación y esfuerzo computacional.
+        Uso de funciones <em>hash</em>, firmas y árboles de Merkle; análisis de vectores de ataque (Sybil/Eclipse) y
+        verificación de integridad entre bloques enlazados.
       </p>
-      <ul>
-        <li>Lenguaje: <strong>Python 3.11</strong> · Librerías: <code>hashlib</code>, <code>time</code>, <code>random</code>, <code>json</code>.</li>
-        <li>PoW: prueba de trabajo con dificultad ajustable; mide <em>tiempo</em> e <em>intentos</em>.</li>
-        <li>PoS: selección ponderada por <em>stake</em>; validación ligera con retardo leve de propagación.</li>
-        <li>Integridad: verificación de <strong>hash</strong> encadenado en ambas cadenas.</li>
-      </ul>
-
-      <h3>Resultados (ejecución real)</h3>
-      <table>
-        <thead>
-          <tr><th>Protocolo</th><th>Tiempo total</th><th>Promedio / bloque</th><th>Observaciones</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Proof of Work (PoW)</td><td>6.00 s</td><td>1.20 s</td><td>Mayor consumo de CPU, alta seguridad</td></tr>
-          <tr><td>Proof of Stake (PoS)</td><td>0.05 s</td><td>0.01 s</td><td>Alta eficiencia y sostenibilidad</td></tr>
-        </tbody>
-      </table>
-      <p class="muted" style="margin-top:8px">Datos completos en <code>resultados_reto2_timings.csv</code>.</p>
-
-      <!-- NUEVO: Detalles de implementación aquí (debajo del resumen), ya no ocupa toda la página -->
-      <h3 style="margin-top:18px;">Detalles de implementación</h3>
-      <ul>
-        <li><strong>Bloques:</strong> índice, <code>prev_hash</code>, transacciones, <code>nonce</code> (PoW) o <code>validator</code> (PoS) y <code>hash</code> actual.</li>
-        <li><strong>PoW:</strong> minado buscando prefijo de ceros; se registra tiempo e intentos de hash.</li>
-        <li><strong>PoS:</strong> elección ponderada por stake (Alice/Bob/Carol), validación rápida con retardo leve de propagación.</li>
-        <li><strong>Integridad:</strong> función de verificación que recomputa cada hash y valida la cadena completa.</li>
-      </ul>
-
-      <h3>Cómo ejecutar el script</h3>
-      <pre><code># 1) Clona o descarga el repo
-# 2) Entra en la carpeta del reto 2 y ejecuta:
-python Reto2_LuisRomero.py
-
-# Parámetros que puedes tocar en el main:
-# run_experiment(num_blocks=5, tx_per_block=3, difficulty=4)
-# Sube 'difficulty' para ver el impacto en PoW</code></pre>
+      <div class="btns">
+        <!-- Ajusta los nombres si usas otros archivos -->
+        <a class="btn" href="./Reto2_Criptografia_Seguridad_MMDV.pdf">📄 Documentación técnica (PDF)</a>
+        <a class="btn ghost" href="../">← Volver al Nivel 1</a>
+      </div>
     </section>
 
-    <!-- Columna derecha -->
-    <aside class="card">
-      <h2 style="margin-top:0;">“Trust is not imposed, it is validated.”</h2>
-      <div class="video-wrap">
-        <video controls playsinline preload="metadata" src="./MMDV_Reto2_Reel_vFinal_Extended.mp4"></video>
-      </div>
-       </aside>
+    <section class="card">
+      <div class="meta" style="color:var(--muted)">Visor rápido del PDF:</div>
+      <iframe src="./Reto2_Criptografia_Seguridad_MMDV.pdf#view=FitH" title="Reto 2 · PDF"></iframe>
+    </section>
+
   </main>
-<footer class="container" style="margin-top:16px;">
-  <div class="row" style="align-items:center;justify-content:space-between">
-    <p class="muted">Proyecto <strong>MMDV Blockchain</strong> · Luis Romero · Octubre 2025</p>
-    <div><a class="btn ghost" href="MMDV-Blockchain/retos">⟵ Volver a Retos</a></div>
-  </div>
-</footer>
+
+  <footer>
+    <div class="wrap">© 2025 Luis Romero · Proyecto MMDV Blockchain</div>
+  </footer>
 </body>
 </html>
