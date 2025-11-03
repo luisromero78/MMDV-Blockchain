@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Reto 1 — Cadena & Solidity (Nivel 2) · MMDV</title>
+  <meta name="theme-color" content="#7A1535">
+  <style>
+    :root{--bg:#111216;--card:#1b1c21;--ink:#f5f6f7;--muted:#a7abb2;--accent:#7A1535;--stroke:rgba(122,21,53,.35)}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,Arial,sans-serif}
+    .wrap{max-width:980px;margin:0 auto;padding:28px 18px 80px}
+    h1{font-size:28px;margin:8px 0 6px}
+    h2{font-size:20px;margin:22px 0 10px}
+    p{color:var(--muted)} a{color:#d8a2b3;text-decoration:none}
+    .card{background:var(--card);border:1px solid var(--stroke);border-radius:16px;padding:18px;margin-top:18px}
+    code,pre{background:#0e0f13;border:1px solid rgba(255,255,255,.06);padding:.35rem .55rem;border-radius:8px}
+    ul{margin:10px 0 0 20px}
+    img{max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,.08)}
+    .grid{display:grid;gap:16px}
+    @media(min-width:720px){.grid{grid-template-columns:1.2fr .8fr}}
+    .badge{display:inline-block;padding:6px 10px;border:1px solid var(--stroke);border-radius:999px;font-size:12px;color:#d8a2b3}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <span class="badge">Nivel 2 — Cadenas y Contratos</span>
+    <h1>Reto 1 — Cadena &amp; Solidity</h1>
+    <p>EVM · Gas · Contratos inteligentes — del bloque al contrato: ejecución determinista y lógica programable.</p>
+
+    <div class="grid">
+      <div class="card">
+        <h2>Resumen del proyecto</h2>
+        <p>
+          Este reto despliega un contrato de <strong>votación on-chain</strong> en Sepolia.
+          Documentamos la <em>address</em> y la <strong>ABI</strong> para que en el siguiente reto (Reto 5)
+          construyamos la dApp Web3 que permita votar desde el navegador (MetaMask).
+        </p>
+
+        <h2>Dirección en Sepolia</h2>
+        <p>Pega aquí la address tras el despliegue:</p>
+        <pre><code id="addr">0x...</code></pre>
+
+        <h2>ABI</h2>
+        <ul>
+          <li><a href="./abi/Voting.json">./abi/Voting.json</a></li>
+        </ul>
+
+        <h2>Métodos clave</h2>
+        <ul>
+          <li><code>vote(uint256 candidateId)</code> — un voto por address.</li>
+          <li><code>getCandidate(uint256 id)</code> — devuelve <em>(name, votes)</em>.</li>
+          <li><code>closeVoting()</code> — cierra la votación (solo owner).</li>
+        </ul>
+
+        <h2>Comandos rápidos</h2>
+<pre><code>npm i
+cp .env.example .env   # Rellena RPC, PRIVATE_KEY y CANDIDATES
+npm run compile
+npm test
+npm run deploy:sepolia  # Copia la address arriba</code></pre>
+      </div>
+
+      <div class="card">
+        <h2>Estructura de archivos</h2>
+        <ul>
+          <li><code>contracts/Voting.sol</code></li>
+          <li><code>scripts/deploy.js</code></li>
+          <li><code>test/Voting.t.js</code></li>
+          <li><code>hardhat.config.js</code>, <code>package.json</code></li>
+          <li><code>docs/index.html</code> (esta página)</li>
+          <li><code>docs/abi/Voting.json</code> (ABI exportada)</li>
+          <li><code>docs/img/screenshot.png</code> (captura del contrato/verificador)</li>
+        </ul>
+
+        <h2>Pantallazo</h2>
+        <p>Sube una captura y se mostrará aquí:</p>
+        <img src="./img/screenshot.png" alt="Captura del contrato en Sepolia (Etherscan)">
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:22px">
+      <h2>Próximo paso: dApp Web3 (Reto 5)</h2>
+      <p>Conectaremos esta address y ABI desde el navegador (ethers.js + MetaMask) para permitir el voto.</p>
+      <p><a href="../reto5-dapp-voting/" aria-disabled="true">Enlace a la dApp (próximamente)</a></p>
+    </div>
+
+    <div id="recursos" class="card" style="margin-top:22px"></div>
+  </div>
+
+  <!-- Bloque Recursos técnicos MMDV -->
+  <script src="/MMDV-Blockchain/templates/recursos_template.js"></script>
+  <script>
+    recursosMMDV({
+      titulo: "Recursos técnicos",
+      pdf: "Documentacion_Reto1_MMDV-clean.pdf",
+      presentacion: "MMDV_Reto1_Presentacion.pdf",
+      codigo: "contracts/Voting.sol",
+      csv: ""
+    });
+  </script>
+</body>
+</html>
