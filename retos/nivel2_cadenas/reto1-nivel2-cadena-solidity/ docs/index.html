@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Reto 1 — Cadena & Solidity · MMDV</title>
+  <meta name="theme-color" content="#7A1535">
+  <style>
+    :root{--bg:#111216;--card:#1b1c21;--ink:#f5f6f7;--muted:#a7abb2;--accent:#7A1535}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,Arial,sans-serif}
+    .wrap{max-width:980px;margin:0 auto;padding:28px 18px 60px}
+    h1{font-size:28px;margin:8px 0 6px}
+    p{color:var(--muted)}
+    code,pre{background:#0e0f13;border:1px solid rgba(255,255,255,.06);padding:.4rem .6rem;border-radius:8px}
+    .card{background:var(--card);border:1px solid rgba(122,21,53,.35);border-radius:16px;padding:18px;margin-top:18px}
+    a{color:#d8a2b3;text-decoration:none}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Reto 1 — Cadena &amp; Solidity (Nivel 2)</h1>
+    <p>EVM · Gas · DApps · Contratos inteligentes — Votación transparente on-chain.</p>
+
+    <div class="card">
+      <h2>Dirección en Sepolia</h2>
+      <p>
+        Tras el despliegue, pega aquí la dirección del contrato:
+      </p>
+      <pre><code id="addr">0x...</code></pre>
+
+      <h3>ABI</h3>
+      <p>La ABI del contrato se exporta automáticamente al compilar/desplegar:</p>
+      <ul>
+        <li><a href="./abi/Voting.json">./abi/Voting.json</a></li>
+      </ul>
+
+      <h3>Métodos clave</h3>
+      <ul>
+        <li><code>vote(uint256 candidateId)</code> — emite voto (1 por address).</li>
+        <li><code>getCandidate(uint256 id)</code> — devuelve <em>(name, votes)</em>.</li>
+        <li><code>closeVoting()</code> — cierra votación (solo owner).</li>
+      </ul>
+    </div>
+
+    <div id="recursos" class="card" style="margin-top:26px"></div>
+  </div>
+
+  <!-- Bloque Recursos técnicos MMDV -->
+  <script src="/MMDV-Blockchain/templates/recursos_template.js"></script>
+  <script>
+    recursosMMDV({
+      titulo: "Recursos técnicos",
+      pdf: "Documentacion_Reto1_MMDV-clean.pdf",
+      presentacion: "MMDV_Reto1_Presentacion.pdf",
+      codigo: "contracts/Voting.sol",
+      csv: ""
+    });
+  </script>
+</body>
+</html>
