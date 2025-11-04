@@ -7,9 +7,9 @@ async function main() {
   .filter(Boolean);
   const Voting = await hre.ethers.getContractFactory("Voting");
   const voting = await Voting.deploy(names);
-  await voting.deployed();
+  await voting.waitForDeployment();                 // <-- v6
 
-  console.log("Voting deployed to:", voting.address);
+  console.log("Voting deployed to:", voting.target); // <-- v6
 
   // Guardar ABI para /docs
   const fs = require("fs");
