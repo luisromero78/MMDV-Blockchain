@@ -247,4 +247,17 @@ blockquote{margin:16px 0;padding:12px 14px;border-left:4px solid var(--accent);
 /* Contenedor de botones para espaciado coherente */
 .btns{ display:flex; gap:10px; margin-top:12px; }
 
+.card {
+  display: block;
+  transition: transform .2s ease;
+}
+.card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(122,21,53,.5);
+}
+.coming {
+  font-weight: 600;
+  color: #7A1535;
+}
+
 
