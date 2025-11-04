@@ -1,7 +1,10 @@
 const hre = require("hardhat");
 
 async function main() {
-  const names = (process.env.CANDIDATES || "Alice,Bob,Charlie").split(",");
+  const names = (process.env.CANDIDATES || "Alice,Bob,Charlie")
+  .split(",")
+  .map(s => s.trim())
+  .filter(Boolean);
   const Voting = await hre.ethers.getContractFactory("Voting");
   const voting = await Voting.deploy(names);
   await voting.deployed();
