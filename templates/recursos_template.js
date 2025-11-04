@@ -24,13 +24,13 @@ function recursosMMDV(cfg) {
   `;
 
   if (cfg.pdf)
-    html += `<a class="btn" href="./${cfg.pdf}" download>📄 Documentación técnica (PDF)</a>`;
+    html += `<a class="btn" href="${cfg.pdf}" download>📄 Documentación técnica (PDF)</a>`;
   if (cfg.presentacion)
-    html += `<a class="btn ghost" href="./${cfg.presentacion}" download>🖥️ Presentación (PDF)</a>`;
+    html += `<a class="btn ghost" href="${cfg.presentacion}" download>🖥️ Presentación (PDF)</a>`;
   if (cfg.codigo)
-    html += `<a class="btn ghost" href="./${cfg.codigo}" download>🐍 Código fuente (Python)</a>`;
+    html += `<a class="btn ghost" href="${cfg.codigo}" download>🧱 Código fuente (Solidity)</a>`;
   if (cfg.csv)
-    html += `<a class="btn ghost" href="./${cfg.csv}" download>📊 Resultados (CSV)</a>`;
+    html += `<a class="btn ghost" href="${cfg.csv}" download>📊 Resultados (CSV)</a>`;
 
   if (cfg.otros && Array.isArray(cfg.otros)) {
     cfg.otros.forEach(o => {
