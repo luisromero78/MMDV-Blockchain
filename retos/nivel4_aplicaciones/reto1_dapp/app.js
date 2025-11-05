@@ -336,6 +336,8 @@ function bindEvents(){
       }
     }catch{/* opcional */}
   }catch{/* opcional */}
+} // <-- ¡esta llave faltaba!
+
 // ====== Mostrar ganador si la votación está cerrada ======
 function showWinnerIfClosed(isOpen){
   const box = $('#winner');
@@ -355,9 +357,7 @@ function showWinnerIfClosed(isOpen){
   );
 
   box.innerHTML = `<span>Ganador:</span>
-                   <strong class="mono">${esc(winner.name)} 
+                   <strong class="mono">${esc(winner.name)}
                    (${Number(winner.votes||0)} voto${Number(winner.votes||0)===1?'':'s'})</strong>`;
   box.style.display = 'inline-flex';
-}
-
 }
