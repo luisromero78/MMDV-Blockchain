@@ -46,19 +46,18 @@ window.addEventListener('DOMContentLoaded', async () => {
   if (!window.ethereum){
     setState('MetaMask no detectado');
     log('Instala MetaMask para continuar.');
-    $('#btnConnect').disabled = true;
+    $$('[data-connect]').forEach(b => b.disabled = true);
     return;
   }
 
-  $('#btnConnect').addEventListener('click', connect);
-  const btnDisc = $('#btnDisconnect');
-  if (btnDisc) btnDisc.addEventListener('click', disconnect);
+  // 👉 atamos TODOS los botones que tengan data-connect
+  $$('[data-connect]').forEach(b => b.addEventListener('click', connect));
+  $$('[data-disconnect]').forEach(b => b.addEventListener('click', disconnect));
 
-  // solo mostramos red actual (no auto-connect)
   await updateNetworkUI();
 
   ethereum.on('chainChanged', ()=> window.location.reload());
-  ethereum.on('accountsChanged', ()=> window.location.reload());
+  ethereum.on('accountsChanged', async ()=> { try{ await connect(); }catch(e){ console.error(e); }});
 });
 
 // ====== CONEXIÓN ======
@@ -87,9 +86,10 @@ async function connect(){
     setState('Conectado');
 
     // Botones conectar/desconectar (si existen en tu HTML)
-    const btnConn = $('#btnConnect'); const btnDisc = $('#btnDisconnect');
-    if (btnConn) btnConn.style.display = 'none';
-    if (btnDisc) btnDisc.style.display = 'inline-block';
+        // Mostrar/ocultar todos los conectores
+$$('[data-connect]').forEach(b => b.style.display = 'none');
+$$('[data-disconnect]').forEach(b => b.style.display = 'inline-block');
+
 
     await loadCandidates();
     await refreshStatusUI();        // <-- (1) estado y permisos UI
@@ -133,9 +133,9 @@ function disconnect(){
   account = null;
   $('#accountLine').textContent = '';
   $('#cards').innerHTML = '';
-  const btnConn = $('#btnConnect'); const btnDisc = $('#btnDisconnect');
-  if (btnConn) btnConn.style.display = 'inline-block';
-  if (btnDisc) btnDisc.style.display = 'none';
+  $$('[data-connect]').forEach(b => b.style.display = 'inline-block');
+$$('[data-disconnect]').forEach(b => b.style.display = 'none');
+
   setState('Desconectado');
   log('👋 Wallet desconectada (visual).');
 }
