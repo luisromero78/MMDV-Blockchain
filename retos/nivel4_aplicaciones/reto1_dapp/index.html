@@ -39,37 +39,36 @@
 <body>
   <div class="wrap">
     <header>
-      <h1>Reto 5 · dApp de Votación (Sepolia)</h1>
-      <p class="lead">Interfaz Web3 (HTML + JS + Ethers) para el contrato del <strong>Reto 4</strong>. Conecta tu wallet, visualiza candidatos y emite tu voto on‑chain.</p>
-      <div class="row">
-        <div class="pill">
-          <span>Red objetivo:</span>
-          <strong class="mono" id="net">—</strong>
-        </div>
-        <button id="btnConnect">Conectar wallet</button>
-        <button id="btnConnect">Conectar wallet</button>
-        <button id="btnDisconnect" style="display:none;background:#333;border:1px solid var(--stroke)">Desconectar</button>
-        <!-- botón pequeño a la derecha -->
-<button data-connect>Conectar wallet</button>
+  <h1>Reto 5 · dApp de Votación (Sepolia)</h1>
+  <p class="lead">Interfaz Web3 (HTML + JS + Ethers) para el contrato del <strong>Reto 4</strong>. Conecta tu wallet, visualiza candidatos y emite tu voto on-chain.</p>
 
-<!-- barra grande central -->
-<button data-connect class="full">Conectar wallet</button>
+  <div class="row">
+    <div class="pill">
+      <span>Red objetivo:</span>
+      <strong class="mono" id="net">—</strong>
+    </div>
+    <!-- botón pequeño a la derecha -->
+    <button data-connect>Conectar wallet</button>
+  </div>
 
-<!-- botón desconectar (si lo usas) -->
-<button data-disconnect style="display:none">Desconectar</button>
+  <!-- barra grande central -->
+  <div class="row" style="grid-template-columns:1fr;">
+    <button data-connect class="full">Conectar wallet</button>
+  </div>
 
-      </div>
-      <div id="accountLine" class="muted" style="margin-top:8px"></div>
-    </header>
+  <div id="accountLine" class="muted" style="margin-top:8px"></div>
+</header>
 
-    <section class="row" style="margin-top:18px">
-      <div class="pill"><span>Contrato:</span><span class="mono" id="addr">—</span></div>
-      <div class="pill"><span>Estado:</span><span id="state">Listo</span></div>
-      <!-- justo donde va el estado -->
-  <div class="pill"><span>Estado:</span><span id="state">Listo</span></div>
-  <button id="btnClose" style="display:none;margin-left:8px;background:#333;border:1px solid var(--stroke);border-radius:14px;padding:10px 14px;font-weight:600;cursor:pointer">Cerrar votación</button>
 
-    </section>
+   <section class="row" style="margin-top:18px">
+  <div class="pill"><span>Contrato:</span><span class="mono" id="addr">—</span></div>
+
+  <div style="display:flex;gap:8px;align-items:center">
+    <div class="pill"><span>Estado:</span><span id="state">Listo</span></div>
+    <button id="btnClose" style="display:none;background:#333;border:1px solid var(--stroke);border-radius:14px;padding:10px 14px;font-weight:600;cursor:pointer">Cerrar votación</button>
+    <button data-disconnect style="display:none;background:#333;border:1px solid var(--stroke);border-radius:14px;padding:10px 14px;font-weight:600;cursor:pointer">Desconectar</button>
+  </div>
+</section>
 
     <section>
       <h2 style="margin:26px 0 8px">Candidatos</h2>
