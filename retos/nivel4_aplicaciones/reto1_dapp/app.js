@@ -138,6 +138,7 @@ function disconnect(){
 }
 
 // ====== ESTADO/UX ======
+// ====== ESTADO/UX (ganador + cerrar/abrir) ======
 async function refreshStatusUI() {
   try {
     let isOpen = true, voted = false, isOwner = false;
@@ -149,7 +150,10 @@ async function refreshStatusUI() {
     const estado = isOpen ? 'Abierta' : 'Cerrada';
     setState(estado + (voted ? ' · Ya has votado' : ''));
 
-    // Botón Cerrar (solo owner y abierta)
+    // 🏆 mostrar ganador cuando esté cerrada (usa window._cands de loadCandidates)
+    showWinnerIfClosed(isOpen);
+
+    // 🔒 Cerrar (solo owner y abierta)
     const btnClose = $('#btnClose');
     if (btnClose){
       btnClose.style.display = (isOwner && isOpen) ? 'inline-block' : 'none';
@@ -159,7 +163,6 @@ async function refreshStatusUI() {
           const tx = await contract.closeVoting();
           log(`⛓️ Tx enviada: ${tx.hash}\nEsperando confirmación…`);
           await tx.wait();
-          setState('Cerrada');
           await loadCandidates();
           await refreshStatusUI();
         }catch(err){
@@ -170,13 +173,35 @@ async function refreshStatusUI() {
       };
     }
 
-    // Deshabilitar todos los botones “Votar” si está cerrada o ya votó
+    // 🔓 Abrir (solo si tu contrato tiene openVoting(), está cerrada y eres owner)
+    const btnOpen = $('#btnOpen');
+    if (btnOpen){
+      const canOpen = isOwner && !isOpen && hasFn('openVoting');
+      btnOpen.style.display = canOpen ? 'inline-block' : 'none';
+      btnOpen.onclick = async () => {
+        try{
+          setState('Abriendo…');
+          const tx = await contract.openVoting(); // disponible en tu contrato v2
+          log(`⛓️ Tx enviada: ${tx.hash}\nEsperando confirmación…`);
+          await tx.wait();
+          await loadCandidates();
+          await refreshStatusUI();
+        }catch(err){
+          console.error(err);
+          log('❌ No se pudo abrir la votación (¿tu contrato tiene openVoting?).');
+          setState('Listo');
+        }
+      };
+    }
+
+    // 🚫 Botones “Votar”: deshabilitar si cerrada o si ya votó esta cuenta
     $$('#cards button').forEach(b => { b.disabled = (!isOpen || voted); });
 
   } catch (e) {
     console.error(e);
   }
 }
+
 
 // ====== LÓGICA dApp ======
 async function precheckCanVote(id){
@@ -311,4 +336,28 @@ function bindEvents(){
       }
     }catch{/* opcional */}
   }catch{/* opcional */}
+// ====== Mostrar ganador si la votación está cerrada ======
+function showWinnerIfClosed(isOpen){
+  const box = $('#winner');
+  if (!box) return;
+
+  // Si está abierta o aún no hay candidatos, ocultamos el bloque
+  if (isOpen || !Array.isArray(window._cands) || window._cands.length === 0){
+    box.style.display = 'none';
+    box.textContent = '';
+    return;
+  }
+
+  // Calcular el candidato con más votos
+  const winner = window._cands.reduce(
+    (a,b)=> (Number(b.votes||0) > Number(a.votes||0) ? b : a),
+    window._cands[0]
+  );
+
+  box.innerHTML = `<span>Ganador:</span>
+                   <strong class="mono">${esc(winner.name)} 
+                   (${Number(winner.votes||0)} voto${Number(winner.votes||0)===1?'':'s'})</strong>`;
+  box.style.display = 'inline-flex';
+}
+
 }
