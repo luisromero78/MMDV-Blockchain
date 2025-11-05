@@ -2,7 +2,7 @@
 import { BrowserProvider, Contract } from "https://esm.sh/ethers@6.13.2";
 
 // ====== CONFIGURA TU CONTRATO ======
-const CONTRACT_ADDRESS = "0xPON_AQUI_TU_ADDRESS"; // <— reemplaza SOLO esto
+const CONTRACT_ADDRESS = "0xFC33326E9256054dA108d88A17Bc51d6adB414dc"; // <— reemplaza SOLO esto
 
 // ABI pegado desde tu Voting.json (campo "abi")
 const CONTRACT_ABI = [
