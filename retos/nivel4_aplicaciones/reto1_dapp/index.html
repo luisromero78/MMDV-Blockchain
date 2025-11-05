@@ -56,15 +56,21 @@
 </header>
 
 
-   <section class="row" style="margin-top:18px">
-  <div class="pill"><span>Contrato:</span><span class="mono" id="addr">—</span></div>
+<section class="row" style="margin-top:18px">
+  <div class="pill">
+    <span>Contrato:</span>
+    <span class="mono" id="addr">—</span>
+  </div>
 
   <div style="display:flex;gap:8px;align-items:center">
     <div class="pill"><span>Estado:</span><span id="state">Listo</span></div>
+    <div id="winner" class="pill" style="display:none"></div>
     <button id="btnClose" style="display:none;background:#333;border:1px solid var(--stroke);border-radius:14px;padding:10px 14px;font-weight:600;cursor:pointer">Cerrar votación</button>
+    <button id="btnOpen" style="display:none;background:#333;border:1px solid var(--stroke);border-radius:14px;padding:10px 14px;font-weight:600;cursor:pointer">Abrir votación</button>
     <button data-disconnect style="display:none;background:#333;border:1px solid var(--stroke);border-radius:14px;padding:10px 14px;font-weight:600;cursor:pointer">Desconectar</button>
   </div>
 </section>
+
 
     <section>
       <h2 style="margin:26px 0 8px">Candidatos</h2>
