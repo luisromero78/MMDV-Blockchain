@@ -2,7 +2,7 @@
 import { BrowserProvider, Contract } from "https://esm.sh/ethers@6.13.2";
 
 // ====== CONFIGURA TU CONTRATO ======
-const CONTRACT_ADDRESS = "0xFC33326E9256054dA108d88A17Bc51d6adB414dc"; // <-- tu address (Sepolia)
+const CONTRACT_ADDRESS = "0xFC33326E9256054dA108d88A17Bc51d6adB414dc"; // <-- address correcta (Sepolia)
 
 // ABI pegado desde tu Voting.json (campo "abi")
 const CONTRACT_ABI = [
@@ -50,10 +50,9 @@ window.addEventListener('DOMContentLoaded', async () => {
     return;
   }
 
-  // 👉 atamos TODOS los botones que tengan data-connect
+  // ata todos los botones con data-atributos
   $$('[data-connect]').forEach(b => b.addEventListener('click', connect));
-$$('[data-disconnect]').forEach(b => b.addEventListener('click', disconnect));
-
+  $$('[data-disconnect]').forEach(b => b.addEventListener('click', disconnect));
 
   await updateNetworkUI();
 
@@ -86,14 +85,12 @@ async function connect(){
 
     setState('Conectado');
 
-    // Botones conectar/desconectar (si existen en tu HTML)
-        // Mostrar/ocultar todos los conectores
-$$('[data-connect]').forEach(b => b.style.display = 'none');
-$$('[data-disconnect]').forEach(b => b.style.display = 'inline-block');
-
+    // Mostrar/ocultar todos los conectores
+    $$('[data-connect]').forEach(b => b.style.display = 'none');
+    $$('[data-disconnect]').forEach(b => b.style.display = 'inline-block');
 
     await loadCandidates();
-    await refreshStatusUI();        // <-- (1) estado y permisos UI
+    await refreshStatusUI();
     bindEvents();
   }catch(err){
     console.error(err);
@@ -134,8 +131,8 @@ function disconnect(){
   account = null;
   $('#accountLine').textContent = '';
   $('#cards').innerHTML = '';
- $$('[data-connect]').forEach(b => b.style.display = 'inline-block');
-$$('[data-disconnect]').forEach(b => b.style.display = 'none');
+  $$('[data-connect]').forEach(b => b.style.display = 'inline-block');
+  $$('[data-disconnect]').forEach(b => b.style.display = 'none');
   setState('Desconectado');
   log('👋 Wallet desconectada (visual).');
 }
@@ -283,7 +280,7 @@ async function onVote(ev){
     if (receipt?.status === 1){
       log(`✅ Voto confirmado en bloque ${receipt.blockNumber}.`);
       await loadCandidates();
-      await refreshStatusUI();      // <-- (2) tras votar, refresca estado
+      await refreshStatusUI();
     } else {
       log('⚠️ La transacción no se confirmó correctamente.');
       ev.currentTarget.disabled = false;
@@ -302,19 +299,15 @@ async function onVote(ev){
 function bindEvents(){
   try{
     if (!contract || !provider) return;
-    // intenta suscribirse a VoteCast (tu contrato lo expone)
     try{
       const filter = contract.filters?.VoteCast?.();
       if (filter) {
         provider.on(filter, async ()=>{
           await loadCandidates();
-          await refreshStatusUI();  // <-- (3) al llegar evento, refresca estado
+          await refreshStatusUI();
         });
         log('🔔 Suscrito a eventos VoteCast.');
       }
     }catch{/* opcional */}
-  }catch{/* opcional */}
-}
-
   }catch{/* opcional */}
 }
