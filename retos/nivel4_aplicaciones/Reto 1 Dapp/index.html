@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reto 5 · dApp de Votación · MMDV</title>
+  <meta name="description" content="Interfaz Web3 para el Smart Contract de votación (Sepolia)." />
+  <meta name="theme-color" content="#7A1535" />
+  <link rel="icon" href="/MMDV-Blockchain/assets/favicon.ico" />
+  <!-- Ethers v6 desde CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.2/dist/ethers.umd.min.js" defer></script>
+  <style>
+    :root{
+      --bg:#111216;--card:#1b1c21;--ink:#f5f6f7;--muted:#a7abb2;--accent:#7A1535;--stroke:rgba(122,21,53,.42)
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif}
+    .wrap{max-width:980px;margin:0 auto;padding:26px 18px 80px}
+    header{padding:42px 0 18px;border-bottom:1px solid var(--stroke)}
+    h1{margin:0;font-size:28px;letter-spacing:.2px}
+    p.lead{color:var(--muted);margin:8px 0 0}
+    .row{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;margin-top:14px}
+    button{background:var(--accent);color:#fff;border:0;border-radius:14px;padding:10px 14px;font-weight:600;cursor:pointer;box-shadow:0 8px 24px rgba(122,21,53,.24)}
+    button:disabled{opacity:.6;cursor:not-allowed}
+    .pill{display:inline-flex;gap:10px;align-items:center;background:#0f0f12;border:1px solid var(--stroke);border-radius:999px;padding:8px 12px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:22px}
+    .card{background:var(--card);border:1px solid #22232a;border-radius:18px;padding:16px}
+    .card h3{margin:0 0 6px;font-size:18px}
+    .muted{color:var(--muted)}
+    .bar{height:8px;border-radius:999px;background:#22232a;overflow:hidden}
+    .fill{height:100%;background:linear-gradient(90deg,var(--accent),#c6527b)}
+    .footer{margin-top:40px;color:var(--muted);font-size:14px}
+    .status{margin-top:10px;white-space:pre-wrap}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+    .warn{color:#ffd27d}
+    .ok{color:#79ffa8}
+    .err{color:#ff8080}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Reto 5 · dApp de Votación (Sepolia)</h1>
+      <p class="lead">Interfaz Web3 (HTML + JS + Ethers) para el contrato del <strong>Reto 4</strong>. Conecta tu wallet, visualiza candidatos y emite tu voto on‑chain.</p>
+      <div class="row">
+        <div class="pill">
+          <span>Red objetivo:</span>
+          <strong class="mono" id="net">—</strong>
+        </div>
+        <button id="btnConnect">Conectar wallet</button>
+      </div>
+      <div id="accountLine" class="muted" style="margin-top:8px"></div>
+    </header>
+
+    <section class="row" style="margin-top:18px">
+      <div class="pill"><span>Contrato:</span><span class="mono" id="addr">—</span></div>
+      <div class="pill"><span>Estado:</span><span id="state">Listo</span></div>
+    </section>
+
+    <section>
+      <h2 style="margin:26px 0 8px">Candidatos</h2>
+      <div id="cards" class="grid"></div>
+      <div id="empty" class="muted" style="margin-top:10px;display:none">No hay candidatos o no se pudo cargar la lista. Revisa el ABI.</div>
+    </section>
+
+    <section class="footer">
+      <div class="status" id="log">📜 Listo.</div>
+      <p style="margin-top:12px">Consejo: asegúrate de estar en <strong>Sepolia</strong> (chainId <code class="mono">11155111</code>) y de haber pegado el <strong>ABI</strong> y la <strong>dirección</strong> correctos del contrato.
+      </p>
+    </section>
+  </div>
+
+  <script>
+  // ====== CONFIGURA AQUÍ TU CONTRATO ======
+  // 1) Pega la dirección del contrato desplegado en Sepolia (Reto 4)
+  const CONTRACT_ADDRESS = 0xFC33326E9256054dA108d88A17Bc51d6adB414dc; // <-- reemplaza
+  // 2) Pega el ABI del contrato (array JSON). Debe incluir, al menos:
+  //    - getCandidates() -> (tuple(string name, uint256 votes, uint256 id)[])
+  //      o bien totalCandidates() + candidates(uint256) -> (name, votes)
+  //    - vote(uint256 id)
+  //    - (opcional) hasVoted(address) view returns (bool)
+  const CONTRACT_ABI = [
+    // <-- Pega aquí el ABI del Reto 4 (JSON)
+  ];
+  // Si tu contrato NO tiene getCandidates() pero sí totalCandidates()/candidates(i),
+  // el loader alternativo intentará usar ese patrón.
+
+  // ====== CONSTANTES ======
+  const TARGET_CHAIN_ID = 11155111; // Sepolia
+  const ZERO = 0n;
+
+  // ====== ESTADO GLOBAL ======
+  let provider, signer, contract; // ethers v6 UMD expone "ethers"
+  let account = null;
+
+  const $ = (sel)=>document.querySelector(sel);
+  const $$ = (sel)=>document.querySelectorAll(sel);
+  const log = (msg)=>{ const el = $('#log'); el.textContent = (typeof msg === 'string'? msg : JSON.stringify(msg,null,2)); };
+  const setState = (t)=> $('#state').textContent = t;
+
+  // ====== INICIO ======
+  window.addEventListener('DOMContentLoaded', async () => {
+    $('#addr').textContent = CONTRACT_ADDRESS;
+
+    if (!window.ethereum){
+      setState('MetaMask no detectado');
+      log('Instala MetaMask para continuar.');
+      $('#btnConnect').disabled = true;
+      return;
+    }
+
+    $('#btnConnect').addEventListener('click', connect);
+
+    // Si ya hay cuentas conectadas, inicializamos
+    try {
+      const accs = await ethereum.request({ method:'eth_accounts' });
+      if (accs && accs.length){
+        await connect();
+      } else {
+        updateNetworkUI();
+      }
+    } catch(err){ log(err); }
+
+    // Eventos de red/cuentas
+    ethereum.on('chainChanged', ()=> window.location.reload());
+    ethereum.on('accountsChanged', ()=> window.location.reload());
+  });
+
+  async function connect(){
+    try{
+      const accs = await ethereum.request({ method:'eth_requestAccounts' });
+      account = accs[0];
+      $('#accountLine').textContent = `Conectado: ${short(account)}`;
+
+      // Comprobar red
+      const chainIdHex = await ethereum.request({ method:'eth_chainId' });
+      const chainId = Number(chainIdHex);
+      $('#net').textContent = `${chainId} ${chainId===TARGET_CHAIN_ID? '(Sepolia)': '(otra red)'}`;
+      if (chainId !== TARGET_CHAIN_ID){
+        setState('Cámbiate a Sepolia');
+        await ensureSepolia();
+        return; // el reload nos traerá de vuelta
+      }
+
+      provider = new ethers.BrowserProvider(window.ethereum);
+      signer = await provider.getSigner();
+      contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+
+      setState('Conectado');
+      await loadCandidates();
+      bindEvents();
+    }catch(err){
+      console.error(err); log('❌ Error al conectar.'); setState('Error de conexión');
+    }
+  }
+
+  async function ensureSepolia(){
+    try{
+      await ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: '0xaa36a7' /* 11155111 */ }]
+      });
+    }catch(switchError){
+      if (switchError.code === 4902){
+        // añadir red
+        await ethereum.request({
+          method: 'wallet_addEthereumChain',
+          params: [{
+            chainId: '0xaa36a7', chainName: 'Sepolia',
+            nativeCurrency: { name: 'Sepolia ETH', symbol: 'ETH', decimals: 18 },
+            rpcUrls: ['https://rpc.sepolia.org'],
+            blockExplorerUrls: ['https://sepolia.etherscan.io']
+          }]
+        });
+      } else {
+        log('Cámbiate manualmente a Sepolia en MetaMask.');
+      }
+    }
+  }
+
+  function short(addr){ return addr? addr.slice(0,6) + '…' + addr.slice(-4) : '—'; }
+
+  async function loadCandidates(){
+    setState('Cargando candidatos…');
+    $('#cards').innerHTML = '';
+    $('#empty').style.display = 'none';
+
+    try {
+      let list = [];
+      // Ruta A: getCandidates() devuelve array de tuplas { name, votes, id }
+      if (hasFn('getCandidates')){
+        list = await contract.getCandidates();
+        // Normalizar posibles formatos
+        list = list.map((c, idx)=> ({
+          id: Number(c.id ?? idx),
+          name: String(c.name ?? c[0] ?? `Candidato ${idx+1}`),
+          votes: Number(c.votes ?? c[1] ?? 0)
+        }));
+      } else if (hasFn('totalCandidates') && hasFn('candidates')) {
+        // Ruta B: totalCandidates() + candidates(i) -> (name, votes)
+        const total = Number(await contract.totalCandidates());
+        for (let i=0;i<total;i++){
+          const c = await contract.candidates(i);
+          list.push({ id:i, name:String(c.name ?? c[0]), votes: Number(c.votes ?? c[1] ?? 0) });
+        }
+      } else {
+        throw new Error('No encuentro funciones para listar candidatos. Añade getCandidates() o totalCandidates()+candidates(i) al ABI.');
+      }
+
+      const totalVotes = list.reduce((a,b)=> a + (Number(b.votes)||0), 0);
+      renderCards(list, totalVotes);
+      setState('Listo');
+      log('✅ Candidatos cargados.');
+    } catch(err){
+      console.error(err);
+      setState('Error');
+      $('#empty').style.display = 'block';
+      log('❌ No se pudo cargar la lista. Revisa la consola y el ABI.');
+    }
+  }
+
+  function renderCards(list, totalVotes){
+    const host = $('#cards');
+    host.innerHTML = '';
+    const safeTotal = totalVotes>0? totalVotes: 1; // evitar división por 0
+
+    list.forEach(c=>{
+      const pct = Math.round((Number(c.votes||0) / safeTotal) * 100);
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <h3>${esc(c.name)}</h3>
+        <div class="muted">Votos: <strong>${Number(c.votes||0)}</strong> · ${pct}%</div>
+        <div class="bar" style="margin:10px 0 12px"><div class="fill" style="width:${pct}%"></div></div>
+        <button data-id="${c.id}">Votar</button>
+      `;
+      host.appendChild(card);
+    });
+
+    host.querySelectorAll('button').forEach(btn=>{
+      btn.addEventListener('click', onVote);
+    });
+  }
+
+  function esc(s){ return String(s).replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m])); }
+
+  function hasFn(name){
+    try { return contract?.interface?.getFunction(name) != null; } catch{ return false; }
+  }
+
+  async function onVote(ev){
+    const id = Number(ev.currentTarget.getAttribute('data-id'));
+    if (!Number.isFinite(id)) return;
+
+    try{
+      setState('Firmando…');
+      log(`📝 Enviando voto para ID ${id}…`);
+
+      const tx = await contract.vote(id);
+      log(`⛓️  Tx enviada: ${tx.hash}\nEsperando confirmación…`);
+      ev.currentTarget.disabled = true;
+
+      const receipt = await tx.wait();
+      if (receipt?.status === 1){
+        log(`✅ Voto confirmado en bloque ${receipt.blockNumber}.`);
+        await loadCandidates();
+      } else {
+        log('⚠️ La transacción no se confirmó correctamente.');
+        ev.currentTarget.disabled = false;
+      }
+    }catch(err){
+      console.error(err);
+      if (String(err.message||'').includes('user rejected')) log('🛑 Firma rechazada por el usuario.');
+      else log('❌ Error al votar. Revisa consola.');
+    }finally{
+      setState('Listo');
+    }
+  }
+
+  function bindEvents(){
+    try{
+      if (contract && contract.filters){
+        // Intentar suscripción al evento Voted(address,uint256) o VoteCast
+        const tryEvents = ['Voted','VoteCast'];
+        for (const evName of tryEvents){
+          try{
+            const filter = contract.filters[evName]?.();
+            if (filter){
+              provider.on(filter, (logObj)=>{
+                // Actualizar silenciosamente tras eventos
+                loadCandidates();
+              });
+              log(`🔔 Suscrito a eventos ${evName}.`);
+              break;
+            }
+          }catch{/* continuar */}
+        }
+      }
+    }catch{/* opcional */}
+  }
+
+  async function updateNetworkUI(){
+    try{
+      const cidHex = await ethereum.request({ method:'eth_chainId' });
+      const cid = Number(cidHex);
+      $('#net').textContent = `${cid} ${cid===TARGET_CHAIN_ID? '(Sepolia)': '(otra red)'}`;
+    }catch{ $('#net').textContent = '—'; }
+  }
+  </script>
+
+  <!--
+  🧩 INSTRUCCIONES RÁPIDAS
+  1) Reemplaza CONTRACT_ADDRESS con tu dirección desplegada en Sepolia.
+  2) Pega el ABI JSON del contrato del Reto 4 en CONTRACT_ABI.
+     · Si tu contrato tiene getCandidates(): perfecto (name, votes, id)
+     · Si no, aporta totalCandidates() y candidates(i) -> (name, votes)
+  3) Sube este index.html a /MMDV-Blockchain/retos/reto5/ en tu repo.
+  4) Activa GitHub Pages (branch main, carpeta /root o /docs) o sirve desde la ruta del repo.
+  5) Abre la página con MetaMask en Sepolia, conecta y vota.
+
+  📎 Bloque “Recursos técnicos” (opcional, estilo MMDV)
+  Inserta antes de </main> o al final del <body>:
+    <div id="recursos"></div>
+    <script src="/MMDV-Blockchain/templates/recursos_template.js"></script>
+    <script>
+      recursosMMDV({
+        titulo: "Recursos técnicos",
+        pdf: "Documentacion_Reto5_MMDV-clean.pdf",
+        presentacion: "MMDV_Reto5_Presentacion.pdf",
+        codigo: "index.html",
+        csv: ""
+      });
+    </script>
+  -->
+</body>
+</html>
