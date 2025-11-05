@@ -224,7 +224,8 @@ async function loadCandidates(){
     } else {
       throw new Error('No encuentro funciones para listar candidatos. Añade getCandidates() o candidatesCount()+getCandidate(i)/candidates(i) al ABI.');
     }
-
+   // 🟣 NUEVA LÍNEA AQUÍ — guardamos la lista para mostrar ganador
+    window._cands = list;
     const totalVotes = list.reduce((a,b)=> a + (Number(b.votes)||0), 0);
     renderCards(list, totalVotes);
     setState('Listo');
