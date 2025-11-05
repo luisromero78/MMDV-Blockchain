@@ -54,17 +54,59 @@ window.addEventListener('DOMContentLoaded', async () => {
   const btnDisc = $('#btnDisconnect');
   if (btnDisc) btnDisc.addEventListener('click', disconnect);
 
-  try {
-    const accs = await ethereum.request({ method:'eth_accounts' });
-    if (accs && accs.length){ await connect(); } else { await updateNetworkUI(); }
-  } catch(err){ console.error(err); }
+  // solo mostramos red actual
+  await updateNetworkUI();
 
   ethereum.on('chainChanged', ()=> window.location.reload());
   ethereum.on('accountsChanged', ()=> window.location.reload());
 });
 
 // ====== CONEXIÓN ======
-async function connect(){
+async function connect()
+async function refreshStatusUI() {
+  try {
+    // Por defecto asumimos abierto y no votado
+    let isOpen = true;
+    let voted = false;
+    let isOwner = false;
+
+    if (hasFn('votingOpen'))  isOpen  = await contract.votingOpen();
+    if (hasFn('hasVoted'))    voted   = account ? await contract.hasVoted(account) : false;
+    if (hasFn('owner'))       isOwner = account ? (await contract.owner()).toLowerCase() === account.toLowerCase() : false;
+
+    // Estado visible
+    const estado = isOpen ? 'Abierta' : 'Cerrada';
+    setState(estado + (voted ? ' · Ya has votado' : ''));
+
+    // Botón Cerrar (solo owner y abierta)
+    const btnClose = $('#btnClose');
+    if (btnClose){
+      btnClose.style.display = (isOwner && isOpen) ? 'inline-block' : 'none';
+      btnClose.onclick = async () => {
+        try{
+          setState('Cerrando…');
+          const tx = await contract.closeVoting();
+          log(`⛓️ Tx enviada: ${tx.hash}\nEsperando confirmación…`);
+          await tx.wait();
+          setState('Cerrada');
+          await loadCandidates();
+          await refreshStatusUI();
+        }catch(err){
+          console.error(err);
+          log('❌ No se pudo cerrar la votación.');
+          setState('Listo');
+        }
+      };
+    }
+
+    // Deshabilitar todos los botones “Votar” si está cerrada o ya votó
+    $$('#cards button').forEach(b => { b.disabled = (!isOpen || voted); });
+
+  } catch (e) {
+    console.error(e);
+  }
+}
+{
   try{
     const accs = await ethereum.request({ method:'eth_requestAccounts' });
     account = accs[0];
