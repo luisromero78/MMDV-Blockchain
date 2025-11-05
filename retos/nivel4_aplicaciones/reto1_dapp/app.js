@@ -1,8 +1,8 @@
-// app.js  —  Reto 5 (dApp Web3) • ESM + CSP-safe
+// app.js — Reto 5 (dApp Web3) • ESM + CSP-safe
 import { BrowserProvider, Contract } from "https://esm.sh/ethers@6.13.2";
 
 // ====== CONFIGURA TU CONTRATO ======
-const CONTRACT_ADDRESS = "0xFC33326E9256054dA108d88A17Bc51d6adB414dc"; // <— reemplaza SOLO esto
+const CONTRACT_ADDRESS = "0xFC33326E9256054dA108d88A17Bc51d6adB414dc"; // <-- tu address (Sepolia)
 
 // ABI pegado desde tu Voting.json (campo "abi")
 const CONTRACT_ABI = [
@@ -54,7 +54,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   const btnDisc = $('#btnDisconnect');
   if (btnDisc) btnDisc.addEventListener('click', disconnect);
 
-  // solo mostramos red actual
+  // solo mostramos red actual (no auto-connect)
   await updateNetworkUI();
 
   ethereum.on('chainChanged', ()=> window.location.reload());
@@ -62,51 +62,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 });
 
 // ====== CONEXIÓN ======
-async function connect()
-async function refreshStatusUI() {
-  try {
-    // Por defecto asumimos abierto y no votado
-    let isOpen = true;
-    let voted = false;
-    let isOwner = false;
-
-    if (hasFn('votingOpen'))  isOpen  = await contract.votingOpen();
-    if (hasFn('hasVoted'))    voted   = account ? await contract.hasVoted(account) : false;
-    if (hasFn('owner'))       isOwner = account ? (await contract.owner()).toLowerCase() === account.toLowerCase() : false;
-
-    // Estado visible
-    const estado = isOpen ? 'Abierta' : 'Cerrada';
-    setState(estado + (voted ? ' · Ya has votado' : ''));
-
-    // Botón Cerrar (solo owner y abierta)
-    const btnClose = $('#btnClose');
-    if (btnClose){
-      btnClose.style.display = (isOwner && isOpen) ? 'inline-block' : 'none';
-      btnClose.onclick = async () => {
-        try{
-          setState('Cerrando…');
-          const tx = await contract.closeVoting();
-          log(`⛓️ Tx enviada: ${tx.hash}\nEsperando confirmación…`);
-          await tx.wait();
-          setState('Cerrada');
-          await loadCandidates();
-          await refreshStatusUI();
-        }catch(err){
-          console.error(err);
-          log('❌ No se pudo cerrar la votación.');
-          setState('Listo');
-        }
-      };
-    }
-
-    // Deshabilitar todos los botones “Votar” si está cerrada o ya votó
-    $$('#cards button').forEach(b => { b.disabled = (!isOpen || voted); });
-
-  } catch (e) {
-    console.error(e);
-  }
-}
-{
+async function connect(){
   try{
     const accs = await ethereum.request({ method:'eth_requestAccounts' });
     account = accs[0];
@@ -122,7 +78,7 @@ async function refreshStatusUI() {
     }
 
     provider = new BrowserProvider(window.ethereum);
-    signer = await provider.getSigner();
+    signer   = await provider.getSigner();
     contract = new Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
 
     // Exponer para depuración opcional
@@ -136,6 +92,7 @@ async function refreshStatusUI() {
     if (btnDisc) btnDisc.style.display = 'inline-block';
 
     await loadCandidates();
+    await refreshStatusUI();        // <-- (1) estado y permisos UI
     bindEvents();
   }catch(err){
     console.error(err);
@@ -183,6 +140,47 @@ function disconnect(){
   log('👋 Wallet desconectada (visual).');
 }
 
+// ====== ESTADO/UX ======
+async function refreshStatusUI() {
+  try {
+    let isOpen = true, voted = false, isOwner = false;
+
+    if (hasFn('votingOpen'))  isOpen  = await contract.votingOpen();
+    if (hasFn('hasVoted'))    voted   = account ? await contract.hasVoted(account) : false;
+    if (hasFn('owner'))       isOwner = account ? (await contract.owner()).toLowerCase() === account.toLowerCase() : false;
+
+    const estado = isOpen ? 'Abierta' : 'Cerrada';
+    setState(estado + (voted ? ' · Ya has votado' : ''));
+
+    // Botón Cerrar (solo owner y abierta)
+    const btnClose = $('#btnClose');
+    if (btnClose){
+      btnClose.style.display = (isOwner && isOpen) ? 'inline-block' : 'none';
+      btnClose.onclick = async () => {
+        try{
+          setState('Cerrando…');
+          const tx = await contract.closeVoting();
+          log(`⛓️ Tx enviada: ${tx.hash}\nEsperando confirmación…`);
+          await tx.wait();
+          setState('Cerrada');
+          await loadCandidates();
+          await refreshStatusUI();
+        }catch(err){
+          console.error(err);
+          log('❌ No se pudo cerrar la votación.');
+          setState('Listo');
+        }
+      };
+    }
+
+    // Deshabilitar todos los botones “Votar” si está cerrada o ya votó
+    $$('#cards button').forEach(b => { b.disabled = (!isOpen || voted); });
+
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 // ====== LÓGICA dApp ======
 async function precheckCanVote(id){
   const chainId = Number(await ethereum.request({ method:'eth_chainId' }));
@@ -210,7 +208,6 @@ async function loadCandidates(){
   try {
     let list = [];
 
-    // Ruta A: getCandidates() — si existiera en otra versión
     if (hasFn('getCandidates')){
       list = await contract.getCandidates();
       list = list.map((c, idx)=> ({
@@ -218,8 +215,6 @@ async function loadCandidates(){
         name: String(c.name ?? c[0] ?? `Candidato ${idx+1}`),
         votes: Number(c.votes ?? c[1] ?? 0)
       }));
-
-    // Ruta B: TU ABI — candidatesCount() + getCandidate(i) | candidates(i)
     } else if (hasFn('candidatesCount')) {
       const total = Number(await contract.candidatesCount());
       for (let i=0;i<total;i++){
@@ -227,7 +222,6 @@ async function loadCandidates(){
         if (hasFn('getCandidate')) c = await contract.getCandidate(i);
         else if (hasFn('candidates')) c = await contract.candidates(i);
         else throw new Error('No encuentro getCandidate(i) ni candidates(i)');
-
         list.push({ id:i, name:String(c.name ?? c[0]), votes: Number(c.votes ?? c[1] ?? 0) });
       }
     } else {
@@ -267,6 +261,9 @@ function renderCards(list, totalVotes){
   host.querySelectorAll('button').forEach(btn=>{
     btn.addEventListener('click', onVote);
   });
+
+  // primera pasada de estado/permiso si ya hay contrato/account
+  refreshStatusUI().catch(()=>{});
 }
 
 async function onVote(ev){
@@ -278,8 +275,7 @@ async function onVote(ev){
     setState('Firmando…');
     log(`📝 Enviando voto para ID ${id}…`);
 
-    // Si tu contrato fuera 1-based, usa (id + 1)
-    const tx = await contract.vote(id);
+    const tx = await contract.vote(id); // si tu contrato fuese 1-based: vote(id+1)
     log(`⛓️  Tx enviada: ${tx.hash}\nEsperando confirmación…`);
     ev.currentTarget.disabled = true;
 
@@ -287,6 +283,7 @@ async function onVote(ev){
     if (receipt?.status === 1){
       log(`✅ Voto confirmado en bloque ${receipt.blockNumber}.`);
       await loadCandidates();
+      await refreshStatusUI();      // <-- (2) tras votar, refresca estado
     } else {
       log('⚠️ La transacción no se confirmó correctamente.');
       ev.currentTarget.disabled = false;
@@ -309,9 +306,15 @@ function bindEvents(){
     try{
       const filter = contract.filters?.VoteCast?.();
       if (filter) {
-        provider.on(filter, ()=> loadCandidates());
+        provider.on(filter, async ()=>{
+          await loadCandidates();
+          await refreshStatusUI();  // <-- (3) al llegar evento, refresca estado
+        });
         log('🔔 Suscrito a eventos VoteCast.');
       }
     }catch{/* opcional */}
+  }catch{/* opcional */}
+}
+
   }catch{/* opcional */}
 }
