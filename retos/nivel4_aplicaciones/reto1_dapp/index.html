@@ -34,6 +34,24 @@
     .warn{color:#ffd27d}
     .ok{color:#79ffa8}
     .err{color:#ff8080}
+      /* === Estilo especial para el ganador === */
+#winner {
+  background: linear-gradient(90deg, #7A1535 0%, #d8a2b3 100%);
+  color: #fff;
+  border: none;
+  box-shadow: 0 0 18px rgba(218,180,200,0.25);
+  font-weight: 600;
+  letter-spacing: .3px;
+  position: relative;
+  padding-left: 32px;
+}
+#winner::before {
+  content: "🏆";
+  position: absolute;
+  left: 10px;
+  font-size: 20px;
+}
+
   </style>
 </head>
 <body>
