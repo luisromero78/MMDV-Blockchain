@@ -52,7 +52,8 @@ window.addEventListener('DOMContentLoaded', async () => {
 
   // 👉 atamos TODOS los botones que tengan data-connect
   $$('[data-connect]').forEach(b => b.addEventListener('click', connect));
-  $$('[data-disconnect]').forEach(b => b.addEventListener('click', disconnect));
+$$('[data-disconnect]').forEach(b => b.addEventListener('click', disconnect));
+
 
   await updateNetworkUI();
 
@@ -133,9 +134,8 @@ function disconnect(){
   account = null;
   $('#accountLine').textContent = '';
   $('#cards').innerHTML = '';
-  $$('[data-connect]').forEach(b => b.style.display = 'inline-block');
+ $$('[data-connect]').forEach(b => b.style.display = 'inline-block');
 $$('[data-disconnect]').forEach(b => b.style.display = 'none');
-
   setState('Desconectado');
   log('👋 Wallet desconectada (visual).');
 }
