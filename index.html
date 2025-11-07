@@ -195,6 +195,38 @@ section h2 { animation-delay: 1s; }
 
 /* Importante: que NINGUNA otra regla fuerce opacity:1 en .section-title */
 
+  /* Banner MMDV solo para la landing */
+
+  .banner-mmdv {
+    max-width: 980px;              /* mismo ancho que el contenido */
+    margin: 0 auto 24px;           /* centrado y con aire abajo */
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    pointer-events: none;          /* no bloquea clics del contenido */
+  }
+
+  .banner-mmdv img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 2s ease;
+    pointer-events: none;          /* asegura que no capture clics */
+  }
+
+  .banner-mmdv:hover img {
+    transform: scale(1.03);
+  }
+
+  @media (max-width: 768px) {
+    .banner-mmdv {
+      max-width: 100%;
+      margin: 0 0 16px;
+    }
+  }
+
+    
   </style>
 </head>
 
