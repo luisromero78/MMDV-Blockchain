@@ -260,44 +260,36 @@ blockquote{margin:16px 0;padding:12px 14px;border-left:4px solid var(--accent);
   color: #7A1535;
 }
 
-/* === Banner MMDV === */
+/* === Banner MMDV · Ajuste Final === */
 .banner-mmdv {
   width: 100%;
   height: auto;
-  max-height: 180px;            /* altura recomendada desktop */
+  max-height: 180px;
   overflow: hidden;
   position: relative;
-  margin: 0 0 1.5rem;           /* sin margen arriba, solo abajo */
+  margin: 0 0 1.5rem;
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
 .banner-mmdv img {
   width: 100%;
   height: auto;
-  aspect-ratio: 1128 / 382;     /* mantiene la proporción del banner */
+  aspect-ratio: 1128 / 382;
   object-fit: cover;
-  object-position: center;      /* centra la imagen dentro del bloque */
+  object-position: center 37%; /* ✅ Valor exacto de centrado visual */
   display: block;
   transition: transform 2s ease;
 }
 
 .banner-mmdv:hover img {
-  transform: scale(1.03);       /* zoom suave al hover */
+  transform: scale(1.03);
 }
 
 @media (max-width: 768px) {
   .banner-mmdv {
     max-height: 140px;
   }
+  .banner-mmdv img {
+    object-position: center 42%; /* ligero ajuste para móviles */
+  }
 }
-
-/* Alineación del banner con el bloque principal */
-header {
-  margin-bottom: 0; /* elimina espacio residual debajo del header */
-}
-
-.banner-mmdv {
-  margin-top: 0; /* evita margen duplicado arriba */
-  transform: translateY(10px); /* mueve el banner ligeramente hacia abajo */
-}
-
