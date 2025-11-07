@@ -270,7 +270,7 @@ body {
     </div>
   </header>
   
-<!-- BANNER MMDV (AHORA SÍ ENCIMA DEL NOMBRE) -->
+<!-- BANNER MMDV (AHORA SÍ ENCIMA DEL NOMBRE) --> 
   <section class="banner-mmdv">
     <img src="assets/img/banner_mmdv.png" alt="MMDV Banner">
   </section>
@@ -278,7 +278,7 @@ body {
 
   <!-- MAIN -->
   <main class="wrap">
-    !-- Nombre y tagline debajo del banner -->
+    <!-- Nombre y tagline debajo del banner -->
     <section class="hero">
       <h1>Luis Eduardo Romero</h1>
       <p class="subtitle">
@@ -342,29 +342,5 @@ body {
   <footer>
     <div class="wrap">© 2025 Luis Eduardo Romero · MMDV</div>
   </footer>
-  <script>
-const transition = document.getElementById('pageTransition');
-const body = document.body;
-
-// Fade-out + overlay vino al navegar por enlaces internos
-document.querySelectorAll('a[href]').forEach(link => {
-  link.addEventListener('click', e => {
-    const url = link.getAttribute('href');
-    if (!url || url.startsWith('#') || url.startsWith('mailto:') || url.startsWith('http')) return;
-    e.preventDefault();
-
-    body.style.transition = "opacity 0.4s ease";
-    body.style.opacity = "0";
-    transition.classList.add('active');
-    setTimeout(() => window.location.href = url, 500);
-  });
-});
-
-// Al cargar, restaurar opacidad (como Retos)
-window.addEventListener('pageshow', () => {
-  body.style.opacity = "1";
-});
-</script>
-
-</body>
+  </body>
 </html>
