@@ -225,23 +225,21 @@ section h2 { animation-delay: 1s; }
       margin: 0 0 16px;
     }
   }
+#pageTransition {
+  pointer-events: none;
+  opacity: 0;
+}
 
     
   </style>
 </head>
 <body>
-    <!-- Banner MMDV -->
-<section class="banner-mmdv">
-  <img src="assets/img/banner_mmdv.png" alt="MMDV Banner">
-</section>
-      <div class="wrap">
+  <header>
+    
+       <div class="wrap">
       <div class="nav-wrap">
         <div class="brand">
           <img src="assets/mmdv-logo.png" alt="MMDV" class="logo">
-          <div>
-            <h1>Luis Eduardo Romero</h1>
-            <p class="subtitle">Blockchain · Inteligencia Artificial · Analítica de Datos · Real Estate</p>
-          </div>
         </div>
 
         <nav>
@@ -254,11 +252,22 @@ section h2 { animation-delay: 1s; }
       </div>
     </div>
   </header>
-
+  
+<!-- BANNER MMDV (AHORA SÍ ENCIMA DEL NOMBRE) -->
+  <section class="banner-mmdv">
+    <img src="assets/img/banner_mmdv.png" alt="MMDV Banner">
+  </section>
   
 
   <!-- MAIN -->
   <main class="wrap">
+    !-- Nombre y tagline debajo del banner -->
+    <section class="hero">
+      <h1>Luis Eduardo Romero</h1>
+      <p class="subtitle">
+        Blockchain · Inteligencia Artificial · Analítica de Datos · Real Estate
+      </p>
+    </section>
     <!-- PROYECTOS -->
     <h2 id="proyectos-title" class="section-title">Proyectos</h2>
        <section class="card reveal">
