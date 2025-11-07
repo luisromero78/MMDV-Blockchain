@@ -260,33 +260,3 @@ blockquote{margin:16px 0;padding:12px 14px;border-left:4px solid var(--accent);
   color: #7A1535;
 }
 
-/* === Banner MMDV · Alineado con el contenido === */
-.banner-mmdv {
-  max-width: 980px;              /* igual que .wrap */
-  margin: 0 auto 1.5rem;         /* centrado, espacio abajo */
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  pointer-events: none;          /* 👈 el banner no bloquea clics debajo */
-}
-
-.banner-mmdv img {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 1128 / 382;      /* mantiene proporción original */
-  object-fit: cover;
-  object-position: center;       /* centrado visual */
-  display: block;
-  transition: transform 2s ease;
-  pointer-events: none;          /* 👈 también en la imagen */
-}
-
-.banner-mmdv:hover img {
-  transform: scale(1.03);
-}
-
-@media (max-width: 768px) {
-  .banner-mmdv {
-    max-width: 100%;
-    margin: 0 0 1.5rem;
-  }
-}
