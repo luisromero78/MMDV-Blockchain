@@ -260,65 +260,33 @@ blockquote{margin:16px 0;padding:12px 14px;border-left:4px solid var(--accent);
   color: #7A1535;
 }
 
+/* === Banner MMDV === */
 .banner-mmdv {
   width: 100%;
-  max-height: 180px;
+  height: auto;
+  max-height: 180px;            /* altura recomendada desktop */
   overflow: hidden;
   position: relative;
-  margin-bottom: 1.5rem;
+  margin: 0 0 1.5rem;           /* sin margen arriba, solo abajo */
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
 .banner-mmdv img {
   width: 100%;
   height: auto;
+  aspect-ratio: 1128 / 382;     /* mantiene la proporción del banner */
   object-fit: cover;
+  object-position: center;      /* centra la imagen dentro del bloque */
   display: block;
   transition: transform 2s ease;
 }
 
 .banner-mmdv:hover img {
-  transform: scale(1.03);
+  transform: scale(1.03);       /* zoom suave al hover */
 }
 
-/* === Banner MMDV Ajuste Proporcional === */
-.banner-mmdv {
-  width: 100%;
-  height: auto;
-  max-height: 180px;             /* altura recomendada para desktop */
-  overflow: hidden;
-  position: relative;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-.banner-mmdv img {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 1128 / 382;      /* mantiene proporción original */
-  object-fit: cover;
-  display: block;
-  transition: transform 2s ease;
-}
-
-/* Sutil efecto de zoom al pasar el cursor */
-.banner-mmdv:hover img {
-  transform: scale(1.03);
-}
-
-/* Ajuste para móviles */
 @media (max-width: 768px) {
   .banner-mmdv {
-    max-height: 140px;           /* más bajo en pantallas pequeñas */
+    max-height: 140px;
   }
-}
-
-.banner-mmdv img {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 1128 / 382;
-  object-fit: cover;
-  object-position: center; /* ✅ centra la imagen vertical y horizontalmente */
-  display: block;
-  transition: transform 2s ease;
 }
