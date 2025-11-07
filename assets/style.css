@@ -290,3 +290,14 @@ blockquote{margin:16px 0;padding:12px 14px;border-left:4px solid var(--accent);
     max-height: 140px;
   }
 }
+
+/* Alineación del banner con el bloque principal */
+header {
+  margin-bottom: 0; /* elimina espacio residual debajo del header */
+}
+
+.banner-mmdv {
+  margin-top: 0; /* evita margen duplicado arriba */
+  transform: translateY(10px); /* mueve el banner ligeramente hacia abajo */
+}
+
