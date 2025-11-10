@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Proyecto MMDV — Tokenización de Valor (MMDV Wine Token)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Proyecto MMDV de tokenización de valor con MMDV Wine Token (MWT): ERC-20 capado, eventos de trazabilidad y mini DApp Web3." />
+  <link rel="stylesheet" href="/MMDV-Blockchain/assets/style.css" />
+</head>
+<body>
+
+  <!-- NAV / BREADCRUMB -->
+  <header class="topbar">
+    <div class="wrap row space-between center">
+      <div class="brand">
+        <a href="/MMDV-Blockchain/index.html">MMDV-Blockchain</a>
+      </div>
+      <nav class="nav">
+        <a href="/MMDV-Blockchain/index.html">Inicio</a>
+        <a href="/MMDV-Blockchain/projects/index.html" class="is-active">Proyectos</a>
+        <a href="/MMDV-Blockchain/retos.html">Retos</a>
+        <a href="/MMDV-Blockchain/about.html">Sobre mí</a>
+      </nav>
+    </div>
+    <div class="wrap breadcrumb">
+      <a href="/MMDV-Blockchain/projects/index.html">Proyectos</a>
+      <span>/</span>
+      <span>MMDV Wine Token</span>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero hero-dark">
+    <div class="wrap">
+      <h1>🍷 Proyecto MMDV — Tokenización de Valor</h1>
+      <p class="subtitle">
+        <strong>MMDV Wine Token (MWT)</strong> · Del viñedo a la blockchain:
+        caso práctico de tokenización con ERC-20 capado, eventos de trazabilidad
+        y mini DApp Web3 en abierto.
+      </p>
+    </div>
+  </section>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="wrap project-layout">
+
+    <!-- BLOQUE 1 · FUNDAMENTOS -->
+    <section class="card">
+      <h2>Bloque 1 · Fundamentos de la Tokenización</h2>
+      <p>
+        Este proyecto nace con un objetivo claro: explicar con un ejemplo real qué
+        significa <strong>tokenizar un activo</strong> y cómo se ve eso on-chain,
+        sin humo y sin complejidad innecesaria.
+      </p>
+
+      <h3>¿Qué es tokenizar un activo?</h3>
+      <p>
+        Tokenizar es representar un activo (vino, arte, inmuebles, derechos, experiencias)
+        mediante <strong>tokens en una blockchain</strong>. Esos tokens actúan como
+        unidades digitales verificables que pueden:
+      </p>
+      <ul>
+        <li>Demostrar propiedad o participación.</li>
+        <li>Registrar lotes, series o ediciones limitadas.</li>
+        <li>Facilitar trazabilidad y transparencia.</li>
+      </ul>
+
+      <h3>¿Por qué empezar con un ERC-20 capado?</h3>
+      <p>
+        Para el caso educativo del vino, usamos un <strong>ERC-20 capado</strong>:
+        un token fungible con un límite máximo de emisión definido desde el despliegue.
+        Esto nos permite:
+      </p>
+      <ul>
+        <li>Controlar el suministro total (<em>no hay impresión infinita</em>).</li>
+        <li>Asociar cada emisión a un <strong>lote de vino</strong> concreto.</li>
+        <li>Medir de forma sencilla balances, movimientos y eventos.</li>
+      </ul>
+      <p>
+        Sobre esta base añadimos eventos específicos para trazabilidad:
+        <code>WineMinted</code> y <code>WineRedeemed</code>, que conectan cada operación
+        con un <code>batchId</code> (lote, añada, serie).
+      </p>
+
+      <h3>Visión del proyecto</h3>
+      <ul>
+        <li>Definir y desplegar <strong>MMDV Wine Token (MWT)</strong> en testnet.</li>
+        <li>Registrar al menos un lote real como demostración.</li>
+        <li>Publicar una <strong>mini DApp Web3</strong> que lea:
+          <code>totalSupply</code>, <code>cap</code>, <code>balanceOf</code> y eventos
+          directamente desde la blockchain usando un provider público (sin MetaMask).
+        </li>
+        <li>Dejar la base lista para extender el modelo a vino, arte o real estate.</li>
+      </ul>
+    </section>
+
+    <!-- ROADMAP -->
+    <section class="card">
+      <h2>Roadmap del proyecto</h2>
+      <ol class="roadmap">
+        <li><strong>Bloque 1:</strong> Fundamentos de tokenización y diseño de MWT. ✔</li>
+        <li><strong>Bloque 2:</strong> Smart Contract ERC-20 capado + eventos de trazabilidad.</li>
+        <li><strong>Bloque 3:</strong> Despliegue en testnet (Sepolia) y primer lote emitido.</li>
+        <li><strong>Bloque 4:</strong> Mini DApp Web3 de lectura on-chain (sin extensiones).</li>
+        <li><strong>Bloque 5:</strong> Demostración de lotes y eventos on-chain.</li>
+        <li><strong>Bloque 6:</strong> Extensiones: NFTs, experiencias, real estate.</li>
+      </ol>
+      <p class="note">
+        Todo el avance será público en este repositorio y se irá documentando con ejemplos,
+        capturas y código.
+      </p>
+    </section>
+
+    <!-- RECURSOS TÉCNICOS (BLOQUE 1) -->
+    <section class="card">
+      <h2>Recursos del Bloque 1</h2>
+      <p>
+        Puedes descargar el documento introductorio del proyecto con los conceptos clave
+        de tokenización, diseño del MMDV Wine Token y roadmap técnico.
+      </p>
+      <div id="recursos"></div>
+    </section>
+
+    <!-- FIRMA -->
+    <section class="card">
+      <p>
+        <strong>Luis Eduardo Romero</strong><br>
+        MMDV Consulting | IA, Blockchain &amp; Real Estate Strategy
+      </p>
+    </section>
+
+  </main>
+
+  <!-- SNIPPET RECURSOS -->
+  <script src="/MMDV-Blockchain/templates/recursos_template.js"></script>
+  <script>
+    recursosMMDV({
+      titulo: "Recursos técnicos",
+      pdf: "MMDV_WineToken_Bloque1.pdf"
+    });
+  </script>
+
+</body>
+</html>
