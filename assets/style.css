@@ -277,10 +277,14 @@ blockquote{margin:16px 0;padding:12px 14px;border-left:4px solid var(--accent);
   margin-top: 1.5rem; /* acerca el primer bloque al título */
 }
 
-/* Ajuste del espaciado superior del hero en proyectos */
+/* Ajustes específicos páginas de proyecto MMDV */
 .hero.hero-dark {
-  padding-top: 3rem;    /* antes eran 6rem */
-  padding-bottom: 2rem; /* reduce también el inferior */
+  padding-top: 3rem;
+  padding-bottom: 2rem;
+}
+
+.wrap.project-layout {
+  margin-top: 1.5rem;
 }
 
 .hero h1 {
@@ -290,4 +294,3 @@ blockquote{margin:16px 0;padding:12px 14px;border-left:4px solid var(--accent);
 .hero .subtitle {
   margin-top: 0.3rem;
 }
-
