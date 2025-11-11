@@ -295,3 +295,23 @@ blockquote{margin:16px 0;padding:12px 14px;border-left:4px solid var(--accent);
 .wrap.project-layout {
   margin-top: 1.5rem !important;
 }
+
+/* Ajustes finos SOLO para páginas del proyecto MMDV Wine Token */
+body.mwt-page .wrap.breadcrumb {
+  margin-top: 1.5rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+body.mwt-page .hero.hero-dark {
+  padding-top: 0.5rem !important;
+  padding-bottom: 1.5rem !important;
+  margin-top: 0 !important;
+}
+
+body.mwt-page .hero.hero-dark .wrap {
+  padding-top: 0 !important;
+}
+
+body.mwt-page .wrap.project-layout {
+  margin-top: 1rem !important;
+}
