@@ -2,53 +2,88 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <title>Bloque 2 – Tipos de Tokens y el estándar ERC-20 | MMDV Wine Token</title>
-  <meta name="description" content="Bloque 2 del curso MMDV Web3: Tipos de Tokens y estándar ERC-20 con el diseño del MMDV Wine Token (MWT)." />
+  <title>Bloque 2 — Tipos de Tokens y el estándar ERC-20 | MMDV Wine Token</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Bloque 2 del proyecto MMDV Wine Token (MWT): clasificación de tokens, estándar ERC-20 y diseño técnico del token educativo." />
   <link rel="stylesheet" href="/MMDV-Blockchain/assets/style.css" />
 </head>
 <body>
 
-<header class="topbar">
-  <div class="wrap row space-between center">
-    <div class="brand"><a href="/MMDV-Blockchain/index.html">MMDV-Blockchain</a></div>
-    <nav class="nav">
-      <a href="/MMDV-Blockchain/index.html">Inicio</a>
-      <a href="/MMDV-Blockchain/projects/index.html" class="is-active">Proyectos</a>
-      <a href="/MMDV-Blockchain/retos.html">Retos</a>
-      <a href="/MMDV-Blockchain/about.html">Sobre mí</a>
-    </nav>
-  </div>
-</header>
-
-<div class="wrap breadcrumb">
-  <a href="/MMDV-Blockchain/projects/index.html">Proyectos</a>
-  <span>/</span>
-  <a href="/MMDV-Blockchain/projects/mmdv-wine-token/index.html">MMDV Wine Token</a>
-  <span>/</span>
-  <span>Bloque 2</span>
-</div>
-
-<section class="hero hero-dark">
-  <div class="wrap">
-    <h1>🍇 Bloque 2 – Tipos de Tokens y el estándar ERC-20</h1>
-    <p class="subtitle">Del concepto al código: cómo nace un token ERC-20 y cómo el MWT representa valor real.</p>
-  </div>
-</section>
-
-<main class="wrap project-layout">
-  <div class="card">
-    <p>Consulta el documento completo en formato PDF o visualiza los recursos visuales del bloque.</p>
-    <div class="actions">
-      <a class="btn-inline btn-vino" 
-         href="/MMDV-Blockchain/projects/mmdv-wine-token/assets/Bloque2_Tipos_de_Tokens_MMDV-clean.pdf" 
-         target="_blank">📄 Abrir PDF completo</a>
+  <!-- NAV -->
+  <header class="topbar">
+    <div class="wrap row space-between center">
+      <div class="brand">
+        <a href="/MMDV-Blockchain/index.html">MMDV-Blockchain</a>
+      </div>
+      <nav class="nav">
+        <a href="/MMDV-Blockchain/index.html">Inicio</a>
+        <a href="/MMDV-Blockchain/projects/index.html" class="is-active">Proyectos</a>
+        <a href="/MMDV-Blockchain/retos.html">Retos</a>
+        <a href="/MMDV-Blockchain/about.html">Sobre mí</a>
+      </nav>
     </div>
-  </div>
-</main>
+  </header>
 
-<footer class="footer">
-  <div class="wrap center small">© 2025 MMDV · Proyecto Web3 Educativo</div>
-</footer>
+  <!-- BREADCRUMB -->
+  <div class="wrap breadcrumb">
+    <a href="/MMDV-Blockchain/projects/index.html">Proyectos</a>
+    <span>/</span>
+    <a href="/MMDV-Blockchain/projects/mmdv-wine-token/index.html">MMDV Wine Token</a>
+    <span>/</span>
+    <span>Bloque 2</span>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero hero-dark">
+    <div class="wrap">
+      <h1>🍇 Bloque 2 — Tipos de Tokens y el estándar ERC-20</h1>
+      <p class="subtitle">
+        Del concepto al código: cómo nace un token ERC-20 y cómo el MWT representa valor real.
+      </p>
+    </div>
+  </section>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="wrap project-layout">
+    <section class="card">
+      <h2>Del concepto al código</h2>
+      <p>
+        En este segundo bloque damos el paso desde la teoría de la tokenización hacia el diseño técnico real. 
+        Aprenderás cómo funcionan los distintos tipos de tokens, qué es un ERC-20 
+        y por qué el MMDV Wine Token (MWT) utiliza este estándar para representar valor, transparencia y trazabilidad.
+      </p>
+      <p>
+        Cada token MWT equivale a una fracción de un lote de vino, registrado en la blockchain con su 
+        identificador de lote (<code>batchId</code>) y una nota descriptiva. 
+        El contrato está diseñado con librerías OpenZeppelin, incorpora un cap máximo de emisión 
+        y eventos de trazabilidad (<code>WineMinted</code> y <code>WineRedeemed</code>).
+      </p>
+
+      <div class="actions">
+        <a class="btn-inline btn-vino" 
+           href="/MMDV-Blockchain/projects/mmdv-wine-token/assets/Bloque2_Tipos_de_Tokens_MMDV-clean.pdf" 
+           target="_blank">📄 Abrir PDF completo</a>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Recursos visuales del bloque</h2>
+      <p>Principales esquemas incluidos en el documento:</p>
+      <ul>
+        <li>Infografía – Tipos de tokens (ERC-20 / ERC-721 / ERC-1155)</li>
+        <li>Diagrama – Flujo Mint → Registro → Circulación → Redeem → Cierre del lote</li>
+        <li>Imagen – Copa de vino con circuito digital y tokens flotantes</li>
+      </ul>
+      <p>Estos recursos están disponibles dentro del PDF y en la carpeta <code>/assets/</code> del proyecto.</p>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="wrap center small">
+      © 2025 MMDV · Proyecto Web3 Educativo · Bloque 2 – Tipos de Tokens y ERC-20
+    </div>
+  </footer>
 
 </body>
 </html>
