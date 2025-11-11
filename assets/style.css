@@ -277,20 +277,21 @@ blockquote{margin:16px 0;padding:12px 14px;border-left:4px solid var(--accent);
   margin-top: 1.5rem; /* acerca el primer bloque al título */
 }
 
-/* Ajustes específicos páginas de proyecto MMDV */
+/* Ajustes de espaciado en páginas de proyecto con hero oscuro */
+
 .hero.hero-dark {
-  padding-top: 3rem;
-  padding-bottom: 2rem;
+  padding-top: 1.5rem !important;
+  padding-bottom: 2rem !important;
+}
+
+.hero.hero-dark .wrap {
+  padding-top: 0 !important;
+}
+
+.wrap.breadcrumb {
+  margin-bottom: 0.5rem !important;
 }
 
 .wrap.project-layout {
-  margin-top: 1.5rem;
-}
-
-.hero h1 {
-  margin-bottom: 0.5rem;
-}
-
-.hero .subtitle {
-  margin-top: 0.3rem;
+  margin-top: 1.5rem !important;
 }
