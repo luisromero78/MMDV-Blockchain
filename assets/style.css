@@ -260,75 +260,33 @@ blockquote{margin:16px 0;padding:12px 14px;border-left:4px solid var(--accent);
   color: #7A1535;
 }
 
-/* Ajuste visual de bloques en MMDV Wine Token */
-.project-layout .card {
-  margin-bottom: 2.5rem; /* separa mejor los bloques */
+/* ===== Proyecto MMDV Wine Token – ajustes específicos ===== */
+
+/* Separación entre tarjetas del proyecto */
+body.mwt-page .project-layout .card {
+  margin-bottom: 2rem;
 }
 
-.hero h1 {
-  margin-bottom: 0.75rem; /* reduce el hueco entre título y subtítulo */
-}
-
-.hero .subtitle {
-  margin-top: 0.25rem; /* ajusta el espaciado superior del subtítulo */
-}
-
-.wrap.project-layout {
-  margin-top: 1.5rem; /* acerca el primer bloque al título */
-}
-
-/* Ajustes de espaciado en páginas de proyecto con hero oscuro */
-
-.hero.hero-dark {
-  padding-top: 1.5rem !important;
-  padding-bottom: 2rem !important;
-}
-
-.hero.hero-dark .wrap {
-  padding-top: 0 !important;
-}
-
-.wrap.breadcrumb {
-  margin-bottom: 0.5rem !important;
-}
-
-.wrap.project-layout {
-  margin-top: 1.5rem !important;
-}
-
-/* Ajustes finos SOLO para páginas del proyecto MMDV Wine Token */
+/* Breadcrumb pegado arriba y cerca del título */
 body.mwt-page .wrap.breadcrumb {
-  margin-top: 1.5rem !important;
-  margin-bottom: 0.5rem !important;
+  margin-top: 0.75rem;
+  margin-bottom: 0.3rem;
 }
 
+/* Hero compacto (título + subtítulo) */
 body.mwt-page .hero.hero-dark {
-  padding-top: 0.5rem !important;
-  padding-bottom: 1.5rem !important;
-  margin-top: 0 !important;
+  padding-top: 0.5rem;
+  padding-bottom: 0.75rem;
+  margin-top: 0;
 }
 
+/* Evitar rellenos extra dentro del hero */
 body.mwt-page .hero.hero-dark .wrap {
-  padding-top: 0 !important;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
+/* Acercar el primer bloque al hero */
 body.mwt-page .wrap.project-layout {
-  margin-top: 1rem !important;
+  margin-top: 0.75rem;
 }
-
-/* Ajuste fino del espacio entre nav y hero en proyectos MMDV */
-body.mwt-page .hero.hero-dark {
-  padding-top: 0.75rem !important;
-}
-
-body.mwt-page .wrap.breadcrumb {
-  margin-top: 0.75rem !important;
-  margin-bottom: 0.25rem !important;
-}
-
-.hero {
-  padding-top: 1.5rem !important;  /* Reduce el espacio superior */
-  padding-bottom: 1rem !important; /* Reduce el espacio inferior */
-  margin-top: 0 !important;
-}
-
