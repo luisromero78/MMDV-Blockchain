@@ -315,3 +315,13 @@ body.mwt-page .hero.hero-dark .wrap {
 body.mwt-page .wrap.project-layout {
   margin-top: 1rem !important;
 }
+
+/* Ajuste fino del espacio entre nav y hero en proyectos MMDV */
+body.mwt-page .hero.hero-dark {
+  padding-top: 0.75rem !important;
+}
+
+body.mwt-page .wrap.breadcrumb {
+  margin-top: 0.75rem !important;
+  margin-bottom: 0.25rem !important;
+}
