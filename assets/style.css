@@ -260,3 +260,19 @@ blockquote{margin:16px 0;padding:12px 14px;border-left:4px solid var(--accent);
   color: #7A1535;
 }
 
+/* Ajuste visual de bloques en MMDV Wine Token */
+.project-layout .card {
+  margin-bottom: 2.5rem; /* separa mejor los bloques */
+}
+
+.hero h1 {
+  margin-bottom: 0.75rem; /* reduce el hueco entre título y subtítulo */
+}
+
+.hero .subtitle {
+  margin-top: 0.25rem; /* ajusta el espaciado superior del subtítulo */
+}
+
+.wrap.project-layout {
+  margin-top: 1.5rem; /* acerca el primer bloque al título */
+}
