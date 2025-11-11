@@ -326,9 +326,9 @@ body.mwt-page .wrap.breadcrumb {
   margin-bottom: 0.25rem !important;
 }
 
-.hero.hero-dark {
-  padding-top: 1.5rem !important;
-  padding-bottom: 1rem !important;
+.hero {
+  padding-top: 1.5rem !important;  /* Reduce el espacio superior */
+  padding-bottom: 1rem !important; /* Reduce el espacio inferior */
   margin-top: 0 !important;
 }
 
