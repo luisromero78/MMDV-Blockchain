@@ -1,39 +1,18 @@
 const hre = require("hardhat");
 
-// Dirección exacta del contrato en Sepolia (checksum correcta)
-const CONTRACT = "0x81f4Ba822482b61F46BFbC724B112E1aBEbCAE87";
-
-const ABI = [
-  "function mint(address to, uint256 amount) external",
-  "function owner() view returns (address)",
-  "function balanceOf(address) view returns (uint256)"
-];
-
 async function main() {
-  const [signer] = await hre.ethers.getSigners();
-  const signerAddress = await signer.getAddress();
+  const tokenAddress = process.env.TOKEN_ADDRESS; // 0x81f4bA822482b61F46BFBc724B112E1aBEBCaE87
+  const toRaw        = process.env.MINT_TO;       // 0xC9d05cdBfE0b2611A0b70364DF6c43d2612a9197 (tu cuenta)
+  const amountRaw    = process.env.MINT_AMOUNT || "1000"; // unidades humanas
 
-  console.log("Signer:", signerAddress);
+  const to      = hre.ethers.getAddress(toRaw);      // ✔ normaliza checksum
+  const amount  = hre.ethers.parseUnits(amountRaw, 18); // ✔ 18 decimales
+  const token   = await hre.ethers.getContractAt("MMDVWineToken", tokenAddress);
 
-  const contractAddress = hre.ethers.getAddress(CONTRACT);
-  const token = new hre.ethers.Contract(contractAddress, ABI, signer);
-
-  const to = hre.ethers.getAddress(signerAddress);
-  const amount = hre.ethers.parseUnits("1000", 18);
-
-  console.log(`Minteando 1000 MWT a ${to}...`);
-
-  const tx = await token.mint(to, amount, { gasLimit: 120000 });
-  console.log("Tx enviada:", tx.hash);
-
-  const receipt = await tx.wait();
-  console.log("✅ Tx confirmada en bloque:", receipt.blockNumber);
-
-  const balance = await token.balanceOf(to);
-  console.log("📦 Balance actual:", hre.ethers.formatUnits(balance, 18), "MWT");
+  console.log(`Minteando a: ${to}`);
+  const tx = await token.mint(to, amount);
+  await tx.wait();
+  console.log(`✅ Mint OK: ${amountRaw} MWT`);
 }
 
-main().catch((err) => {
-  console.error("❌ Error:", err.shortMessage || err.message || err);
-  process.exit(1);
-});
+main().catch((e) => { console.error("❌ Error:", e.message); process.exit(1); });
