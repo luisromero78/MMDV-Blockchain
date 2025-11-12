@@ -1,28 +1,24 @@
-const hre = require("hardhat");
+cconst hre = require("hardhat");
 
 async function main() {
-  // 👇 Ajusta estos valores a tu lote:
-  const NAME = "MMDV Wine Token";
-  const SYMBOL = "MMDVW";
-  const INITIAL_SUPPLY = hre.ethers.parseUnits("10000", 18); // 10.000 tokens
+  // Cap total del lote (ej.: 1.000.000 tokens con 18 decimales)
+  const CAP = hre.ethers.parseUnits("1000000", 18);
 
-  // 👇 El nombre debe coincidir EXACTO con el contrato en tu .sol
   const Token = await hre.ethers.getContractFactory("MMDVWineToken");
-  const token = await Token.deploy(NAME, SYMBOL, INITIAL_SUPPLY);
+  const token = await Token.deploy(CAP);
   const tx = await token.deploymentTransaction();
   await token.waitForDeployment();
 
   const address = await token.getAddress();
   console.log("\n✅ Token desplegado en:", address);
-  console.log("🔗 Tx hash:", tx.hash);
+  console.log("🔗 Tx hash:", tx?.hash);
 
-  // (opcional) verificación en Etherscan si tienes ETHERSCAN_API_KEY en .env
-  // pequeño delay para que indexe
+  // (Opcional) verificación en Etherscan si tienes ETHERSCAN_API_KEY en .env
   await new Promise(r => setTimeout(r, 30_000));
   try {
     await hre.run("verify:verify", {
       address,
-      constructorArguments: [NAME, SYMBOL, INITIAL_SUPPLY],
+      constructorArguments: [CAP],
     });
     console.log("🔎 Verificado en Etherscan");
   } catch (err) {
