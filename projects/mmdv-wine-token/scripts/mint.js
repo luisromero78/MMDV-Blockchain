@@ -1,22 +1,19 @@
 const hre = require("hardhat");
 
-// Dirección del contrato en Sepolia (en minúsculas)
-const CONTRACT = "0x81f4ba822482b61f46bfbc724b112e1abebcae87";
+const CONTRACT = "0x81f4ba822482b61f46bfbc724b112e1abebcae87"; // contrato en Sepolia
 
 async function main() {
-  const [deployer] = await hre.ethers.getSigners();
+  const [owner] = await hre.ethers.getSigners();        // tu cuenta conectada
+  const to = owner.address;                              // mint al owner
+  const token = await hre.ethers.getContractAt("MMDVWineToken", CONTRACT, owner);
 
-  // Conecta el contrato con el signer que firmará la tx
-  const token = await hre.ethers.getContractAt("MMDVWineToken", CONTRACT, deployer);
-
-  // Minteamos a tu propia cuenta (válida seguro)
-  const to = deployer.address;
-  const amount = hre.ethers.parseUnits("1000", 18);
-
+  const amount = hre.ethers.parseUnits("1000", 18);      // 1.000 MWT
   console.log("Minteando a:", to);
-  const tx = await token.mint(to, amount);
+
+  const tx = await token.mint(to, amount);               // ⚠️ Asegúrate de ser owner
   await tx.wait();
-  console.log("✅ Mint OK: 1000 MWT");
+
+  console.log("✅ Mint OK:", hre.ethers.formatUnits(amount, 18), "MWT");
 }
 
 main().catch((e) => { console.error(e); process.exitCode = 1; });
