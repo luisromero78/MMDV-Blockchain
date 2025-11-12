@@ -1,26 +1,30 @@
 const hre = require("hardhat");
-const CONTRACT = "0x81f4ba822482b61f46bfbc724b112e1abebcae87";
+
+const CONTRACT = "0x81f4Ba822482b61F46BFbC724B112E1aBEbCAE87";
+const ABI = [
+  "function mint(address to, uint256 amount) external",
+  "function balanceOf(address) view returns (uint256)"
+];
 
 async function main() {
   const [signer] = await hre.ethers.getSigners();
   console.log("Signer:", signer.address);
 
-  const token = await hre.ethers.getContractAt("MMDVWineToken", CONTRACT, signer);
-  const owner = await token.owner();
-  console.log("Owner del contrato:", owner);
+  const token = new hre.ethers.Contract(CONTRACT, ABI, signer);
 
-  const to = signer.address;
-  const amount = hre.ethers.parseUnits("1000", 18);
+  const to = signer.address;                   // minteamos al owner (tu cuenta)
+  const amount = hre.ethers.parseUnits("1000", 18);  // 1.000 MWT
 
-  console.log("Minteando a:", to, "monto:", hre.ethers.formatUnits(amount, 18), "MWT");
+  console.log("Minteando a:", to);
   const tx = await token.mint(to, amount, { gasLimit: 120000 });
-  console.log("⛏️  Tx enviada:", tx.hash);
-
-  const receipt = await tx.wait();
-  console.log("✅ Tx minada en bloque:", receipt.blockNumber, "status:", receipt.status);
+  console.log("⛏️  Tx:", tx.hash);
+  await tx.wait();
 
   const bal = await token.balanceOf(to);
-  console.log("📦 Balance MWT ahora:", hre.ethers.formatUnits(bal, 18));
+  console.log("📦 Balance MWT:", hre.ethers.formatUnits(bal, 18));
 }
 
-main().catch((e) => { console.error("❌ Error:", e.shortMessage || e.message || e); process.exitCode = 1; });
+main().catch(err => {
+  console.error("❌ Error:", err.shortMessage || err.message || err);
+  process.exit(1);
+});
