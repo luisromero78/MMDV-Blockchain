@@ -1,7 +1,7 @@
 const hre = require("hardhat");
 
 // 🧱 Sustituye esta por la dirección del contrato desplegado
-const CONTRACT = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+const CONTRACT = "0x81f4bA822482b61F46BFBc7248112e1ABEBcAE87";
 
 async function main() {
   const [owner] = await hre.ethers.getSigners();
