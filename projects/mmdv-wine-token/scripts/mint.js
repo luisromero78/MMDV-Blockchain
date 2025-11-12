@@ -1,7 +1,7 @@
 const hre = require("hardhat");
 
-// Copia EXACTA del contrato verificado en Sepolia
-const CONTRACT = "0x81f4bA822482b61F46BFBc7248112e1ABEBcAE87";
+// Dirección exacta del contrato en Sepolia (checksum correcta)
+const CONTRACT = "0x81f4Ba822482b61F46BFbC724B112E1aBEbCAE87";
 
 const ABI = [
   "function mint(address to, uint256 amount) external",
@@ -9,41 +9,31 @@ const ABI = [
   "function balanceOf(address) view returns (uint256)"
 ];
 
-function normalize(addr) {
-  // quita espacios y aplica checksum; si hay un caracter raro, lanzará error claro
-  return hre.ethers.getAddress(String(addr).trim());
-}
-
 async function main() {
   const [signer] = await hre.ethers.getSigners();
+  const signerAddress = await signer.getAddress();
 
-  // Si tienes la address en .env úsala, si no, usa la del signer
-  const toRaw = process.env.ACCOUNT_ADDRESS || await signer.getAddress();
+  console.log("Signer:", signerAddress);
 
-  const to = normalize(toRaw);
-  const contractAddr = normalize(CONTRACT);
+  const contractAddress = hre.ethers.getAddress(CONTRACT);
+  const token = new hre.ethers.Contract(contractAddress, ABI, signer);
 
-  console.log("Signer:", await signer.getAddress());
-  console.log("Minteando a:", to);
+  const to = hre.ethers.getAddress(signerAddress);
+  const amount = hre.ethers.parseUnits("1000", 18);
 
-  const token = new hre.ethers.Contract(contractAddr, ABI, signer);
+  console.log(`Minteando 1000 MWT a ${to}...`);
 
-  // sanity checks
-  const owner = await token.owner();
-  console.log("Owner del contrato:", owner);
-
-  const amount = hre.ethers.parseUnits("1000", 18); // 1.000 MWT
   const tx = await token.mint(to, amount, { gasLimit: 120000 });
-  console.log("⛏️  Tx enviada:", tx.hash);
+  console.log("Tx enviada:", tx.hash);
 
-  const r = await tx.wait();
-  console.log("✅ Tx minada. Bloque:", r.blockNumber, "status:", r.status);
+  const receipt = await tx.wait();
+  console.log("✅ Tx confirmada en bloque:", receipt.blockNumber);
 
-  const bal = await token.balanceOf(to);
-  console.log("📦 Balance MWT destino:", hre.ethers.formatUnits(bal, 18));
+  const balance = await token.balanceOf(to);
+  console.log("📦 Balance actual:", hre.ethers.formatUnits(balance, 18), "MWT");
 }
 
-main().catch(e => {
-  console.error("❌ Error:", e.shortMessage || e.message || e);
+main().catch((err) => {
+  console.error("❌ Error:", err.shortMessage || err.message || err);
   process.exit(1);
 });
