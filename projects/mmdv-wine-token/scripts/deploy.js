@@ -1,4 +1,4 @@
-cconst hre = require("hardhat");
+const hre = require("hardhat");
 
 async function main() {
   // Cap total del lote (ej.: 1.000.000 tokens con 18 decimales)
