@@ -1,7 +1,7 @@
 const hre = require("hardhat");
 
 // Copia EXACTA del contrato verificado en Sepolia
-const CONTRACT = "0x81f4Ba822482b61F46BFbC724B112E1aBEbCAE87";
+const CONTRACT = "0x81f4bA822482b61F46BFBc7248112e1ABEBcAE87";
 
 const ABI = [
   "function mint(address to, uint256 amount) external",
