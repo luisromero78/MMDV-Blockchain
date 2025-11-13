@@ -291,14 +291,23 @@ body.mwt-page .wrap.project-layout {
   margin-top: 0.75rem;
 }
 
+/* ==== Footer MMDV ==== */
+
 .mmdv-footer {
   text-align: center;
-  opacity: 0.7;
-  padding: 30px 0;
+  opacity: 0.75;
+  padding: 35px 0 25px;
+  margin-top: 60px;
+  font-size: 0.9rem;
+  color: #ddd;
+}
+
+.mmdv-footer p {
+  margin: 4px 0;
 }
 
 .footer-logo {
   width: 70px;
-  margin-bottom: 10px;
-  opacity: 0.9;
+  margin-bottom: 12px;
+  opacity: 0.95;
 }
