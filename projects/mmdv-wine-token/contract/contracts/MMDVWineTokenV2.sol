@@ -218,4 +218,3 @@ contract MMDVWineTokenV2 is ERC20Capped, ERC20Burnable, ERC20Pausable, Ownable {
         return 0;
     }
 }
-
