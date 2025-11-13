@@ -288,14 +288,17 @@ body.mwt-page .wrap.project-layout {
   margin-top: 0.75rem;
 }
 
-/* ==== Footer MMDV unificado y simple ==== */
-
 footer.footer-mmdv {
   border-top: 1px solid var(--stroke);
   margin-top: 40px;
-  padding: 18px 0;
+  padding: 20px 0;
+  background: #fff;
+}
+
+.footer-mmdv .footer-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
   text-align: center;
   font-size: 0.9rem;
   color: var(--muted);
-  background: #111216; /* si tu diseño es dark */
 }
