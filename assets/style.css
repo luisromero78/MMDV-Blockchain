@@ -288,52 +288,23 @@ body.mwt-page .wrap.project-layout {
   margin-top: 0.75rem;
 }
 
-/* ==== Footer MMDV unificado ==== */
+/* ==== Footer MMDV unificado y simple ==== */
 
-/* Soporta tanto:
-   <footer class="footer-mmdv"><div class="footer-wrap">…
-   como:
-   <footer class="mmdv-footer"><div class="footer-inner">…  */
-
-.footer-mmdv,
-.mmdv-footer {
+footer.footer-mmdv {
   border-top: 1px solid var(--stroke);
   margin-top: 40px;
-  padding: 20px 0;
-  background: #fff;
-}
-
-/* Contenedor interior centrado */
-.footer-mmdv .footer-wrap,
-.mmdv-footer .footer-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
+  padding: 18px 0;
+  text-align: center;
   font-size: 0.9rem;
   color: var(--muted);
-  text-align: center;
+  background: #111216;      /* o #fff en las páginas claras */
 }
 
-/* Logo pequeño y estable */
-.footer-mmdv .footer-logo,
-.mmdv-footer .footer-logo {
+/* El logo SIEMPRE pequeñito */
+footer.footer-mmdv .footer-logo {
   height: 26px;
   width: auto;
-  display: inline-block;
+  vertical-align: middle;
+  margin-right: 8px;
   opacity: 0.95;
-}
-
-/* Texto del footer */
-.footer-mmdv .footer-text,
-.mmdv-footer .footer-text {
-  line-height: 1.35;
-}
-
-.footer-mmdv .footer-author,
-.mmdv-footer .footer-author {
-  font-weight: 500;
 }
