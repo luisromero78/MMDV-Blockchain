@@ -1,95 +1,93 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Momentum (MMT) en Sui — Análisis On‑Chain | MMDV Analytics</title>
-  <link rel="stylesheet" href="/assets/style.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Momentum (MMT) en Sui — Análisis On-Chain • MMDV</title>
+  <link rel="stylesheet" href="/MMDV-Blockchain/assets/style.css" />
 </head>
-<body class="theme-dark">
-  <main class="onchain">
-    <!-- BREADCRUMB / BACK -->
-    <nav class="breadcrumb">
-      <a href="/projects/onchain/index.html" class="link-back">← Volver a On‑Chain</a>
-    </nav>
+<body class="dark">
 
-    <!-- HERO -->
-    <section class="hero hero-onchain">
-      <h1>Momentum (MMT) en Sui — Análisis On‑Chain</h1>
-      <p class="lead">DeFi metrics + tokenomics + composición de TVL · Nov 2025</p>
-      <div class="tags">
+  <main class="wrap">
+
+    <!-- Back -->
+    <p style="margin:16px 0">
+      <a class="btn-ghost" href="/MMDV-Blockchain/onchain.html">← Volver a On-Chain</a>
+    </p>
+
+    <!-- Header -->
+    <header class="section-head">
+      <h1>🔵 Momentum (MMT) en Sui — Análisis On-Chain</h1>
+      <p class="muted">DeFi metrics + tokenomics + composición de TVL · Nov 2025</p>
+
+      <div class="tags" style="margin-top:8px">
         <span class="tag">Sui</span>
         <span class="tag">DeFi</span>
         <span class="tag">ve(3,3)</span>
+        <span class="tag">On-Chain</span>
+      </div>
+    </header>
+
+    <!-- Summary checklist -->
+    <section class="card" style="margin-top:16px">
+      <ul class="checklist">
+        <li><b>TGE 4-nov</b>: subidón inicial y <b>−70% en 72h</b>.</li>
+        <li><b>Concentración de holders</b>: top wallets controlan gran parte del float.</li>
+        <li><b>TVL</b>: pico cercano a ~<b>$800M</b> y enfriamiento posterior.</li>
+        <li><b>Narrativa vs distribución</b>: innovación en <i>Move</i>/ve(3,3), pero lanzamiento desequilibrado.</li>
+      </ul>
+      <div class="callout info" style="margin-top:12px">
+        <p><b>Si interesa a medio plazo</b>: vigilar <u>TVL</u>, <u>vesting/unlocks</u> y actividad de wallets <i>core</i> antes de tomar decisiones.</p>
       </div>
     </section>
 
-    <!-- INTRO / TL;DR estilo checklist como en BTC 115K -->
-    <section class="callout success">
-      <ul class="checklist">
-        <li>✅ <b>TGE 4‑nov:</b> subidón inicial y <b>−70% en 72h</b>.</li>
-        <li>✅ <b>Concentración de holders:</b> top wallets controlan gran parte del float.</li>
-        <li>✅ <b>TVL:</b> pico cercano a ~$800M y enfriamiento posterior.</li>
-        <li>✅ <b>Narrativa vs distribución:</b> innovación en <i>Move</i>/ve(3,3) pero lanzamiento desequilibrado.</li>
-      </ul>
-      <p class="note">Si interesa a medio plazo → vigilar <b>TVL</b>, <b>vesting/unlocks</b> y <b>actividad de wallets core</b> antes de tomar decisiones.</p>
-    </section>
-
-    <!-- CONTEXTO BREVE -->
-    <section class="card">
+    <!-- Contexto -->
+    <section class="card" style="margin-top:16px">
       <h2>Contexto</h2>
       <p><b>Momentum (MMT)</b> es el token de gobernanza del DEX <b>Momentum Finance</b>, construido sobre <b>Sui</b> y basado en el modelo <b>ve(3,3)</b>. Integra trading, staking y yield en una sola capa. Arquitectura tipo Uniswap v3 optimizada en <i>Move</i> para servir como centro de liquidez del ecosistema Sui.</p>
+
+      <div class="gallery" style="margin-top:12px">
+        <figure class="card">
+          <img src="/MMDV-Blockchain/onchain/img/mmt/tvl_momentum.png" alt="TVL Momentum — DeFiLlama" />
+          <figcaption class="muted">TVL de Momentum (DeFiLlama, nov-2025)</figcaption>
+        </figure>
+        <figure class="card">
+          <img src="/MMDV-Blockchain/onchain/img/mmt/tokens_breakdown.png" alt="Composición TVL por tokens — Momentum" />
+          <figcaption class="muted">Composición del TVL por tokens (USD). Indica en qué activos está bloqueada la liquidez.</figcaption>
+        </figure>
+      </div>
     </section>
 
-    <!-- GRÁFICOS / GALERÍA como cards -->
-    <section class="gallery">
-      <article class="card">
-        <img src="/assets/img/momentum_tvl.png" alt="TVL Momentum Finance — DeFiLlama" />
-        <figcaption>TVL de Momentum Finance (DeFiLlama, nov‑2025)</figcaption>
-      </article>
-      <article class="card">
-        <img src="/assets/img/momentum_tokens_breakdown.png" alt="Distribución del TVL por tokens (USD) en Momentum" />
-        <figcaption>Composición del TVL por tokens (USD). Indica en qué activos está bloqueada la liquidez.</figcaption>
-      </article>
-    </section>
-
-    <!-- INTERPRETACIÓN -->
-    <section class="card">
+    <!-- Lectura rápida -->
+    <section class="card" style="margin-top:16px">
       <h2>Lectura rápida</h2>
-      <p>El patrón de lanzamiento fue de manual: <b>liquidez entra con el hype</b> y <b>sale rápido</b>. La composición del TVL muestra peso relevante en <b>USDC</b>, <b>SUI</b> y envolturas de <b>BTC</b>, lo que sugiere dependencia de colateral externo más que liquidez nativa.</p>
       <ul class="bullets">
-        <li>Hype 3–5 nov en redes y silencio posterior.</li>
-        <li>On‑chain forense: combinar SuiScan + GeckoTerminal + DeFiLlama y vigilar movimientos a CEX.</li>
-        <li>Innovación <b>real</b> dentro de <b>Sui</b>; ejecución de TGE mejorable.</li>
+        <li><b>Lanzamiento “de manual”</b>: liquidez entra con el hype y sale rápido.</li>
+        <li><b>TVL</b> con peso en <b>USDC</b>, <b>SUI</b> y envolturas de <b>BTC</b> → dependencia de colateral externo.</li>
+        <li><b>Redes</b>: pico de hype 3–5 nov y posterior silencio de la mayoría de influencers.</li>
+        <li><b>On-chain forense</b>: combinar SuiScan + GeckoTerminal + DeFiLlama y vigilar movimientos a CEX.</li>
       </ul>
     </section>
 
-    <!-- CONCLUSIÓN -->
-    <section class="card emphasis">
+    <!-- Conclusión -->
+    <section class="card" style="margin-top:16px">
       <h2>Conclusión MMDV</h2>
-      <p><b>Innovación real, sí — pero en el contexto del ecosistema Sui.</b> El potencial técnico existe; la credibilidad depende de cómo gestionen desbloqueos, distribución y retención de liquidez.</p>
+      <p><b>Innovación real, sí — dentro del ecosistema Sui.</b> El potencial técnico existe; la credibilidad depende de cómo gestionen desbloqueos, distribución y retención de liquidez. El patrón del TGE fue <i>pump → dump</i>; si se quiere evaluar seriamente, hay que seguir <b>TVL</b>, <b>vesting</b> y <b>wallets core</b>.</p>
     </section>
 
-    <!-- RECURSOS (usa el componente memorizado recursos_template.js) -->
-    <section class="recursos card">
-      <div id="recursos"></div>
+    <!-- Recursos -->
+    <section class="card" style="margin-top:16px">
+      <h2>Recursos técnicos</h2>
+      <div class="btns">
+        <a class="btn-vino" href="/MMDV-Blockchain/onchain/docs/Analisis_OnChain_MMT_Nov2025_LuisRomero.pdf" target="_blank" rel="noopener">📄 Documentación técnica (PDF)</a>
+        <a class="btn-ghost" href="https://defillama.com/protocol/momentum" target="_blank" rel="noopener">DeFiLlama</a>
+      </div>
     </section>
 
-    <footer class="site-footer">
-      <p>© 2025 MMDV Analytics · Creado por Luis Eduardo Romero</p>
+    <footer class="muted" style="margin:32px 0 12px">
+      © 2025 MMDV Analytics · Creado por Luis Eduardo Romero
     </footer>
-  </main>
 
-  <!-- Componente recursos (memorizado) -->
-  <script src="/MMDV-Blockchain/templates/recursos_template.js"></script>
-  <script>
-    recursosMMDV({
-      titulo: "Recursos técnicos",
-      pdf: "Analisis_OnChain_MMT_Nov2025_LuisRomero.pdf",
-      presentacion: "",
-      codigo: "",
-      csv: ""
-    });
-  </script>
+  </main>
 </body>
 </html>
