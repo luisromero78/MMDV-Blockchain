@@ -4,7 +4,7 @@ async function main() {
   // Cap total del lote (ej.: 1.000.000 tokens con 18 decimales)
   const CAP = hre.ethers.parseUnits("1000000", 18);
 
-  const Token = await hre.ethers.getContractFactory("MMDVWineToken");
+  const Token = await hre.ethers.getContractFactory("MMDVWineTokenV2");
   const token = await Token.deploy(CAP);
   const tx = await token.deploymentTransaction();
   await token.waitForDeployment();
