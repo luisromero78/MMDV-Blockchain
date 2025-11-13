@@ -291,22 +291,19 @@ body.mwt-page .wrap.project-layout {
   margin-top: 0.75rem;
 }
 
-/* ==== Footer MMDV (versión final) ==== */
+/* ======= FOOTER MMDV ======= */
 
 footer.footer-mmdv {
-  padding: 25px 0;
-  text-align: center;
-  font-size: 0.9rem;
-  color: #666;
-  opacity: 0.9;
-  border-top: 1px solid rgba(0,0,0,0.07);
-  margin-top: 60px;
+  border-top: 1px solid var(--stroke);
+  margin-top: 40px;
+  padding: 20px 0;
+  color: var(--muted);
+  font-size: 0.85rem;
   background: #fff;
 }
 
 .footer-mmdv .footer-wrap {
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto;
-  font-weight: 300;
-  letter-spacing: 0.15px;
+  text-align: center;
 }
