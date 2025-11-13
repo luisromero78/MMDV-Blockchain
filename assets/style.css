@@ -291,12 +291,12 @@ body.mwt-page .wrap.project-layout {
   margin-top: 0.75rem;
 }
 
-/* ==== Footer MMDV con icono ==== */
+/* ==== Footer MMDV unificado ==== */
 
 footer.footer-mmdv {
   border-top: 1px solid var(--stroke);
-  margin-top: 50px;
-  padding: 22px 0;
+  margin-top: 40px;
+  padding: 20px 0;
   background: #fff;
 }
 
@@ -305,17 +305,17 @@ footer.footer-mmdv {
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: center;   /* Centro perfecto */
-  gap: 12px;                 /* Espacio entre icono y texto */
-  flex-wrap: wrap;           /* Si el móvil no entra, salta abajo */
-  color: var(--muted);
+  justify-content: center;   /* logo + texto centrados */
+  gap: 10px;
+  flex-wrap: wrap;
   font-size: 0.9rem;
+  color: var(--muted);
   text-align: center;
 }
 
-/* Icono del footer */
-.footer-mmdv .footer-logo {
-  height: 26px;              /* El tamaño exacto para verse fino */
+/* Tamaño fijo del logo del footer */
+.footer-logo {
+  height: 26px;
   width: auto;
-  opacity: 0.85;
+  opacity: 0.9;
 }
