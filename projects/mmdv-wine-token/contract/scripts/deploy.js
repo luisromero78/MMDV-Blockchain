@@ -1,8 +1,8 @@
 const hre = require("hardhat");
 
 async function main() {
-  // Cap total del lote (ej.: 1.000.000 tokens con 18 decimales)
-  const CAP = hre.ethers.parseUnits("1000000", 18);
+ // Cap total del lote (ej.: 1.000.000 tokens con 0 decimales)
+const CAP = 1_000_000n;
 
   const Token = await hre.ethers.getContractFactory("MMDVWineTokenV2");
   const token = await Token.deploy(CAP);
