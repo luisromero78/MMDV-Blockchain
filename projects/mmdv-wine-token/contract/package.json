@@ -8,7 +8,7 @@
   "compile": "hardhat compile",
   "deploy:v2:sepolia": "hardhat run scripts/deploy_mwt_v2.js --network sepolia"
 }
-
+,
   "keywords": [],
   "author": "",
   "license": "ISC",
