@@ -297,14 +297,5 @@ footer.footer-mmdv {
   text-align: center;
   font-size: 0.9rem;
   color: var(--muted);
-  background: #111216;      /* o #fff en las páginas claras */
-}
-
-/* El logo SIEMPRE pequeñito */
-footer.footer-mmdv .footer-logo {
-  height: 26px;
-  width: auto;
-  vertical-align: middle;
-  margin-right: 8px;
-  opacity: 0.95;
+  background: #111216; /* si tu diseño es dark */
 }
