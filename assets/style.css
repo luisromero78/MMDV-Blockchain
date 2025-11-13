@@ -98,9 +98,6 @@ hr.line{border:none;border-top:1px solid rgba(122,21,53,.25);margin:22px 0 28px}
 .block p{color:#d8d8dc;margin:10px 0}
 .block ul{margin:8px 0 12px 22px;color:#cfd2d8}
 
-/* Footer */
-.foot{margin-top:34px;color:var(--muted);text-align:center;font-size:13px}
-
 /* Accesibilidad/estados */
 a:focus, .btn:focus, .back:focus {outline:2px solid var(--accent-2);outline-offset:2px;border-radius:10px}
 @media (prefers-reduced-motion: reduce){
