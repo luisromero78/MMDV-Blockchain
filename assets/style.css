@@ -288,8 +288,14 @@ body.mwt-page .wrap.project-layout {
   margin-top: 0.75rem;
 }
 
-/* ==== Footer MMDV (versión final) ==== */
+/* ==== Footer MMDV unificado ==== */
 
+/* Soporta tanto:
+   <footer class="footer-mmdv"><div class="footer-wrap">…
+   como:
+   <footer class="mmdv-footer"><div class="footer-inner">…  */
+
+.footer-mmdv,
 .mmdv-footer {
   border-top: 1px solid var(--stroke);
   margin-top: 40px;
@@ -297,6 +303,8 @@ body.mwt-page .wrap.project-layout {
   background: #fff;
 }
 
+/* Contenedor interior centrado */
+.footer-mmdv .footer-wrap,
 .mmdv-footer .footer-inner {
   max-width: 1100px;
   margin: 0 auto;
@@ -310,17 +318,22 @@ body.mwt-page .wrap.project-layout {
   text-align: center;
 }
 
+/* Logo pequeño y estable */
+.footer-mmdv .footer-logo,
 .mmdv-footer .footer-logo {
-  height: 26px !important;
-  width: auto !important;
+  height: 26px;
+  width: auto;
   display: inline-block;
   opacity: 0.95;
 }
 
+/* Texto del footer */
+.footer-mmdv .footer-text,
 .mmdv-footer .footer-text {
   line-height: 1.35;
 }
 
+.footer-mmdv .footer-author,
 .mmdv-footer .footer-author {
   font-weight: 500;
 }
