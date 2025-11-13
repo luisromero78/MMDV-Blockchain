@@ -291,7 +291,7 @@ body.mwt-page .wrap.project-layout {
   margin-top: 0.75rem;
 }
 
-/* ==== Footer MMDV unificado ==== */
+/* ==== Footer MMDV unificado (versión definitiva) ==== */
 
 footer.footer-mmdv {
   border-top: 1px solid var(--stroke);
@@ -313,9 +313,11 @@ footer.footer-mmdv {
   text-align: center;
 }
 
-/* Tamaño fijo del logo del footer */
-.footer-logo {
-  height: 26px;
-  width: auto;
-  opacity: 0.9;
+/* Forzamos tamaño y comportamiento del logo del footer */
+.footer-mmdv img.footer-logo {
+  height: 26px !important;
+  width: auto !important;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
 }
