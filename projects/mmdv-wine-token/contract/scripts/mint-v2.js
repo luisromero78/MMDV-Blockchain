@@ -3,7 +3,7 @@ const hre = require("hardhat");
 async function main() {
   const [owner] = await hre.ethers.getSigners();
 
-  // ⚠️ Dirección del contrato V2 recién desplegado
+  // Dirección del contrato V2 desplegado
   const CONTRACT_ADDRESS = "0x15E054F9cB597b80CB077b69F23C3802C2516700";
 
   // Instancia del contrato
@@ -13,14 +13,16 @@ async function main() {
   const amount = hre.ethers.parseUnits("500000", 18);
 
   console.log("Owner:", owner.address);
-  console.log("Minting:", "500000 MWT2");
+  console.log("Minting 500000 MWT2...");
 
-  // 👇 Usa aquí el nombre de la función de minteo que tengas en el contrato
-  // Si la función pública se llama distinto, cambia "mint" por el nombre real
-  const tx = await token.mint(owner.address, amount);
+  // 👇 FUNCIÓN REAL DEL CONTRATO
+  const tx = await token.mintTokens(owner.address, amount);
+
+  console.log("⏳ Esperando confirmación...");
   await tx.wait();
 
   console.log("✅ Mint completado.");
+  console.log("🔗 Tx hash:", tx.hash);
 }
 
 main().catch((err) => {
