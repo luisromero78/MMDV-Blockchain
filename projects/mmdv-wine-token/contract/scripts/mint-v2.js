@@ -1,31 +1,28 @@
-const hre = require("hardhat");
+// scripts/mint-v2.js
+const { ethers } = require("hardhat");
 
 async function main() {
-  const [owner] = await hre.ethers.getSigners();
-
-  // Dirección del contrato desplegado (MMDVWineTokenV2)
-  const CONTRACT_ADDRESS = "0x15E054F9cB597b80CB077b69f23C3802C2516700";
-
-  // Instancia del contrato
-  const token = await hre.ethers.getContractAt("MMDVWineTokenV2", CONTRACT_ADDRESS);
-
-  // Minteamos 500.000 tokens (18 decimales)
-  const amount = hre.ethers.parseUnits("500000", 18);
-
+  const [owner] = await ethers.getSigners();
   console.log("Owner:", owner.address);
+
+  const contractAddress = "0x15E054F9cB597b80CB077b69f23C3802C2516700";
+
+  const Token = await ethers.getContractFactory("MMDVWineTokenV2");
+  const token = await Token.attach(contractAddress);
+
+  // 500.000 MWT2 con 18 decimales
+  const amount = ethers.parseUnits("500000", 18);
+
   console.log("Minting 500000 MWT2...");
-
-  // 👇 ESTA ES LA FUNCIÓN CORRECTA
   const tx = await token.educationalMint(owner.address, amount);
-
-  console.log("⏳ Esperando confirmación...");
   await tx.wait();
 
-  console.log("✅ Mint completado.");
-  console.log("🔗 Tx hash:", tx.hash);
+  console.log("✅ Mint OK");
+  const supply = await token.totalSupply();
+  console.log("Total supply:", supply.toString());
 }
 
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
+main().catch((e) => {
+  console.error(e);
+  process.exitCode = 1;
 });
