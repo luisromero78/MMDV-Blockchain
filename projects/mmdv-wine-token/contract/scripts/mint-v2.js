@@ -4,7 +4,7 @@ async function main() {
   const [owner] = await hre.ethers.getSigners();
 
   // Dirección del contrato desplegado (MMDVWineTokenV2)
-  const CONTRACT_ADDRESS = "0x15E054F9cB597b80CB077b69F23C3802C2516700";
+  const CONTRACT_ADDRESS = "0x15E054F9cB597b80CB077b69f23C3802C2516700";
 
   // Instancia del contrato
   const token = await hre.ethers.getContractAt("MMDVWineTokenV2", CONTRACT_ADDRESS);
