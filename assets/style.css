@@ -291,38 +291,7 @@ body.mwt-page .wrap.project-layout {
   margin-top: 0.75rem;
 }
 
-/* ==== Footer MMDV ==== */
-
-.mmdv-footer {
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
-  margin-top: 40px;
-  padding: 18px 0;
-  background: #fff;          /* o var(--bg) si la tienes */
-}
-
-.mmdv-footer .footer-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;   /* centra logo + texto */
-  gap: 12px;
-  flex-wrap: wrap;
-  font-size: 0.85rem;
-  text-align: center;
-}
-
-.mmdv-footer .footer-logo {
-  height: 26px;
-}
-
-.mmdv-footer .footer-text {
-  line-height: 1.4;
-}
-
-.mmdv-footer .footer-author {
-  font-weight: 500;
-}
+/* ==== Footer MMDV (versión final minimalista) ==== */
 
 footer.footer-mmdv {
   padding: 30px 0;
@@ -330,13 +299,15 @@ footer.footer-mmdv {
   font-size: 0.9rem;
   color: #ddd;
   opacity: 0.85;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 40px;
 }
 
 .footer-mmdv .footer-wrap {
   max-width: 900px;
   margin: 0 auto;
   font-weight: 300;
-  letter-spacing: 0.2px;
+  letter-spacing: 0.15px;
 }
 
 footer.footer-mmdv:hover {
