@@ -291,19 +291,31 @@ body.mwt-page .wrap.project-layout {
   margin-top: 0.75rem;
 }
 
-/* ======= FOOTER MMDV ======= */
+/* ==== Footer MMDV con icono ==== */
 
 footer.footer-mmdv {
   border-top: 1px solid var(--stroke);
-  margin-top: 40px;
-  padding: 20px 0;
-  color: var(--muted);
-  font-size: 0.85rem;
+  margin-top: 50px;
+  padding: 22px 0;
   background: #fff;
 }
 
 .footer-mmdv .footer-wrap {
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;   /* Centro perfecto */
+  gap: 12px;                 /* Espacio entre icono y texto */
+  flex-wrap: wrap;           /* Si el móvil no entra, salta abajo */
+  color: var(--muted);
+  font-size: 0.9rem;
   text-align: center;
+}
+
+/* Icono del footer */
+.footer-mmdv .footer-logo {
+  height: 26px;              /* El tamaño exacto para verse fino */
+  width: auto;
+  opacity: 0.85;
 }
