@@ -1,10 +1,12 @@
 {
   "name": "mmdv-wine-token",
   "version": "1.0.0",
-  "description": "La tokenización permite representar activos reales (vino, arte, inmuebles, etc.) en la blockchain,\r creando registros verificables, trazables y programables.",
+  "description": "La tokenización permite representar activos reales (vino, arte, inmuebles, etc.) en la blockchain, creando registros verificables, trazables y programables.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "hardhat compile",
+    "deploy:v2:sepolia": "hardhat run scripts/deploy_mwt_v2.js --network sepolia"
   },
   "keywords": [],
   "author": "",
