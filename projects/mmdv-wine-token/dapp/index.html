@@ -212,6 +212,17 @@
         font-size: 2rem;
       }
     }
+
+    .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+  gap: 0.9rem; /* antes 1.25rem */
+}
+
+section {
+  padding: 1.5rem 0 0; /* antes 2rem si lo ves muy espaciado */
+}
+
   </style>
 </head>
 <body>
