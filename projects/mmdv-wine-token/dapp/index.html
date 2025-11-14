@@ -1,216 +1,532 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <title>MWT5 – MMDV Wine Token - Proyecto Educativo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>MWT5 – MMDV Wine Token · Proyecto Educativo</title>
 
-  <!-- Estilos globales MMDV Blockchain -->
-  <link rel="stylesheet" href="/MMDV-Blockchain/assets/style.css" />
+  <!-- Estilos globales MMDV (ajusta la ruta si hace falta) -->
+  <link rel="stylesheet" href="../assets/style.css">
 
-  <!-- Estilo extra específico de la dApp (opcional) -->
-  <link rel="stylesheet" href="./style.css" />
+  <style>
+    /* Ajustes ligeros para esta página, encima de tu CSS global */
+    main {
+      padding-bottom: 4rem;
+    }
 
+    .hero-educativa {
+      padding: 3rem 0 2rem;
+      background: radial-gradient(circle at top left, #3b1633 0, #0a0508 45%, #050308 100%);
+      color: #fff;
+    }
+
+    .hero-educativa h1 {
+      font-size: 2.4rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-educativa p {
+      max-width: 700px;
+      line-height: 1.6;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .35rem .9rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      font-size: .85rem;
+      margin-bottom: .75rem;
+    }
+
+    .hero-pill span {
+      font-weight: 600;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+      font-size: .75rem;
+    }
+
+    .hero-meta {
+      margin-top: 1rem;
+      font-size: .9rem;
+      opacity: .85;
+    }
+
+    .hero-meta code {
+      font-family: "JetBrains Mono", monospace;
+      font-size: .78rem;
+      padding: .25rem .5rem;
+      border-radius: .4rem;
+      background: rgba(0,0,0,.35);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: #0b0610;
+      border-radius: 1rem;
+      padding: 1.25rem 1.3rem;
+      border: 1px solid rgba(255,255,255,.06);
+      box-shadow: 0 14px 35px rgba(0,0,0,.55);
+    }
+
+    .card h2,
+    .card h3 {
+      font-size: 1.1rem;
+      margin-bottom: .7rem;
+    }
+
+    .card small {
+      opacity: .75;
+      font-size: .8rem;
+    }
+
+    .stat-label {
+      font-size: .8rem;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      opacity: .7;
+      margin-bottom: .15rem;
+    }
+
+    .stat-value {
+      font-weight: 600;
+      font-size: .98rem;
+    }
+
+    .stat-mono {
+      font-family: "JetBrains Mono", monospace;
+      font-size: .85rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: .55rem 1.1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.2);
+      background: #8a143b;
+      color: #fff;
+      font-size: .9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background .15s ease, transform .1s ease, box-shadow .15s ease;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background: #b71f4f;
+      transform: translateY(-1px);
+      box-shadow: 0 12px 30px rgba(0,0,0,.5);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border-color: rgba(255,255,255,.35);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255,255,255,.04);
+    }
+
+    .btn.connected {
+      background: #0c8b4a;
+      border-color: #0c8b4a;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: .3rem;
+      margin-bottom: .75rem;
+    }
+
+    .field-group label {
+      font-size: .8rem;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      opacity: .75;
+    }
+
+    .field-group input {
+      background: #07030a;
+      border-radius: .6rem;
+      border: 1px solid rgba(255,255,255,.12);
+      padding: .45rem .7rem;
+      color: #fff;
+      font-size: .9rem;
+      font-family: "JetBrains Mono", monospace;
+    }
+
+    .field-group input:focus {
+      outline: none;
+      border-color: #b71f4f;
+      box-shadow: 0 0 0 1px rgba(183,31,79,.6);
+    }
+
+    .tx-status {
+      margin-top: .75rem;
+      font-size: .85rem;
+      min-height: 1.2rem;
+    }
+
+    .tx-status strong {
+      font-family: "JetBrains Mono", monospace;
+    }
+
+    section {
+      padding: 2rem 0 0;
+    }
+
+    section h2.section-title {
+      font-size: 1.4rem;
+      margin-bottom: .2rem;
+    }
+
+    section p.section-sub {
+      font-size: .9rem;
+      opacity: .8;
+      margin-bottom: 1.1rem;
+    }
+
+    ul.token-rules {
+      font-size: .9rem;
+      opacity: .9;
+      padding-left: 1.1rem;
+    }
+
+    ul.token-rules li {
+      margin-bottom: .35rem;
+    }
+
+    @media (max-width: 720px) {
+      .hero-educativa h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
 </head>
-<body class="page-dark">
+<body>
 
-  <!-- HERO / CABECERA -->
-  <section class="hero">
+<header>
+  <div class="wrap">
+    <nav class="top-nav">
+      <a href="../../index.html" class="brand">
+        <span class="brand-mark">MMDV</span>
+        <span class="brand-sub">Blockchain</span>
+      </a>
+      <div class="nav-links">
+        <a href="../../index.html">Inicio</a>
+        <a href="../../projects.html">Proyectos</a>
+        <a href="../../retos.html">Retos</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero-educativa">
     <div class="wrap">
       <div class="row">
         <div>
-          <h1>MWT5 – MMDV Wine Token - Proyecto Educativo</h1>
+          <div class="hero-pill">
+            <span>MWT5 · Proyecto educativo</span>
+            <span style="opacity:.7;">Token de vino en Sepolia</span>
+          </div>
+          <h1>MWT5 – MMDV Wine Token · Proyecto Educativo</h1>
           <p>
-            Token ERC-20 educativo que representa un <strong>lote de vino tokenizado</strong> en la red Sepolia.
-            Aquí puedes ver las <strong>reglas inteligentes</strong> del contrato, simular escenarios y,
-            si conectas tu wallet, interactuar on-chain.
+            Esta Dapp muestra cómo un <b>smart contract ERC-20</b> puede incorporar reglas
+            educativas: precio simbólico de salida, periodo de cancelación, bloqueo mínimo,
+            bonus por antigüedad, prioridad para próximos lotes y opción de recompra por
+            parte del owner. Todo está pensado como laboratorio didáctico, <b>no como
+            producto financiero real</b>.
           </p>
+          <div class="hero-meta">
+            <div>Red: <b>Sepolia Testnet</b></div>
+            <div>Dirección del contrato:&nbsp;
+              <code>0x8e913dEadC1F9c25a2ADc7BAD793cEf72CD02dC2</code>
+            </div>
+          </div>
         </div>
-        <nav>
-          <a href="/MMDV-Blockchain/index.html">Inicio</a>
-          <a href="/MMDV-Blockchain/projects/index.html">Proyectos</a>
-          <a href="/MMDV-Blockchain/projects/mmdv-wine-token/index.html">MWT</a>
-          <button id="connectButton" class="btn btn-primary">
-            Conectar wallet
-          </button>
-        </nav>
       </div>
     </div>
   </section>
 
-  <main class="wrap main-grid">
-
-    <!-- COLUMNA IZQUIERDA: CONTEXTO Y REGLAS -->
-    <section class="card card--glass">
-      <h2>Contexto del lote MWT5</h2>
-      <p>
-        <strong>MWT5</strong> es un token ERC-20 educativo que simula la tokenización de un lote de vino.
-        Cada token representa <strong>1 unidad simbólica de vino</strong> (botella o participación).
-      </p>
-      <p>
-        El contrato está desplegado en <strong>Sepolia</strong> y programado con reglas de negocio
-        que imitan cómo podría gestionarse un lote real: bloqueos temporales, precio mínimo creciente,
-        recompra del owner y bonus por fidelidad.
+  <!-- RESUMEN EDUCATIVO -->
+  <section>
+    <div class="wrap">
+      <h2 class="section-title">¿Qué representa MWT5?</h2>
+      <p class="section-sub">
+        Un token = una botella de vino simbólica. Aquí sólo medimos unidades y reglas,
+        no euros reales. El objetivo es <b>explicar conceptos</b>, no vender vino on-chain.
       </p>
 
-      <h3>Reglas educativas del contrato</h3>
-      <ul class="list">
-        <li><strong>Valor simbólico inicial:</strong> 10 unidades internas por token (no euros on-chain).</li>
-        <li><strong>Periodo de cancelación:</strong> primeras 24h posibilidad de desistimiento (modelo educativo).</li>
-        <li><strong>Período de bloqueo:</strong> durante un tiempo mínimo los tokens no pueden transferirse.</li>
-        <li><strong>Precio mínimo de reventa:</strong> el valor teórico aumenta con el tiempo de holdeado.</li>
-        <li><strong>Bonus por antigüedad:</strong> após 4 años se calcula un 10% teórico extra.</li>
-        <li><strong>Opción de recompra:</strong> el owner puede recomprar tokens según unas reglas pactadas.</li>
-        <li><strong>Prioridad en futuros lotes:</strong> los holders quedan marcados con prioridad educativa.</li>
-      </ul>
+      <div class="grid">
+        <article class="card">
+          <h3>Reglas educativas clave</h3>
+          <ul class="token-rules">
+            <li>🟣 <b>Cap educativo</b>: hasta 1.000.000 tokens enteros.</li>
+            <li>💶 <b>Precio simbólico inicial</b>: 10 unidades por token.</li>
+            <li>⏳ <b>Cancelación 24h</b>: el comprador puede devolver los tokens al owner.</li>
+            <li>🔒 <b>Bloqueo 1 año</b>: no se permiten transfers a terceros antes del año.</li>
+            <li>📈 <b>Precio mínimo de reventa</b>: +25% por año completo después del primero.</li>
+            <li>🎁 <b>Bonus de fidelidad</b>: +10% de tokens tras 4 años holdeando.</li>
+            <li>🪙 <b>Recompra del owner</b>: el owner puede recomprar a precio simbólico fijo.</li>
+            <li>🎫 <b>Prioridad</b>: quienes participan en este lote tienen preferencia en los siguientes.</li>
+          </ul>
+        </article>
 
-      <p class="note">
-        ⚠️ <strong>Aviso:</strong> Todo esto es un <strong>proyecto didáctico</strong>. No representa una oferta
-        real de inversión ni un valor financiero. Sirve para aprender cómo las reglas se codifican en un
-        <em>smart contract</em>.
-      </p>
-    </section>
-
-    <!-- COLUMNA DERECHA: ESTADO ON-CHAIN -->
-    <section class="card card--glass">
-      <h2>Estado del lote en blockchain</h2>
-
-      <div class="grid grid-2">
-        <div>
-          <p class="label">Dirección del contrato</p>
-          <p id="contractAddress" class="mono small"></p>
-        </div>
-        <div>
-          <p class="label">Red</p>
-          <p class="mono small">Sepolia Testnet</p>
-        </div>
-        <div>
-          <p class="label">Token</p>
-          <p><span id="tokenName">…</span> (<span id="tokenSymbol">…</span>)</p>
-        </div>
-        <div>
-          <p class="label">Decimales</p>
-          <p><span id="tokenDecimals">0</span></p>
-        </div>
-        <div>
-          <p class="label">Supply actual</p>
-          <p><span id="totalSupply">…</span> / <span id="maxSupply">…</span> MWT5</p>
-        </div>
-        <div>
-          <p class="label">Cuenta conectada</p>
-          <p id="currentAccount" class="mono small">No conectada</p>
-        </div>
+        <article class="card">
+          <h3>Cómo usar esta página</h3>
+          <ul class="token-rules">
+            <li>1️⃣ Explora los datos del contrato en la zona de <b>“Estado global”</b>.</li>
+            <li>2️⃣ Opcional: pulsa <b>“Conectar wallet”</b> para que la Dapp lea tus datos como holder.</li>
+            <li>3️⃣ Juega con el <b>simulador de precio mínimo</b> según tu antigüedad.</li>
+            <li>4️⃣ Si estás dentro del periodo, prueba la <b>cancelación 24h</b> con Sepolia testnet.</li>
+            <li>5️⃣ Si conectas con la dirección del owner, verás el panel de <b>buyback</b>.</li>
+          </ul>
+        </article>
       </div>
-
-      <hr />
-
-      <h3>Balance por dirección</h3>
-      <form id="balanceForm" class="form-inline">
-        <input
-          id="balanceAddress"
-          type="text"
-          class="input mono"
-          placeholder="0x… dirección a consultar"
-        />
-        <button class="btn btn-ghost" type="submit">Consultar balance</button>
-      </form>
-      <p id="balanceResult" class="mono small muted"></p>
-    </section>
-
-    <!-- FILA 2: SIMULADOR + PANEL WEB3 -->
-    <section class="card card--glass">
-      <h2>Simulador de valor educativo</h2>
-      <p>
-        Usa el tiempo de holdeado para estimar un <strong>multiplicador teórico</strong> y un posible
-        bonus de fidelidad.
-      </p>
-
-      <form id="simulatorForm" class="form-grid">
-        <div>
-          <label for="simTokens">Tokens MWT5 (unidades)</label>
-          <input id="simTokens" type="number" min="1" value="100" class="input" />
-        </div>
-        <div>
-          <label for="simYears">Años holdeando</label>
-          <input id="simYears" type="number" min="0" max="10" step="1" value="2" class="input" />
-        </div>
-        <div>
-          <label for="simBasePrice">Valor simbólico inicial (unidades)</label>
-          <input id="simBasePrice" type="number" min="1" value="10" class="input" />
-        </div>
-        <div class="align-end">
-          <button type="submit" class="btn btn-primary">Calcular escenario</button>
-        </div>
-      </form>
-
-      <div id="simulatorOutput" class="sim-output">
-        <!-- Rellenado por JS -->
-      </div>
-    </section>
-
-    <section class="card card--glass">
-      <h2>Panel Web3 (modo dApp)</h2>
-      <p>
-        Cuando conectes tu wallet en Sepolia, podrás realizar operaciones reales sobre el contrato:
-        transferencias, pruebas de recompra, etc. Mientras tanto, este panel queda en modo lectura.
-      </p>
-
-      <div id="web3Status" class="status status--disconnected">
-        <strong>Estado:</strong> wallet no conectada.
-      </div>
-
-      <div class="panel-actions disabled" id="web3Panel">
-        <h3>Acciones básicas</h3>
-        <form id="transferForm" class="form-grid">
-          <div>
-            <label for="transferTo">Enviar a (address)</label>
-            <input id="transferTo" class="input mono" placeholder="0x… destino" />
-          </div>
-          <div>
-            <label for="transferAmount">Cantidad (MWT5)</label>
-            <input id="transferAmount" class="input" type="number" min="1" />
-          </div>
-          <div class="align-end">
-            <button type="submit" class="btn btn-primary">Enviar tokens</button>
-          </div>
-        </form>
-
-        <hr />
-
-        <h3>Acciones educativas (owner)</h3>
-        <p class="small muted">
-          Estas acciones solo funcionarán si la cuenta conectada es el <strong>owner</strong> del contrato.
-        </p>
-        <div class="btn-row">
-          <button id="ownerBuybackButton" class="btn btn-ghost" disabled>
-            Simular recompra owner
-          </button>
-          <button id="earlyCancelButton" class="btn btn-ghost" disabled>
-            Simular cancelación 24h
-          </button>
-        </div>
-      </div>
-
-      <p class="note small">
-        ℹ️ En este primer paso, el panel Web3 está preparado a nivel de interfaz.
-        Las llamadas de escritura (recompra, cancelación) las conectamos justo después,
-        usando exactamente las funciones del contrato V5.
-      </p>
-    </section>
-
-  </main>
-
-  <footer class="footer">
-    <div class="wrap footer-inner">
-      <p class="small">
-        MWT5 – MMDV Wine Token · Proyecto educativo de tokenización de vino · MMDV-Blockchain
-      </p>
     </div>
-  </footer>
+  </section>
 
-  <!-- Web3 + lógica de la dApp -->
-  <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
-  <script src="./app.js"></script>
+  <!-- ESTADO GLOBAL DEL CONTRATO -->
+  <section>
+    <div class="wrap">
+      <h2 class="section-title">Estado global del contrato</h2>
+      <p class="section-sub">
+        Información que aplica a todo el lote tokenizado MWT5.
+      </p>
+
+      <div class="grid">
+        <article class="card">
+          <div class="stat-label">Token</div>
+          <div class="stat-value" id="tokenName">Cargando...</div>
+
+          <div style="margin-top:.9rem;">
+            <div class="stat-label">Supply emitido / Cap educativo</div>
+            <div class="stat-value stat-mono" id="supplyInfo">–</div>
+          </div>
+
+          <div style="margin-top:.9rem;">
+            <div class="stat-label">Owner del contrato</div>
+            <div class="stat-value stat-mono" id="ownerAddress">–</div>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Parámetros simbólicos</h3>
+
+          <div class="stat-label">Precio base educativo</div>
+          <div class="stat-value" id="basePrice">–</div>
+
+          <div class="stat-label" style="margin-top:.8rem;">Periodo de cancelación</div>
+          <div class="stat-value" id="cancelPeriod">–</div>
+
+          <div class="stat-label" style="margin-top:.8rem;">Bloqueo mínimo de transferencias</div>
+          <div class="stat-value" id="lockPeriod">–</div>
+
+          <div class="stat-label" style="margin-top:.8rem;">Precio simbólico de recompra (owner)</div>
+          <div class="stat-value" id="buybackPrice">–</div>
+        </article>
+
+        <article class="card">
+          <h3>Conexión Web3</h3>
+          <p style="font-size:.88rem;opacity:.85;margin-bottom:.8rem;">
+            Puedes explorar todo en modo lectura sin conectar nada.  
+            Si quieres interactuar con el contrato (por ejemplo, cancelación 24h)
+            conecta una wallet de prueba en Sepolia.
+          </p>
+
+          <button id="connectButton" class="btn">Conectar wallet</button>
+
+          <div style="margin-top:.75rem;">
+            <div class="stat-label">Cuenta conectada</div>
+            <div class="stat-value stat-mono" id="connectedAddress">No conectada</div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PANEL DEL HOLDER -->
+  <section>
+    <div class="wrap">
+      <h2 class="section-title">Panel del holder</h2>
+      <p class="section-sub">
+        Aquí puedes ver cómo aplican las reglas al titular de una dirección concreta.
+      </p>
+
+      <div class="grid">
+        <article class="card">
+          <h3>Dirección a inspeccionar</h3>
+
+          <div class="field-group">
+            <label for="manualAddressInput">Dirección (opcional)</label>
+            <input id="manualAddressInput" type="text"
+                   placeholder="0x... Si se deja vacío, usa la wallet conectada">
+          </div>
+
+          <button id="refreshHolderButton" class="btn-ghost btn">Ver datos del holder</button>
+
+          <div style="margin-top:.9rem;">
+            <div class="stat-label">Holder actual</div>
+            <div class="stat-value stat-mono" id="holderAddress">–</div>
+          </div>
+        </article>
+
+        <article class="card">
+          <h3>Posición educativa</h3>
+
+          <div class="stat-label">Balance actual (on-chain)</div>
+          <div class="stat-value" id="holderBalance">–</div>
+
+          <div class="stat-label" style="margin-top:.7rem;">Cantidad asociada al tracking educativo</div>
+          <div class="stat-value" id="holderTrackedAmount">–</div>
+
+          <div class="stat-label" style="margin-top:.7rem;">Primera compra registrada</div>
+          <div class="stat-value" id="holderFirstPurchase">–</div>
+
+          <div class="stat-label" style="margin-top:.7rem;">Prioridad en futuros lotes</div>
+          <div class="stat-value" id="holderPriority">–</div>
+        </article>
+
+        <article class="card">
+          <h3>Valor, bonus y mínimos</h3>
+
+          <div class="stat-label">Multiplicador teórico por antigüedad</div>
+          <div class="stat-value" id="holderMultiplier">–</div>
+
+          <div class="stat-label" style="margin-top:.7rem;">Bonus de fidelidad potencial (4 años)</div>
+          <div class="stat-value" id="holderLoyaltyBonus">–</div>
+
+          <div class="stat-label" style="margin-top:.7rem;">Precio mínimo educativo de reventa</div>
+          <div class="stat-value" id="holderMinResale">–</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIMULADOR DE PRECIO -->
+  <section>
+    <div class="wrap">
+      <h2 class="section-title">Simulador de precio mínimo</h2>
+      <p class="section-sub">
+        Introduce un precio simbólico por token y deja que el contrato te diga
+        si respeta las reglas educativas de MWT5.
+      </p>
+
+      <div class="grid">
+        <article class="card">
+          <h3>Validar precio propuesto</h3>
+
+          <div class="field-group">
+            <label for="proposedPriceInput">Precio propuesto (unidades por token)</label>
+            <input id="proposedPriceInput" type="number" min="0" step="1"
+                   placeholder="Ej. 15">
+          </div>
+
+          <button id="validatePriceButton" class="btn">Validar precio</button>
+
+          <div class="tx-status" id="proposedPriceResult"></div>
+        </article>
+
+        <article class="card">
+          <h3>Lectura recomendada</h3>
+          <p style="font-size:.88rem;opacity:.9;">
+            Esta lógica de mínimos educativos está programada dentro del smart contract,
+            no en la interfaz. La Dapp simplemente llama a
+            <code>validateResalePrice()</code> y muestra la respuesta.  
+            Es una buena forma de explicar el concepto de "reglas de mercado on-chain".
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACCIONES EDUCATIVAS -->
+  <section>
+    <div class="wrap">
+      <h2 class="section-title">Acciones educativas (requieren wallet)</h2>
+      <p class="section-sub">
+        Estas funciones envían transacciones reales en la testnet de Sepolia.
+        Asegúrate de usar sólo cuentas y ETH de prueba.
+      </p>
+
+      <div class="grid">
+        <!-- Cancelación 24h -->
+        <article class="card">
+          <h3>Cancelación dentro de 24h</h3>
+          <p style="font-size:.88rem;opacity:.9;margin-bottom:.7rem;">
+            Permite al comprador devolver tokens al owner durante las primeras 24h
+            desde su primera compra. El reembolso económico se simula fuera de la
+            cadena; aquí sólo se registra el movimiento de tokens.
+          </p>
+
+          <div class="field-group">
+            <label for="cancelAmountInput">Cantidad a devolver (tokens)</label>
+            <input id="cancelAmountInput" type="number" min="0" step="1">
+          </div>
+
+          <button id="cancelButton" class="btn">Ejecutar cancelación 24h</button>
+        </article>
+
+        <!-- Buyback del owner -->
+        <article class="card">
+          <h3>Buyback del owner (demo)</h3>
+          <p style="font-size:.88rem;opacity:.9;margin-bottom:.7rem;">
+            Sólo debería usarlo la cuenta owner del contrato.  
+            El pago en dinero es externo; on-chain sólo movemos tokens y dejamos
+            una traza mediante el evento <code>OwnerBuyback</code>.
+          </p>
+
+          <div class="field-group">
+            <label for="buybackSellerInput">Dirección del vendedor</label>
+            <input id="buybackSellerInput" type="text" placeholder="0x...">
+          </div>
+
+          <div class="field-group">
+            <label for="buybackAmountInput">Cantidad a recomprar (tokens)</label>
+            <input id="buybackAmountInput" type="number" min="0" step="1">
+          </div>
+
+          <button id="buybackButton" class="btn-ghost btn">Ejecutar buyback (owner)</button>
+        </article>
+
+        <!-- Estado de transacciones -->
+        <article class="card">
+          <h3>Estado de transacciones</h3>
+          <p style="font-size:.88rem;opacity:.9;margin-bottom:.7rem;">
+            Aquí verás el hash, bloque y posibles errores de las operaciones
+            que ejecutas desde esta Dapp.
+          </p>
+
+          <div class="tx-status" id="txStatus">Sin transacciones aún.</div>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p style="font-size:.8rem;opacity:.7;padding:1.5rem 0 2rem;">
+      Proyecto educativo · MMDV Wine Token V5 · Sepolia Testnet ·
+      No constituye oferta de inversión ni producto financiero.
+    </p>
+  </div>
+</footer>
+
+<!-- Ethers + lógica de la Dapp -->
+<script src="https://cdn.jsdelivr.net/npm/ethers@6.13.0/dist/ethers.umd.min.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
-
