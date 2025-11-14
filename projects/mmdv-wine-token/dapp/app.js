@@ -574,7 +574,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     disconnectBtn.addEventListener("click", disconnectWallet);
   }
 
-  // 8. Botón "Aprobar permiso"
+  // 8. Botón "Aprobar permiso" (vendedor)
   const approveBtn = document.getElementById("approveButton");
   if (approveBtn) {
     approveBtn.addEventListener("click", approveAllowanceFromUI);
