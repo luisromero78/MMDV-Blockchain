@@ -327,18 +327,23 @@ async function connectWallet() {
       signer
     );
 
-    // Botón
+    // Actualizamos etiqueta "Cuenta conectada"
+    const addrLabel = document.getElementById("connectedAddress");
+    if (addrLabel) {
+      addrLabel.textContent = currentAccount;
+    }
+
+    // Opcional: cambiar texto del botón
     const btn = document.getElementById("connectWalletBtn");
     if (btn) {
-      btn.textContent = `Conectado: ${currentAccount.slice(0,6)}...${currentAccount.slice(-4)}`;
+      btn.textContent = `Conectado: ${currentAccount.slice(
+        0,
+        6
+      )}...${currentAccount.slice(-4)}`;
       btn.classList.add("connected");
     }
 
-    // Texto "Cuenta conectada"
-    const addrLabel = document.getElementById("connectedAddress");
-    if (addrLabel) addrLabel.textContent = currentAccount;
-
-    // Datos del holder conectado
+    // Cargamos panel del holder con la cuenta conectada
     await loadHolderView(currentAccount);
   } catch (err) {
     console.error("Error al conectar wallet:", err);
@@ -407,28 +412,48 @@ async function ownerBuybackFromUI() {
 }
 
 // 10) Wiring DOM
+// 10) Enlazar eventos al DOM
 window.addEventListener("DOMContentLoaded", async () => {
+  // 1. Cargar datos globales en modo sólo lectura
   await initReadOnly();
 
+  // 2. Botón "Conectar wallet"
   const connectBtn = document.getElementById("connectWalletBtn");
-  if (connectBtn) connectBtn.addEventListener("click", connectWallet);
+  if (connectBtn) {
+    connectBtn.addEventListener("click", connectWallet);
+  }
 
+  // 3. Botón "Ver datos del holder"
   const refreshBtn = document.getElementById("refreshHolderButton");
   if (refreshBtn) {
     refreshBtn.addEventListener("click", async () => {
-      const addrInput = document.getElementById("manualAddressInput").value.trim();
+      const addrInput = document
+        .getElementById("manualAddressInput")
+        .value
+        .trim();
+
       const addr = addrInput || currentAccount;
       if (!addr) return;
+
       await loadHolderView(addr);
     });
   }
 
+  // 4. Botón "Validar precio"
   const validateBtn = document.getElementById("validatePriceButton");
-  if (validateBtn) validateBtn.addEventListener("click", validatePriceFromUI);
+  if (validateBtn) {
+    validateBtn.addEventListener("click", validatePriceFromUI);
+  }
 
+  // 5. Botón "Cancelar 24h"
   const cancelBtn = document.getElementById("cancelButton");
-  if (cancelBtn) cancelBtn.addEventListener("click", cancelWithin24hFromUI);
+  if (cancelBtn) {
+    cancelBtn.addEventListener("click", cancelWithin24hFromUI);
+  }
 
+  // 6. Botón "Buyback (owner)"
   const buybackBtn = document.getElementById("buybackButton");
-  if (buybackBtn) buybackBtn.addEventListener("click", ownerBuybackFromUI);
+  if (buybackBtn) {
+    buybackBtn.addEventListener("click", ownerBuybackFromUI);
+  }
 });
