@@ -351,6 +351,45 @@ async function connectWallet() {
   }
 }
 
+// 7.1) Desconectar Wallet
+async function disconnectWallet() {
+  try {
+    // Reseteamos estado interno
+    currentAccount = null;
+    signer = null;
+    writeProvider = null;
+    writeContract = null;
+
+    // UI
+    const btn = document.getElementById("connectButton");
+    if (btn) {
+      btn.textContent = "Conectar wallet";
+      btn.disabled = false;
+    }
+
+    const addrLabel = document.getElementById("connectedAddress");
+    if (addrLabel) addrLabel.textContent = "No conectada";
+
+    // Limpieza del panel del holder
+    document.getElementById("holderAddress").textContent = "–";
+    document.getElementById("holderBalance").textContent = "–";
+    document.getElementById("holderTrackedAmount").textContent = "–";
+    document.getElementById("holderFirstPurchase").textContent = "–";
+    document.getElementById("holderPriority").textContent = "–";
+    document.getElementById("holderMultiplier").textContent = "–";
+    document.getElementById("holderLoyaltyBonus").textContent = "–";
+    document.getElementById("holderMinResale").textContent = "–";
+
+    // Estado de transacciones
+    document.getElementById("txStatus").textContent = "Sin transacciones aún.";
+
+    console.log("Wallet desconectada (modo manual).");
+  } catch (err) {
+    console.error("Error al desconectar wallet:", err);
+  }
+}
+
+
 // 8) Cancelación 24h
 async function cancelWithin24hFromUI() {
   if (!writeContract || !currentAccount) {
