@@ -1,4 +1,3 @@
-/﻿[dotenv@17.2.3] injecting env (6) from .env -- tip: ­ƒöä add secrets lifecycle management: https://dotenvx.com/ops
 // Sources flattened with hardhat v2.27.0 https://hardhat.org
 
 // SPDX-License-Identifier: MIT
