@@ -10,243 +10,234 @@
 
 
   <style>
-    /* Ajustes ligeros para esta página, encima de tu CSS global */
-   /* Reducir espacio antes del footer */
-main {
-  padding-bottom: 2rem !important; /* antes eran 4rem */
-}
+  /* --- Ajuste general: menos espacio abajo --- */
+  main {
+    padding-bottom: 1.5rem; /* antes ~4rem */
+  }
 
-/* Footer más pegado */
-footer .wrap {
-  padding-top: 0.5rem !important; 
-}
-    .hero-educativa {
-      padding: 3rem 0 2rem;
-      background: radial-gradient(circle at top left, #3b1633 0, #0a0508 45%, #050308 100%);
-      color: #fff;
-    }
+  /* Footer más pegado */
+  footer {
+    margin-top: 1rem;       /* por si en el global hay un margin grande */
+  }
+  footer .wrap {
+    padding-top: 0.5rem;
+    padding-bottom: 1.5rem;
+  }
 
+  /* --- Hero educativa --- */
+  .hero-educativa {
+    padding: 3rem 0 2rem;
+    background: radial-gradient(circle at top left, #3b1633 0, #0a0508 45%, #050308 100%);
+    color: #fff;
+  }
+
+  .hero-educativa h1 {
+    font-size: 2.4rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-educativa p {
+    max-width: 700px;
+    line-height: 1.6;
+  }
+
+  .hero-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .35rem .9rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,.06);
+    font-size: .85rem;
+    margin-bottom: .75rem;
+  }
+
+  .hero-pill span {
+    font-weight: 600;
+    letter-spacing: .03em;
+    text-transform: uppercase;
+    font-size: .75rem;
+  }
+
+  .hero-meta {
+    margin-top: 1rem;
+    font-size: .9rem;
+    opacity: .85;
+  }
+
+  .hero-meta code {
+    font-family: "JetBrains Mono", monospace;
+    font-size: .78rem;
+    padding: .25rem .5rem;
+    border-radius: .4rem;
+    background: rgba(0,0,0,.35);
+  }
+
+  /* --- Grids y tarjetas (compactados) --- */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+    gap: 0.9rem;  /* antes 1.25rem */
+  }
+
+  section {
+    padding: 1.4rem 0 0;  /* antes 2rem */
+  }
+
+  .card {
+    background: #0b0610;
+    border-radius: 1rem;
+    padding: 1.2rem 1.4rem;   /* un pelín más compacto */
+    border: 1px solid rgba(255,255,255,.06);
+    box-shadow: 0 14px 35px rgba(0,0,0,.55);
+    margin-bottom: 0.8rem;    /* separación suave entre cards */
+  }
+
+  .card h2,
+  .card h3 {
+    font-size: 1.1rem;
+    margin-bottom: .7rem;
+  }
+
+  .card small {
+    opacity: .75;
+    font-size: .8rem;
+  }
+
+  .stat-label {
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    opacity: .7;
+    margin-bottom: .15rem;
+  }
+
+  .stat-value {
+    font-weight: 600;
+    font-size: .98rem;
+  }
+
+  .stat-mono {
+    font-family: "JetBrains Mono", monospace;
+    font-size: .85rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: .55rem 1.1rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.2);
+    background: #8a143b;
+    color: #fff;
+    font-size: .9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background .15s ease, transform .1s ease, box-shadow .15s ease;
+    text-decoration: none;
+  }
+
+  .btn:hover {
+    background: #b71f4f;
+    transform: translateY(-1px);
+    box-shadow: 0 12px 30px rgba(0,0,0,.5);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    border-color: rgba(255,255,255,.35);
+  }
+
+  .btn-ghost:hover {
+    background: rgba(255,255,255,.04);
+  }
+
+  .btn.connected {
+    background: #0c8b4a;
+    border-color: #0c8b4a;
+  }
+
+  .field-group {
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+    margin-bottom: .75rem;
+  }
+
+  .field-group label {
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    opacity: .75;
+  }
+
+  .field-group input {
+    background: #07030a;
+    border-radius: .6rem;
+    border: 1px solid rgba(255,255,255,.12);
+    padding: .45rem .7rem;
+    color: #fff;
+    font-size: .9rem;
+    font-family: "JetBrains Mono", monospace;
+  }
+
+  .field-group input:focus {
+    outline: none;
+    border-color: #b71f4f;
+    box-shadow: 0 0 0 1px rgba(183,31,79,.6);
+  }
+
+  .tx-status {
+    margin-top: .75rem;
+    font-size: .85rem;
+    min-height: 1.2rem;
+  }
+
+  .tx-status strong {
+    font-family: "JetBrains Mono", monospace;
+  }
+
+  section h2.section-title {
+    font-size: 1.4rem;
+    margin-bottom: .2rem;
+  }
+
+  section p.section-sub {
+    font-size: .9rem;
+    opacity: .8;
+    margin-bottom: 1.0rem;
+  }
+
+  ul.token-rules {
+    font-size: .9rem;
+    opacity: .9;
+    padding-left: 1.1rem;
+  }
+
+  ul.token-rules li {
+    margin-bottom: .35rem;
+  }
+
+  @media (max-width: 720px) {
     .hero-educativa h1 {
-      font-size: 2.4rem;
-      margin-bottom: 0.75rem;
+      font-size: 2rem;
     }
+  }
+</style>
 
-    .hero-educativa p {
-      max-width: 700px;
-      line-height: 1.6;
-    }
-
-    .hero-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: .5rem;
-      padding: .35rem .9rem;
-      border-radius: 999px;
-      background: rgba(255,255,255,.06);
-      font-size: .85rem;
-      margin-bottom: .75rem;
-    }
-
-    .hero-pill span {
-      font-weight: 600;
-      letter-spacing: .03em;
-      text-transform: uppercase;
-      font-size: .75rem;
-    }
-
-    .hero-meta {
-      margin-top: 1rem;
-      font-size: .9rem;
-      opacity: .85;
-    }
-
-    .hero-meta code {
-      font-family: "JetBrains Mono", monospace;
-      font-size: .78rem;
-      padding: .25rem .5rem;
-      border-radius: .4rem;
-      background: rgba(0,0,0,.35);
-    }
-
-    .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
-  gap: 1rem; /* reducido */
-}
-
-
-    .card {
-      background: #0b0610;
-      border-radius: 1rem;
-      padding: 1.25rem 1.3rem;
-      border: 1px solid rgba(255,255,255,.06);
-      box-shadow: 0 14px 35px rgba(0,0,0,.55);
-    }
-
-    .card h2,
-    .card h3 {
-      font-size: 1.1rem;
-      margin-bottom: .7rem;
-    }
-
-    .card small {
-      opacity: .75;
-      font-size: .8rem;
-    }
-
-    .stat-label {
-      font-size: .8rem;
-      text-transform: uppercase;
-      letter-spacing: .06em;
-      opacity: .7;
-      margin-bottom: .15rem;
-    }
-
-    .stat-value {
-      font-weight: 600;
-      font-size: .98rem;
-    }
-
-    .stat-mono {
-      font-family: "JetBrains Mono", monospace;
-      font-size: .85rem;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: .55rem 1.1rem;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.2);
-      background: #8a143b;
-      color: #fff;
-      font-size: .9rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background .15s ease, transform .1s ease, box-shadow .15s ease;
-      text-decoration: none;
-    }
-
-    .btn:hover {
-      background: #b71f4f;
-      transform: translateY(-1px);
-      box-shadow: 0 12px 30px rgba(0,0,0,.5);
-    }
-
-    .btn-ghost {
-      background: transparent;
-      border-color: rgba(255,255,255,.35);
-    }
-
-    .btn-ghost:hover {
-      background: rgba(255,255,255,.04);
-    }
-
-    .btn.connected {
-      background: #0c8b4a;
-      border-color: #0c8b4a;
-    }
-
-    .field-group {
-      display: flex;
-      flex-direction: column;
-      gap: .3rem;
-      margin-bottom: .75rem;
-    }
-
-    .field-group label {
-      font-size: .8rem;
-      text-transform: uppercase;
-      letter-spacing: .06em;
-      opacity: .75;
-    }
-
-    .field-group input {
-      background: #07030a;
-      border-radius: .6rem;
-      border: 1px solid rgba(255,255,255,.12);
-      padding: .45rem .7rem;
-      color: #fff;
-      font-size: .9rem;
-      font-family: "JetBrains Mono", monospace;
-    }
-
-    .field-group input:focus {
-      outline: none;
-      border-color: #b71f4f;
-      box-shadow: 0 0 0 1px rgba(183,31,79,.6);
-    }
-
-    .tx-status {
-      margin-top: .75rem;
-      font-size: .85rem;
-      min-height: 1.2rem;
-    }
-
-    .tx-status strong {
-      font-family: "JetBrains Mono", monospace;
-    }
-
-    /* === Compactar bloques verticales === */
-section {
-  padding: 1.2rem 0 0;   /* antes 2rem */
-}
-
-.card {
-  padding: 1.2rem 1.4rem;  /* antes ~1.5–1.75 */
-  margin-bottom: 1rem;     /* da respiro entre cards */
-}
-    section h2.section-title {
-      font-size: 1.4rem;
-      margin-bottom: .2rem;
-    }
-
-    section p.section-sub {
-      font-size: .9rem;
-      opacity: .8;
-      margin-bottom: 1.1rem;
-    }
-
-    ul.token-rules {
-      font-size: .9rem;
-      opacity: .9;
-      padding-left: 1.1rem;
-    }
-
-    ul.token-rules li {
-      margin-bottom: .35rem;
-    }
-
-    @media (max-width: 720px) {
-      .hero-educativa h1 {
-        font-size: 2rem;
-      }
-    }
-
-    .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
-  gap: 0.9rem; /* antes 1.25rem */
-}
-
-section {
-  padding: 1.5rem 0 0; /* antes 2rem si lo ves muy espaciado */
-}
-
-  </style>
 </head>
 <body>
-
+/MMDV-Blockchain/projects/mmdv-wine-token/
 <header>
   <div class="wrap">
     <nav class="top-nav">
-      <a href="MMDV-Blockchain/projects/mmdv-wine-token/" class="brand">
+      <a href="/MMDV-Blockchain/index.html" class="brand">
         <span class="brand-mark">MMDV</span>
         <span class="brand-sub">Blockchain</span>
       </a>
       <div class="nav-links">
-        <a href="/MMDV-Blockchain/index.html">Inicio</a>
+        <a href="/MMDV-Blockchain/projects/mmdv-wine-token/">Inicio</a>
         <a href="MMDV-Blockchain/projects.html">Proyectos</a>
         <a href="/MMDV-Blockchain/retos.html">Retos</a>
       </div>
