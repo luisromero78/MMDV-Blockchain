@@ -6,176 +6,180 @@ const CONTRACT_ADDRESS = "0x8e913dEadC1F9c25a2ADc7BAD793cEf72CD02dC2";
 const CONTRACT_ABI = [
   // Metadatos básicos
   {
-    "inputs": [],
-    "name": "name",
-    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
-    "stateMutability": "view",
-    "type": "function"
+    inputs: [],
+    name: "name",
+    outputs: [{ internalType: "string", name: "", type: "string" }],
+    stateMutability: "view",
+    type: "function",
   },
   {
-    "inputs": [],
-    "name": "symbol",
-    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
-    "stateMutability": "view",
-    "type": "function"
+    inputs: [],
+    name: "symbol",
+    outputs: [{ internalType: "string", name: "", type: "string" }],
+    stateMutability: "view",
+    type: "function",
   },
   {
-    "inputs": [],
-    "name": "decimals",
-    "outputs": [{ "internalType": "uint8", "name": "", "type": "uint8" }],
-    "stateMutability": "pure",
-    "type": "function"
+    inputs: [],
+    name: "decimals",
+    outputs: [{ internalType: "uint8", name: "", type: "uint8" }],
+    stateMutability: "pure",
+    type: "function",
   },
   {
-    "inputs": [],
-    "name": "totalSupply",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
+    inputs: [],
+    name: "totalSupply",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
   },
 
   // Parámetros educativos
   {
-    "inputs": [],
-    "name": "MAX_SUPPLY",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
+    inputs: [],
+    name: "MAX_SUPPLY",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
   },
   {
-    "inputs": [],
-    "name": "BASE_PRICE_UNITS",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
+    inputs: [],
+    name: "BASE_PRICE_UNITS",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
   },
   {
-    "inputs": [],
-    "name": "CANCELLATION_PERIOD",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
+    inputs: [],
+    name: "CANCELLATION_PERIOD",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
   },
   {
-    "inputs": [],
-    "name": "MIN_LOCK_PERIOD",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
+    inputs: [],
+    name: "MIN_LOCK_PERIOD",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
   },
   {
-    "inputs": [],
-    "name": "BUYBACK_PRICE_UNITS",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
+    inputs: [],
+    name: "BUYBACK_PRICE_UNITS",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
   },
 
   // Estado por holder
   {
-    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "name": "holdings",
-    "outputs": [
-      { "internalType": "uint256", "name": "amount", "type": "uint256" },
-      { "internalType": "uint64", "name": "firstPurchaseAt", "type": "uint64" }
+    inputs: [{ internalType: "address", name: "", type: "address" }],
+    name: "holdings",
+    outputs: [
+      { internalType: "uint256", name: "amount", type: "uint256" },
+      { internalType: "uint64", name: "firstPurchaseAt", type: "uint64" },
     ],
-    "stateMutability": "view",
-    "type": "function"
+    stateMutability: "view",
+    type: "function",
   },
   {
-    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "name": "hasPriorityForNextLot",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
-    "stateMutability": "view",
-    "type": "function"
+    inputs: [{ internalType: "address", name: "", type: "address" }],
+    name: "hasPriorityForNextLot",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "view",
+    type: "function",
   },
 
   // Analíticas educativas
   {
-    "inputs": [{ "internalType": "address", "name": "holder", "type": "address" }],
-    "name": "currentValueMultiplier",
-    "outputs": [{ "internalType": "uint256", "name": "multiplierBps", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [{ "internalType": "address", "name": "holder", "type": "address" }],
-    "name": "loyaltyBonusAmount",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [{ "internalType": "address", "name": "holder", "type": "address" }],
-    "name": "minResalePriceUnitsPerToken",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "holder", "type": "address" },
-      { "internalType": "uint256", "name": "proposedPriceUnitsPerToken", "type": "uint256" }
+    inputs: [{ internalType: "address", name: "holder", type: "address" }],
+    name: "currentValueMultiplier",
+    outputs: [
+      { internalType: "uint256", name: "multiplierBps", type: "uint256" },
     ],
-    "name": "validateResalePrice",
-    "outputs": [
-      { "internalType": "bool", "name": "ok", "type": "bool" },
-      { "internalType": "uint256", "name": "minPriceUnitsPerToken", "type": "uint256" }
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "holder", type: "address" }],
+    name: "loyaltyBonusAmount",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "holder", type: "address" }],
+    name: "minResalePriceUnitsPerToken",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "holder", type: "address" },
+      {
+        internalType: "uint256",
+        name: "proposedPriceUnitsPerToken",
+        type: "uint256",
+      },
     ],
-    "stateMutability": "view",
-    "type": "function"
+    name: "validateResalePrice",
+    outputs: [
+      { internalType: "bool", name: "ok", type: "bool" },
+      {
+        internalType: "uint256",
+        name: "minPriceUnitsPerToken",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
   },
 
   // Cosas estándar
   {
-    "inputs": [{ "internalType": "address", "name": "account", "type": "address" }],
-    "name": "balanceOf",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
+    inputs: [{ internalType: "address", name: "account", type: "address" }],
+    name: "balanceOf",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
   },
   {
-    "inputs": [],
-    "name": "owner",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "stateMutability": "view",
-    "type": "function"
+    inputs: [],
+    name: "owner",
+    outputs: [{ internalType: "address", name: "", type: "address" }],
+    stateMutability: "view",
+    type: "function",
   },
 
-  // Funciones educativas que implican transacción (las dejamos preparadas)
+  // Funciones educativas que implican transacción
   {
-    "inputs": [{ "internalType": "uint256", "name": "amount", "type": "uint256" }],
-    "name": "cancelWithin24h",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
+    inputs: [{ internalType: "uint256", name: "amount", type: "uint256" }],
+    name: "cancelWithin24h",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
   },
   {
-    "inputs": [
-      { "internalType": "address", "name": "seller", "type": "address" },
-      { "internalType": "uint256", "name": "amount", "type": "uint256" }
+    inputs: [
+      { internalType: "address", name: "seller", type: "address" },
+      { internalType: "uint256", name: "amount", type: "uint256" },
     ],
-    "name": "ownerBuyback",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  }
+    name: "ownerBuyback",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
 ];
 
-const RPC_URL = "https://rpc.sepolia.org";
-
-// proveedor de solo lectura por defecto
-let provider = new ethers.providers.JsonRpcProvider(RPC_URL);
-let signer = null;
-let contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, provider);
-let userAddress = null;
+const READ_RPC = "https://rpc.sepolia.org";
 
 // 2) Estado global JS
-let readProvider;      // proveedor solo lectura (no necesita MetaMask)
+let readProvider;   // solo lectura
 let readContract;
-let writeProvider;     // proveedor con Metamask
-let signer;
+let writeProvider;  // con MetaMask
 let writeContract;
+let signer;
 let currentAccount = null;
 let contractOwner = null;
 
@@ -196,8 +200,7 @@ function bpsToPercent(bps) {
 
 // 4) Carga inicial (solo lectura)
 async function initReadOnly() {
-  // Proveedor público de Sepolia (lector). Ethers se encarga del endpoint.
-  readProvider = ethers.getDefaultProvider("sepolia");
+  readProvider = new ethers.providers.JsonRpcProvider(READ_RPC);
   readContract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, readProvider);
 
   contractOwner = await readContract.owner();
@@ -213,7 +216,7 @@ async function loadGlobalStats() {
     basePrice,
     cancelPeriod,
     lockPeriod,
-    buybackPrice
+    buybackPrice,
   ] = await Promise.all([
     readContract.name(),
     readContract.symbol(),
@@ -222,22 +225,28 @@ async function loadGlobalStats() {
     readContract.BASE_PRICE_UNITS(),
     readContract.CANCELLATION_PERIOD(),
     readContract.MIN_LOCK_PERIOD(),
-    readContract.BUYBACK_PRICE_UNITS()
+    readContract.BUYBACK_PRICE_UNITS(),
   ]);
 
-  // Rellena tarjetas globales
   document.getElementById("tokenName").textContent = `${name} (${symbol})`;
-  document.getElementById("supplyInfo").textContent =
-    `${formatUnits(totalSupply)} / ${formatUnits(maxSupply)} MWT5`;
-  document.getElementById("basePrice").textContent =
-    `${formatUnits(basePrice)} unidades simbólicas`;
-  document.getElementById("cancelPeriod").textContent =
-    `${Number(cancelPeriod) / 3600} horas`;
-  document.getElementById("lockPeriod").textContent =
-    `${(Number(lockPeriod) / (3600 * 24 * 365)).toFixed(1)} años`;
-  document.getElementById("buybackPrice").textContent =
-    `${formatUnits(buybackPrice)} unidades por token`;
-
+  document.getElementById(
+    "supplyInfo"
+  ).textContent = `${formatUnits(totalSupply)} / ${formatUnits(
+    maxSupply
+  )} MWT5`;
+  document.getElementById(
+    "basePrice"
+  ).textContent = `${formatUnits(basePrice)} unidades simbólicas`;
+  document.getElementById(
+    "cancelPeriod"
+  ).textContent = `${Number(cancelPeriod) / 3600} horas`;
+  document.getElementById("lockPeriod").textContent = `${(
+    Number(lockPeriod) /
+    (3600 * 24 * 365)
+  ).toFixed(1)} años`;
+  document.getElementById(
+    "buybackPrice"
+  ).textContent = `${formatUnits(buybackPrice)} unidades por token`;
   document.getElementById("ownerAddress").textContent = contractOwner;
 }
 
@@ -245,31 +254,29 @@ async function loadGlobalStats() {
 async function loadHolderView(address) {
   if (!address) return;
 
-  const [
-    balance,
-    holding,
-    hasPriority,
-    multiplierBps,
-    loyaltyBonus,
-    minResalePrice
-  ] = await Promise.all([
-    readContract.balanceOf(address),
-    readContract.holdings(address),
-    readContract.hasPriorityForNextLot(address),
-    readContract.currentValueMultiplier(address),
-    readContract.loyaltyBonusAmount(address),
-    readContract.minResalePriceUnitsPerToken(address)
-  ]);
+  const [balance, holding, hasPriority, multiplierBps, loyaltyBonus, minResalePrice] =
+    await Promise.all([
+      readContract.balanceOf(address),
+      readContract.holdings(address),
+      readContract.hasPriorityForNextLot(address),
+      readContract.currentValueMultiplier(address),
+      readContract.loyaltyBonusAmount(address),
+      readContract.minResalePriceUnitsPerToken(address),
+    ]);
 
   const firstPurchaseAt = holding.firstPurchaseAt;
 
   document.getElementById("holderAddress").textContent = address;
   document.getElementById("holderBalance").textContent = formatUnits(balance);
-  document.getElementById("holderTrackedAmount").textContent = formatUnits(holding.amount);
-  document.getElementById("holderFirstPurchase").textContent = formatDate(firstPurchaseAt);
+  document.getElementById("holderTrackedAmount").textContent =
+    formatUnits(holding.amount);
+  document.getElementById("holderFirstPurchase").textContent =
+    formatDate(firstPurchaseAt);
   document.getElementById("holderPriority").textContent = hasPriority ? "Sí" : "No";
-  document.getElementById("holderMultiplier").textContent = bpsToPercent(multiplierBps);
-  document.getElementById("holderLoyaltyBonus").textContent = formatUnits(loyaltyBonus);
+  document.getElementById("holderMultiplier").textContent =
+    bpsToPercent(multiplierBps);
+  document.getElementById("holderLoyaltyBonus").textContent =
+    formatUnits(loyaltyBonus);
   document.getElementById("holderMinResale").textContent =
     `${formatUnits(minResalePrice)} unidades / token`;
 }
@@ -296,11 +303,13 @@ async function validatePriceFromUI() {
   );
 
   if (ok) {
-    output.textContent =
-      `✅ El precio respeta el mínimo educativo (${formatUnits(minPrice)} unidades/token).`;
+    output.textContent = `✅ El precio respeta el mínimo educativo (${formatUnits(
+      minPrice
+    )} unidades/token).`;
   } else {
-    output.textContent =
-      `⚠️ Precio demasiado bajo. Mínimo educativo: ${formatUnits(minPrice)} unidades/token.`;
+    output.textContent = `⚠️ Precio demasiado bajo. Mínimo educativo: ${formatUnits(
+      minPrice
+    )} unidades/token.`;
   }
 }
 
@@ -312,35 +321,36 @@ async function connectWallet() {
   }
 
   try {
-    // pedir permisos
     const accounts = await window.ethereum.request({
       method: "eth_requestAccounts",
     });
 
-    userAddress = accounts[0];
+    currentAccount = accounts[0];
 
-    // cambiamos a provider web3 y firmante
-    provider = new ethers.providers.Web3Provider(window.ethereum);
-    signer = provider.getSigner();
-    contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+    writeProvider = new ethers.providers.Web3Provider(window.ethereum);
+    signer = writeProvider.getSigner();
+    writeContract = new ethers.Contract(
+      CONTRACT_ADDRESS,
+      CONTRACT_ABI,
+      signer
+    );
 
-    // aquí ya puedes refrescar panel de “Tus datos”
-    await loadUserPanels();
-
-    // feedback en la UI
-    const btn = document.getElementById("connectWalletBtn");
+    // Actualizamos botón
+    const btn = document.getElementById("connectButton");
     if (btn) {
-      btn.textContent = `Conectado: ${userAddress.slice(0, 6)}...${userAddress.slice(-4)}`;
-      btn.disabled = true;
+      btn.textContent = `Conectado: ${currentAccount.slice(
+        0,
+        6
+      )}...${currentAccount.slice(-4)}`;
+      btn.disabled = false; // si quieres dejarlo activo
     }
+
+    // Mostramos datos del holder conectado
+    await loadHolderView(currentAccount);
   } catch (err) {
     console.error("Error al conectar wallet:", err);
     alert("No se pudo conectar la wallet o se canceló la conexión.");
   }
-}
-
-  // Carga datos del holder conectado
-  await loadHolderView(currentAccount);
 }
 
 // 8) Función educativa: cancelWithin24h
@@ -359,22 +369,24 @@ async function cancelWithin24hFromUI() {
 
   try {
     const tx = await writeContract.cancelWithin24h(amount);
-    document.getElementById("txStatus").textContent =
-      `⏳ Enviando transacción... ${tx.hash}`;
+    document.getElementById(
+      "txStatus"
+    ).textContent = `⏳ Enviando transacción... ${tx.hash}`;
     const receipt = await tx.wait();
-    document.getElementById("txStatus").textContent =
-      `✅ Cancelación ejecutada en el bloque ${receipt.blockNumber}.`;
+    document.getElementById(
+      "txStatus"
+    ).textContent = `✅ Cancelación ejecutada en el bloque ${receipt.blockNumber}.`;
 
-    // Refresca datos del holder
     await loadHolderView(currentAccount);
   } catch (err) {
     console.error(err);
-    document.getElementById("txStatus").textContent =
-      `❌ Error en la transacción: ${err.reason || err.message}`;
+    document.getElementById("txStatus").textContent = `❌ Error en la transacción: ${
+      err.reason || err.message
+    }`;
   }
 }
 
-// 9) (Opcional) Buyback para el owner – solo si currentAccount == contractOwner
+// 9) Buyback para el owner
 async function ownerBuybackFromUI() {
   if (!writeContract || !currentAccount) {
     alert("Conecta tu wallet primero.");
@@ -397,31 +409,45 @@ async function ownerBuybackFromUI() {
 
   try {
     const tx = await writeContract.ownerBuyback(seller, amount);
-    document.getElementById("txStatus").textContent =
-      `⏳ Enviando buyback... ${tx.hash}`;
+    document.getElementById(
+      "txStatus"
+    ).textContent = `⏳ Enviando buyback... ${tx.hash}`;
     const receipt = await tx.wait();
-    document.getElementById("txStatus").textContent =
-      `✅ Buyback ejecutado en el bloque ${receipt.blockNumber}.`;
+    document.getElementById(
+      "txStatus"
+    ).textContent = `✅ Buyback ejecutado en el bloque ${receipt.blockNumber}.`;
   } catch (err) {
     console.error(err);
-    document.getElementById("txStatus").textContent =
-      `❌ Error en el buyback: ${err.reason || err.message}`;
+    document.getElementById("txStatus").textContent = `❌ Error en el buyback: ${
+      err.reason || err.message
+    }`;
   }
 }
 
-// 10) Exponer funciones al DOM
+// 🔟 Enlazar con el DOM
 window.addEventListener("DOMContentLoaded", async () => {
   await initReadOnly();
 
-  // Botones
-  document.getElementById("connectButton").onclick = connectWallet;
-  document.getElementById("refreshHolderButton").onclick = async () => {
-    const addrInput = document.getElementById("manualAddressInput").value.trim();
-    const addr = addrInput || currentAccount;
-    if (!addr) return;
-    await loadHolderView(addr);
-  };
-  document.getElementById("validatePriceButton").onclick = validatePriceFromUI;
-  document.getElementById("cancelButton").onclick = cancelWithin24hFromUI;
-  document.getElementById("buybackButton").onclick = ownerBuybackFromUI;
+  const connectBtn = document.getElementById("connectButton");
+  if (connectBtn) connectBtn.onclick = connectWallet;
+
+  const refreshBtn = document.getElementById("refreshHolderButton");
+  if (refreshBtn)
+    refreshBtn.onclick = async () => {
+      const addrInput = document
+        .getElementById("manualAddressInput")
+        .value.trim();
+      const addr = addrInput || currentAccount;
+      if (!addr) return;
+      await loadHolderView(addr);
+    };
+
+  const validateBtn = document.getElementById("validatePriceButton");
+  if (validateBtn) validateBtn.onclick = validatePriceFromUI;
+
+  const cancelBtn = document.getElementById("cancelButton");
+  if (cancelBtn) cancelBtn.onclick = cancelWithin24hFromUI;
+
+  const buybackBtn = document.getElementById("buybackButton");
+  if (buybackBtn) buybackBtn.onclick = ownerBuybackFromUI;
 });
