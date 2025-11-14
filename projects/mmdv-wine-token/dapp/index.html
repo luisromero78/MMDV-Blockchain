@@ -351,26 +351,29 @@ section {
         </article>
 
         <article class="card">
-          <h3>Conexión Web3</h3>
-          <p style="font-size:.88rem;opacity:.85;margin-bottom:.8rem;">
-            Puedes explorar todo en modo lectura sin conectar nada.  
-            Si quieres interactuar con el contrato (por ejemplo, cancelación 24h)
-            conecta una wallet de prueba en Sepolia.
-          </p>
+  <h3>Conexión Web3</h3>
+  <p style="font-size:.88rem;opacity:.85;margin-bottom:.8rem;">
+    Puedes explorar todo en modo lectura sin conectar nada.  
+    Si quieres interactuar con el contrato (por ejemplo, cancelación 24h)
+    conecta una wallet de prueba en Sepolia.
+  </p>
 
-       <button id="connectWalletBtn" class="btn">
-  Conectar wallet
-</button>
+  <!-- Botón conectar -->
+  <button id="connectWalletBtn" class="btn">
+    Conectar wallet
+  </button>
 
-<button id="disconnectButton" class="btn-ghost btn" style="margin-top:0.6rem;">
-  Desconectar wallet
-</button>
+  <!-- Botón desconectar -->
+  <button id="disconnectWalletBtn" class="btn btn-ghost" style="margin-top:.6rem;">
+    Desconectar wallet
+  </button>
 
-          <div style="margin-top:.75rem;">
-            <div class="stat-label">Cuenta conectada</div>
-            <div class="stat-value stat-mono" id="connectedAddress">No conectada</div>
-          </div>
-        </article>
+  <div style="margin-top:.75rem;">
+    <div class="stat-label">Cuenta conectada</div>
+    <div class="stat-value stat-mono" id="connectedAddress">No conectada</div>
+  </div>
+</article>
+
       </div>
     </div>
   </section>
