@@ -162,6 +162,14 @@ const CONTRACT_ABI = [
   }
 ];
 
+const RPC_URL = "https://rpc.sepolia.org";
+
+// proveedor de solo lectura por defecto
+let provider = new ethers.providers.JsonRpcProvider(RPC_URL);
+let signer = null;
+let contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, provider);
+let userAddress = null;
+
 // 2) Estado global JS
 let readProvider;      // proveedor solo lectura (no necesita MetaMask)
 let readContract;
@@ -299,19 +307,37 @@ async function validatePriceFromUI() {
 // 7) Conexión con MetaMask
 async function connectWallet() {
   if (!window.ethereum) {
-    alert("Necesitas MetaMask (u otra wallet) para conectar.");
+    alert("Necesitas Metamask u otra wallet con inyección de 'window.ethereum'.");
     return;
   }
 
-  writeProvider = new ethers.BrowserProvider(window.ethereum);
-  const accounts = await writeProvider.send("eth_requestAccounts", []);
-  currentAccount = accounts[0];
+  try {
+    // pedir permisos
+    const accounts = await window.ethereum.request({
+      method: "eth_requestAccounts",
+    });
 
-  signer = await writeProvider.getSigner();
-  writeContract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+    userAddress = accounts[0];
 
-  document.getElementById("connectedAddress").textContent = currentAccount;
-  document.getElementById("connectButton").classList.add("connected");
+    // cambiamos a provider web3 y firmante
+    provider = new ethers.providers.Web3Provider(window.ethereum);
+    signer = provider.getSigner();
+    contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+
+    // aquí ya puedes refrescar panel de “Tus datos”
+    await loadUserPanels();
+
+    // feedback en la UI
+    const btn = document.getElementById("connectWalletBtn");
+    if (btn) {
+      btn.textContent = `Conectado: ${userAddress.slice(0, 6)}...${userAddress.slice(-4)}`;
+      btn.disabled = true;
+    }
+  } catch (err) {
+    console.error("Error al conectar wallet:", err);
+    alert("No se pudo conectar la wallet o se canceló la conexión.");
+  }
+}
 
   // Carga datos del holder conectado
   await loadHolderView(currentAccount);
