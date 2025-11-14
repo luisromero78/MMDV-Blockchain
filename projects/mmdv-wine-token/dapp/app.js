@@ -136,6 +136,31 @@ const CONTRACT_ABI = [
     "type": "function"
   },
   {
+    "inputs": [
+      { "internalType": "address", "name": "spender", "type": "address" },
+      { "internalType": "uint256", "name": "amount", "type": "uint256" }
+    ],
+    "name": "approve",
+    "outputs": [
+      { "internalType": "bool", "name": "", "type": "bool" }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "owner", "type": "address" },
+      { "internalType": "address", "name": "spender", "type": "address" }
+    ],
+    "name": "allowance",
+    "outputs": [
+      { "internalType": "uint256", "name": "", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  
+  {
     "inputs": [],
     "name": "owner",
     "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
@@ -456,32 +481,44 @@ async function ownerBuybackFromUI() {
   }
 }
 
-// 9.1) Aprobar permiso para buyback
+// 9.1) Aprobar permiso (vendedor)
 async function approveAllowanceFromUI() {
   if (!writeContract || !currentAccount) {
-    alert("Conecta tu wallet primero.");
+    alert("Conecta tu wallet primero (la del vendedor).");
+    return;
+  }
+
+  if (!contractOwner) {
+    alert("No se ha podido leer la dirección del owner.");
     return;
   }
 
   const amountStr = document.getElementById("approveAmountInput").value;
   const amount = amountStr ? BigInt(amountStr) : 0n;
+
   if (amount === 0n) {
-    alert("Introduce una cantidad > 0.");
+    alert("Indica una cantidad > 0 para autorizar.");
     return;
   }
 
   try {
-    const tx = await writeContract.approve(contractOwner, amount);
     const status = document.getElementById("txStatus");
-    status.textContent = `⏳ Enviando aprobación… ${tx.hash}`;
+    status.textContent = "⏳ Enviando approve...";
+
+    const tx = await writeContract.approve(contractOwner, amount);
+    status.textContent = `⏳ Tx enviada: ${tx.hash}`;
     const receipt = await tx.wait();
-    status.textContent = `✅ Permiso aprobado en el bloque ${receipt.blockNumber}.`;
+
+    status.textContent =
+      `✅ Permiso aprobado para ${contractOwner} por ${amount} tokens (bloque ${receipt.blockNumber}).`;
   } catch (err) {
-    console.error(err);
-    document.getElementById("txStatus").textContent =
+    console.error("Error en approve:", err);
+    const status = document.getElementById("txStatus");
+    status.textContent =
       `❌ Error en approve: ${err.reason || err.message}`;
   }
 }
+
 
 
 // 10) Wiring DOM
