@@ -500,24 +500,30 @@ section {
           <button id="cancelButton" class="btn">Ejecutar cancelación 24h</button>
         </article>
 
-        <!---Aprobar permiso --->
-        <div class="card">
+       <!-- APROBAR PERMISO (VENDEDOR) -->
+<article class="card">
   <h3>Aprobar permiso (vendedor)</h3>
-  <p>
+  <p style="font-size:.88rem;opacity:.9;margin-bottom:.7rem;">
     Antes de que el owner pueda recomprarte tokens, debes darle permiso.
     Esto no mueve tokens: solo autoriza al owner para ejecutar el buyback.
   </p>
 
-  <label class="label">Dirección del owner</label>
-  <div id="approveOwnerAddress" class="mono muted">cargando…</div>
+  <div class="field-group">
+    <label>Dirección del owner</label>
+    <div id="approveOwnerAddress" class="stat-value stat-mono">
+      cargando...
+    </div>
+  </div>
 
-  <label class="label" style="margin-top: 1rem;">Cantidad a autorizar (tokens)</label>
-  <input id="approveAmountInput" class="input" type="number" placeholder="100" />
+  <div class="field-group">
+    <label for="approveAmountInput">Cantidad a autorizar (tokens)</label>
+    <input id="approveAmountInput" type="number" min="0" step="1" value="100">
+  </div>
 
-  <button id="approveButton" class="btn" style="margin-top: 1rem;">
+  <button id="approveButton" class="btn">
     Aprobar permiso
   </button>
-</div>
+</article>
 
         
         <!-- Buyback del owner -->
