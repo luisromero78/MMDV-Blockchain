@@ -321,12 +321,14 @@ async function connectWallet() {
   }
 
   try {
+    // --- 1) Solicitar cuentas ---
     const accounts = await window.ethereum.request({
       method: "eth_requestAccounts",
     });
 
     currentAccount = accounts[0];
 
+    // --- 2) Crear proveedor Web3 + signer ---
     writeProvider = new ethers.providers.Web3Provider(window.ethereum);
     signer = writeProvider.getSigner();
     writeContract = new ethers.Contract(
@@ -335,23 +337,29 @@ async function connectWallet() {
       signer
     );
 
-    // Actualizamos botón
+    // --- 3) Actualizar botón ---
     const btn = document.getElementById("connectButton");
     if (btn) {
-      btn.textContent = `Conectado: ${currentAccount.slice(
-        0,
-        6
-      )}...${currentAccount.slice(-4)}`;
-      btn.disabled = false; // si quieres dejarlo activo
+      btn.textContent = `Conectado: ${currentAccount.slice(0, 6)}...${currentAccount.slice(-4)}`;
+      btn.classList.add("connected"); // estilo verde opcional
+      btn.disabled = false;           // si quieres dejarlo activo
     }
 
-    // Mostramos datos del holder conectado
+    // --- 4) Actualizar tarjeta de "Cuenta conectada" ---
+    const addrLabel = document.getElementById("connectedAddress");
+    if (addrLabel) {
+      addrLabel.textContent = currentAccount;
+    }
+
+    // --- 5) Cargar datos del holder conectado ---
     await loadHolderView(currentAccount);
+
   } catch (err) {
     console.error("Error al conectar wallet:", err);
     alert("No se pudo conectar la wallet o se canceló la conexión.");
   }
 }
+
 
 // 8) Función educativa: cancelWithin24h
 async function cancelWithin24hFromUI() {
