@@ -258,12 +258,5 @@ contract MMDVWineTokenV5 is ERC20, ERC20Capped, ERC20Burnable, ERC20Pausable, Ow
         _enforceTransferLock(from, to);
         super._update(from, to, value);
     }
-
-    // Necesario para que ERC20Capped compile bien con varias herencias.
-    function _mint(address account, uint256 value)
-        internal
-        override(ERC20, ERC20Capped)
-    {
-        super._mint(account, value);
-    }
+  
 }
