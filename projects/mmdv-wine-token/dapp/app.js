@@ -1,13 +1,10 @@
-// Dirección del contrato MWT5 en Sepolia
+// app.js – MWT5 Dapp educativa (lectura + conexión opcional)
+
+// 1) Configuración básica
 const CONTRACT_ADDRESS = "0x8e913dEadC1F9c25a2ADc7BAD793cEf72CD02dC2";
 
-// RPC público de solo lectura (sin necesidad de Metamask)
-const READONLY_RPC = "https://sepolia.drpc.org";
-
-// ABI mínima: solo las funciones que vamos a usar al principio.
-// Si quieres, más adelante pegamos aquí el ABI completo desde Etherscan.
 const CONTRACT_ABI = [
-  // name()
+  // Metadatos básicos
   {
     "inputs": [],
     "name": "name",
@@ -15,7 +12,6 @@ const CONTRACT_ABI = [
     "stateMutability": "view",
     "type": "function"
   },
-  // symbol()
   {
     "inputs": [],
     "name": "symbol",
@@ -23,15 +19,13 @@ const CONTRACT_ABI = [
     "stateMutability": "view",
     "type": "function"
   },
-  // decimals()
   {
     "inputs": [],
     "name": "decimals",
     "outputs": [{ "internalType": "uint8", "name": "", "type": "uint8" }],
-    "stateMutability": "view",
+    "stateMutability": "pure",
     "type": "function"
   },
-  // totalSupply()
   {
     "inputs": [],
     "name": "totalSupply",
@@ -39,23 +33,64 @@ const CONTRACT_ABI = [
     "stateMutability": "view",
     "type": "function"
   },
-  // cap() (de ERC20Capped)
+
+  // Parámetros educativos
   {
     "inputs": [],
-    "name": "cap",
+    "name": "MAX_SUPPLY",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
-  // balanceOf(address)
   {
-    "inputs": [{ "internalType": "address", "name": "account", "type": "address" }],
-    "name": "balanceOf",
+    "inputs": [],
+    "name": "BASE_PRICE_UNITS",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
-  // currentValueMultiplier(address)
+  {
+    "inputs": [],
+    "name": "CANCELLATION_PERIOD",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "MIN_LOCK_PERIOD",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "BUYBACK_PRICE_UNITS",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+
+  // Estado por holder
+  {
+    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "name": "holdings",
+    "outputs": [
+      { "internalType": "uint256", "name": "amount", "type": "uint256" },
+      { "internalType": "uint64", "name": "firstPurchaseAt", "type": "uint64" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "name": "hasPriorityForNextLot",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+
+  // Analíticas educativas
   {
     "inputs": [{ "internalType": "address", "name": "holder", "type": "address" }],
     "name": "currentValueMultiplier",
@@ -63,7 +98,6 @@ const CONTRACT_ABI = [
     "stateMutability": "view",
     "type": "function"
   },
-  // loyaltyBonusAmount(address)
   {
     "inputs": [{ "internalType": "address", "name": "holder", "type": "address" }],
     "name": "loyaltyBonusAmount",
@@ -71,267 +105,297 @@ const CONTRACT_ABI = [
     "stateMutability": "view",
     "type": "function"
   },
-  // transfer(address,uint256)
   {
-    "inputs": [
-      { "internalType": "address", "name": "to", "type": "address" },
-      { "internalType": "uint256", "name": "value", "type": "uint256" }
-    ],
-    "name": "transfer",
-    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
-    "stateMutability": "nonpayable",
+    "inputs": [{ "internalType": "address", "name": "holder", "type": "address" }],
+    "name": "minResalePriceUnitsPerToken",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
     "type": "function"
   },
-  // owner()
+  {
+    "inputs": [
+      { "internalType": "address", "name": "holder", "type": "address" },
+      { "internalType": "uint256", "name": "proposedPriceUnitsPerToken", "type": "uint256" }
+    ],
+    "name": "validateResalePrice",
+    "outputs": [
+      { "internalType": "bool", "name": "ok", "type": "bool" },
+      { "internalType": "uint256", "name": "minPriceUnitsPerToken", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+
+  // Cosas estándar
+  {
+    "inputs": [{ "internalType": "address", "name": "account", "type": "address" }],
+    "name": "balanceOf",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
   {
     "inputs": [],
     "name": "owner",
     "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "stateMutability": "view",
     "type": "function"
+  },
+
+  // Funciones educativas que implican transacción (las dejamos preparadas)
+  {
+    "inputs": [{ "internalType": "uint256", "name": "amount", "type": "uint256" }],
+    "name": "cancelWithin24h",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "seller", "type": "address" },
+      { "internalType": "uint256", "name": "amount", "type": "uint256" }
+    ],
+    "name": "ownerBuyback",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   }
-  // Más adelante podemos añadir aquí las funciones específicas
-  // de recompra, cancelación, etc. cuando cerremos nombres exactos.
 ];
 
-// ---------- INSTANCIAS WEB3 ----------
-
-// Lectura sin wallet
-const web3Read = new Web3(new Web3.providers.HttpProvider(READONLY_RPC));
-const contractRead = new web3Read.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
-
-// Escritura con wallet (se inicializará al conectar)
-let web3Write = null;
-let contractWrite = null;
+// 2) Estado global JS
+let readProvider;      // proveedor solo lectura (no necesita MetaMask)
+let readContract;
+let writeProvider;     // proveedor con Metamask
+let signer;
+let writeContract;
 let currentAccount = null;
+let contractOwner = null;
 
-// ---------- UTILIDADES ----------
-
-function $(id) {
-  return document.getElementById(id);
+// 3) Utilidades
+function formatUnits(bn) {
+  return bn ? bn.toString() : "0";
 }
 
-function formatTokens(raw) {
-  // En MWT5 usamos 0 decimales → es directo.
-  return Number(raw).toLocaleString("es-ES");
+function formatDate(ts) {
+  if (!ts || ts === 0n) return "Sin compra registrada";
+  const ms = Number(ts) * 1000;
+  return new Date(ms).toLocaleString();
 }
 
-// ---------- CARGA INICIAL (MODO LECTURA) ----------
-
-async function loadTokenInfo() {
-  try {
-    $("contractAddress").textContent = CONTRACT_ADDRESS;
-
-    const [name, symbol, decimals, totalSupply, cap] = await Promise.all([
-      contractRead.methods.name().call(),
-      contractRead.methods.symbol().call(),
-      contractRead.methods.decimals().call(),
-      contractRead.methods.totalSupply().call(),
-      contractRead.methods.cap().call(),
-    ]);
-
-    $("tokenName").textContent = name;
-    $("tokenSymbol").textContent = symbol;
-    $("tokenDecimals").textContent = decimals;
-
-    $("totalSupply").textContent = formatTokens(totalSupply);
-    $("maxSupply").textContent = formatTokens(cap);
-  } catch (err) {
-    console.error("Error cargando info del token:", err);
-  }
+function bpsToPercent(bps) {
+  return (Number(bps) / 100).toFixed(2) + " %";
 }
 
-// ---------- CONSULTA DE BALANCE ----------
+// 4) Carga inicial (solo lectura)
+async function initReadOnly() {
+  // Proveedor público de Sepolia (lector). Ethers se encarga del endpoint.
+  readProvider = ethers.getDefaultProvider("sepolia");
+  readContract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, readProvider);
 
-async function handleBalanceForm(e) {
-  e.preventDefault();
-  const addr = $("balanceAddress").value.trim();
+  contractOwner = await readContract.owner();
+  await loadGlobalStats();
+}
 
-  if (!addr) {
-    $("balanceResult").textContent = "Introduce una dirección válida.";
+async function loadGlobalStats() {
+  const [
+    name,
+    symbol,
+    totalSupply,
+    maxSupply,
+    basePrice,
+    cancelPeriod,
+    lockPeriod,
+    buybackPrice
+  ] = await Promise.all([
+    readContract.name(),
+    readContract.symbol(),
+    readContract.totalSupply(),
+    readContract.MAX_SUPPLY(),
+    readContract.BASE_PRICE_UNITS(),
+    readContract.CANCELLATION_PERIOD(),
+    readContract.MIN_LOCK_PERIOD(),
+    readContract.BUYBACK_PRICE_UNITS()
+  ]);
+
+  // Rellena tarjetas globales
+  document.getElementById("tokenName").textContent = `${name} (${symbol})`;
+  document.getElementById("supplyInfo").textContent =
+    `${formatUnits(totalSupply)} / ${formatUnits(maxSupply)} MWT5`;
+  document.getElementById("basePrice").textContent =
+    `${formatUnits(basePrice)} unidades simbólicas`;
+  document.getElementById("cancelPeriod").textContent =
+    `${Number(cancelPeriod) / 3600} horas`;
+  document.getElementById("lockPeriod").textContent =
+    `${(Number(lockPeriod) / (3600 * 24 * 365)).toFixed(1)} años`;
+  document.getElementById("buybackPrice").textContent =
+    `${formatUnits(buybackPrice)} unidades por token`;
+
+  document.getElementById("ownerAddress").textContent = contractOwner;
+}
+
+// 5) Cargar datos de un holder (lectura)
+async function loadHolderView(address) {
+  if (!address) return;
+
+  const [
+    balance,
+    holding,
+    hasPriority,
+    multiplierBps,
+    loyaltyBonus,
+    minResalePrice
+  ] = await Promise.all([
+    readContract.balanceOf(address),
+    readContract.holdings(address),
+    readContract.hasPriorityForNextLot(address),
+    readContract.currentValueMultiplier(address),
+    readContract.loyaltyBonusAmount(address),
+    readContract.minResalePriceUnitsPerToken(address)
+  ]);
+
+  const firstPurchaseAt = holding.firstPurchaseAt;
+
+  document.getElementById("holderAddress").textContent = address;
+  document.getElementById("holderBalance").textContent = formatUnits(balance);
+  document.getElementById("holderTrackedAmount").textContent = formatUnits(holding.amount);
+  document.getElementById("holderFirstPurchase").textContent = formatDate(firstPurchaseAt);
+  document.getElementById("holderPriority").textContent = hasPriority ? "Sí" : "No";
+  document.getElementById("holderMultiplier").textContent = bpsToPercent(multiplierBps);
+  document.getElementById("holderLoyaltyBonus").textContent = formatUnits(loyaltyBonus);
+  document.getElementById("holderMinResale").textContent =
+    `${formatUnits(minResalePrice)} unidades / token`;
+}
+
+// 6) Validar un precio propuesto (solo lectura)
+async function validatePriceFromUI() {
+  const input = document.getElementById("proposedPriceInput");
+  const output = document.getElementById("proposedPriceResult");
+
+  if (!currentAccount) {
+    output.textContent = "Conecta tu wallet para validar tu precio mínimo.";
     return;
   }
 
-  try {
-    const balance = await contractRead.methods.balanceOf(addr).call();
-    $("balanceResult").textContent =
-      `Balance de ${addr.slice(0, 6)}…${addr.slice(-4)} → ${formatTokens(balance)} MWT5`;
-  } catch (err) {
-    console.error("Error consultando balance:", err);
-    $("balanceResult").textContent = "Error consultando balance (revisa la dirección y la red).";
-  }
-}
-
-// ---------- SIMULADOR EDUCATIVO ----------
-
-function handleSimulatorForm(e) {
-  e.preventDefault();
-
-  const tokens = Number($("simTokens").value || 0);
-  const years = Number($("simYears").value || 0);
-  const basePrice = Number($("simBasePrice").value || 0);
-
-  if (tokens <= 0 || years < 0 || basePrice <= 0) {
-    $("simulatorOutput").textContent = "Introduce valores válidos.";
+  const proposed = BigInt(input.value || "0");
+  if (proposed === 0n) {
+    output.textContent = "Introduce un precio simbólico > 0.";
     return;
   }
 
-  // Regla simplificada, alineada con lo que definimos:
-  // 0–1 años: 1.00x
-  // 1–2 años: 1.05x
-  // 2–3 años: 1.10x
-  // 3–4 años: 1.15x
-  // >4 años: 1.20x (+ bonus fidelidad 10% sobre tokens)
-  let multiplier = 1.0;
-  if (years >= 1 && years < 2) multiplier = 1.05;
-  else if (years >= 2 && years < 3) multiplier = 1.10;
-  else if (years >= 3 && years < 4) multiplier = 1.15;
-  else if (years >= 4) multiplier = 1.20;
+  const [ok, minPrice] = await readContract.validateResalePrice(
+    currentAccount,
+    proposed
+  );
 
-  const teoreticalUnitPrice = basePrice * multiplier;
-  const baseValue = tokens * basePrice;
-  const valueWithMultiplier = tokens * teoreticalUnitPrice;
-
-  let loyaltyBonusTokens = 0;
-  if (years >= 4) {
-    loyaltyBonusTokens = Math.floor(tokens * 0.10); // 10% extra
+  if (ok) {
+    output.textContent =
+      `✅ El precio respeta el mínimo educativo (${formatUnits(minPrice)} unidades/token).`;
+  } else {
+    output.textContent =
+      `⚠️ Precio demasiado bajo. Mínimo educativo: ${formatUnits(minPrice)} unidades/token.`;
   }
-
-  const output = `
-    <p><strong>Escenario simulado:</strong></p>
-    <ul>
-      <li>Tokens: <strong>${tokens.toLocaleString("es-ES")} MWT5</strong></li>
-      <li>Tiempo holdeando: <strong>${years} año(s)</strong></li>
-      <li>Multiplicador teórico aplicado: <strong>${multiplier.toFixed(2)}x</strong></li>
-      <li>Valor simbólico inicial: <strong>${basePrice.toFixed(2)}</strong> unidades por token</li>
-      <li>Valor simbólico teórico actual: <strong>${teoreticalUnitPrice.toFixed(2)}</strong> unidades por token</li>
-      <li>Valor total inicial: <strong>${baseValue.toFixed(2)}</strong> unidades</li>
-      <li>Valor total teórico actual: <strong>${valueWithMultiplier.toFixed(2)}</strong> unidades</li>
-      ${
-        loyaltyBonusTokens > 0
-          ? `<li>Bonus fidelidad ≥ 4 años: <strong>+${loyaltyBonusTokens.toLocaleString("es-ES")} MWT5</strong></li>`
-          : "<li>Bonus fidelidad: aún no aplicable (requiere ≥ 4 años).</li>"
-      }
-    </ul>
-    <p class="small muted">
-      Todo este cálculo es <strong>educativo</strong> y se basa en reglas
-      simplificadas. No representa un precio real de mercado.
-    </p>
-  `;
-
-  $("simulatorOutput").innerHTML = output;
 }
 
-// ---------- CONEXIÓN WALLET / MODO WEB3 ----------
-
+// 7) Conexión con MetaMask
 async function connectWallet() {
   if (!window.ethereum) {
-    alert("No se ha detectado una wallet Web3 (MetaMask). Instálala y recarga la página.");
+    alert("Necesitas MetaMask (u otra wallet) para conectar.");
+    return;
+  }
+
+  writeProvider = new ethers.BrowserProvider(window.ethereum);
+  const accounts = await writeProvider.send("eth_requestAccounts", []);
+  currentAccount = accounts[0];
+
+  signer = await writeProvider.getSigner();
+  writeContract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+
+  document.getElementById("connectedAddress").textContent = currentAccount;
+  document.getElementById("connectButton").classList.add("connected");
+
+  // Carga datos del holder conectado
+  await loadHolderView(currentAccount);
+}
+
+// 8) Función educativa: cancelWithin24h
+async function cancelWithin24hFromUI() {
+  if (!writeContract || !currentAccount) {
+    alert("Conecta tu wallet primero.");
+    return;
+  }
+
+  const input = document.getElementById("cancelAmountInput");
+  const amount = input.value ? BigInt(input.value) : 0n;
+  if (amount === 0n) {
+    alert("Introduce una cantidad > 0.");
     return;
   }
 
   try {
-    const accounts = await window.ethereum.request({
-      method: "eth_requestAccounts",
-    });
-    currentAccount = accounts[0];
+    const tx = await writeContract.cancelWithin24h(amount);
+    document.getElementById("txStatus").textContent =
+      `⏳ Enviando transacción... ${tx.hash}`;
+    const receipt = await tx.wait();
+    document.getElementById("txStatus").textContent =
+      `✅ Cancelación ejecutada en el bloque ${receipt.blockNumber}.`;
 
-    web3Write = new Web3(window.ethereum);
-    contractWrite = new web3Write.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
-
-    $("currentAccount").textContent = currentAccount;
-    $("web3Status").classList.remove("status--disconnected");
-    $("web3Status").classList.add("status--connected");
-    $("web3Status").innerHTML = `<strong>Estado:</strong> wallet conectada (${currentAccount.slice(
-      0,
-      6
-    )}…${currentAccount.slice(-4)}).`;
-
-    $("web3Panel").classList.remove("disabled");
-
-    // Habilitamos botones de owner si la cuenta conectada es el owner real
-    try {
-      const owner = await contractRead.methods.owner().call();
-      if (owner.toLowerCase() === currentAccount.toLowerCase()) {
-        $("ownerBuybackButton").disabled = false;
-        $("earlyCancelButton").disabled = false;
-      }
-    } catch (err) {
-      console.warn("No se pudo comprobar el owner:", err);
-    }
+    // Refresca datos del holder
+    await loadHolderView(currentAccount);
   } catch (err) {
-    console.error("Error conectando wallet:", err);
+    console.error(err);
+    document.getElementById("txStatus").textContent =
+      `❌ Error en la transacción: ${err.reason || err.message}`;
   }
 }
 
-// Transferencia básica (solo cuando hay wallet)
-async function handleTransferForm(e) {
-  e.preventDefault();
-  if (!contractWrite || !currentAccount) {
-    alert("Conecta primero tu wallet.");
+// 9) (Opcional) Buyback para el owner – solo si currentAccount == contractOwner
+async function ownerBuybackFromUI() {
+  if (!writeContract || !currentAccount) {
+    alert("Conecta tu wallet primero.");
     return;
   }
 
-  const to = $("transferTo").value.trim();
-  const amount = Number($("transferAmount").value || 0);
+  if (currentAccount.toLowerCase() !== contractOwner.toLowerCase()) {
+    alert("Solo el owner del contrato puede usar el buyback.");
+    return;
+  }
 
-  if (!to || amount <= 0) {
-    alert("Introduce dirección destino y cantidad válida.");
+  const seller = document.getElementById("buybackSellerInput").value.trim();
+  const amountStr = document.getElementById("buybackAmountInput").value;
+  const amount = amountStr ? BigInt(amountStr) : 0n;
+
+  if (!seller || amount === 0n) {
+    alert("Indica dirección del vendedor y cantidad.");
     return;
   }
 
   try {
-    await contractWrite.methods.transfer(to, amount).send({ from: currentAccount });
-    alert("Transferencia enviada. Revisa Sepolia / Etherscan para ver la transacción.");
-    $("transferTo").value = "";
-    $("transferAmount").value = "";
-    // Actualizamos supply / balances si quieres, de momento solo refrescamos datos generales
-    loadTokenInfo();
+    const tx = await writeContract.ownerBuyback(seller, amount);
+    document.getElementById("txStatus").textContent =
+      `⏳ Enviando buyback... ${tx.hash}`;
+    const receipt = await tx.wait();
+    document.getElementById("txStatus").textContent =
+      `✅ Buyback ejecutado en el bloque ${receipt.blockNumber}.`;
   } catch (err) {
-    console.error("Error en transfer:", err);
-    alert("Error al enviar la transacción. Revisa la consola para más detalles.");
+    console.error(err);
+    document.getElementById("txStatus").textContent =
+      `❌ Error en el buyback: ${err.reason || err.message}`;
   }
 }
 
-// Esqueletos para las acciones educativas (owner).
-// Aquí SOLO dejamos el esqueleto de JS; cuando cerremos nombres exactos de las
-// funciones Solidity de recompra / cancelación, los llenamos.
+// 10) Exponer funciones al DOM
+window.addEventListener("DOMContentLoaded", async () => {
+  await initReadOnly();
 
-async function handleOwnerBuyback() {
-  if (!contractWrite || !currentAccount) {
-    alert("Conecta primero tu wallet.");
-    return;
-  }
-  alert(
-    "Esqueleto listo para la función de recompra.\n" +
-      "En cuanto confirmemos el nombre exacto en el contrato (por ejemplo ownerBuyback()), " +
-      "conectamos aquí la llamada send()."
-  );
-}
-
-async function handleEarlyCancel() {
-  if (!contractWrite || !currentAccount) {
-    alert("Conecta primero tu wallet.");
-    return;
-  }
-  alert(
-    "Esqueleto listo para la función de cancelación 24h.\n" +
-      "En cuanto confirmemos la función Solidity concreta, la llamamos desde aquí."
-  );
-}
-
-// ---------- INICIALIZACIÓN ----------
-
-window.addEventListener("DOMContentLoaded", () => {
-  // Datos iniciales desde la blockchain (sin wallet)
-  loadTokenInfo();
-
-  // Eventos DOM
-  $("balanceForm").addEventListener("submit", handleBalanceForm);
-  $("simulatorForm").addEventListener("submit", handleSimulatorForm);
-  $("connectButton").addEventListener("click", connectWallet);
-  $("transferForm").addEventListener("submit", handleTransferForm);
-  $("ownerBuybackButton").addEventListener("click", handleOwnerBuyback);
-  $("earlyCancelButton").addEventListener("click", handleEarlyCancel);
+  // Botones
+  document.getElementById("connectButton").onclick = connectWallet;
+  document.getElementById("refreshHolderButton").onclick = async () => {
+    const addrInput = document.getElementById("manualAddressInput").value.trim();
+    const addr = addrInput || currentAccount;
+    if (!addr) return;
+    await loadHolderView(addr);
+  };
+  document.getElementById("validatePriceButton").onclick = validatePriceFromUI;
+  document.getElementById("cancelButton").onclick = cancelWithin24hFromUI;
+  document.getElementById("buybackButton").onclick = ownerBuybackFromUI;
 });
-
