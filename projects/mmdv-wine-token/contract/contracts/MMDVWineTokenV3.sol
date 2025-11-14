@@ -19,7 +19,7 @@ contract MMDVWineTokenV3 is ERC20, ERC20Capped, ERC20Burnable, ERC20Pausable, Ow
         uint64 firstPurchaseAt;
     }
 
-    mapping(address => Holding> public holdings;
+    mapping(address => Holding) public holdings;
 
     constructor()
         ERC20("MMDV Wine Token V3", "MWT3")
