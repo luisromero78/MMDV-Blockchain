@@ -346,7 +346,10 @@
             conecta una wallet de prueba en Sepolia.
           </p>
 
-          <button id="connectButton" class="btn">Conectar wallet</button>
+          <button id="connectWalletBtn" onclick="connectWallet()">
+  Conectar wallet
+</button>
+
 
           <div style="margin-top:.75rem;">
             <div class="stat-label">Cuenta conectada</div>
@@ -526,7 +529,7 @@
 </footer>
 
 <!-- Ethers + lógica de la Dapp -->
-<script src="https://cdn.jsdelivr.net/npm/ethers@6.13.0/dist/ethers.umd.min.js"></script>
-<script src="app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+<script src="./app.js"></script>
 </body>
 </html>
