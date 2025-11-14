@@ -1,5 +1,5 @@
 // Dirección del contrato MWT5 en Sepolia
-const CONTRACT_ADDRESS = "0x8e913dEadCF19c25a2ADc7BAD793cEf72C0D2dC2";
+const CONTRACT_ADDRESS = "0x8e913dEadC1F9c25a2ADc7BAD793cEf72CD02dC2";
 
 // RPC público de solo lectura (sin necesidad de Metamask)
 const READONLY_RPC = "https://sepolia.drpc.org";
