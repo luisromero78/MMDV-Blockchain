@@ -423,6 +423,7 @@ async function cancelWithin24hFromUI() {
   }
 }
 
+
 // 9) Buyback del owner
 async function ownerBuybackFromUI() {
   if (!writeContract || !currentAccount) {
@@ -454,6 +455,34 @@ async function ownerBuybackFromUI() {
       `❌ Error en el buyback: ${err.reason || err.message}`;
   }
 }
+
+// 9.1) Aprobar permiso para buyback
+async function approveAllowanceFromUI() {
+  if (!writeContract || !currentAccount) {
+    alert("Conecta tu wallet primero.");
+    return;
+  }
+
+  const amountStr = document.getElementById("approveAmountInput").value;
+  const amount = amountStr ? BigInt(amountStr) : 0n;
+  if (amount === 0n) {
+    alert("Introduce una cantidad > 0.");
+    return;
+  }
+
+  try {
+    const tx = await writeContract.approve(contractOwner, amount);
+    const status = document.getElementById("txStatus");
+    status.textContent = `⏳ Enviando aprobación… ${tx.hash}`;
+    const receipt = await tx.wait();
+    status.textContent = `✅ Permiso aprobado en el bloque ${receipt.blockNumber}.`;
+  } catch (err) {
+    console.error(err);
+    document.getElementById("txStatus").textContent =
+      `❌ Error en approve: ${err.reason || err.message}`;
+  }
+}
+
 
 // 10) Wiring DOM
 // 10) Enlazar eventos al DOM
@@ -506,5 +535,12 @@ window.addEventListener("DOMContentLoaded", async () => {
   if (disconnectBtn) {
     disconnectBtn.addEventListener("click", disconnectWallet);
   }
+ 
+// 8. Botón approve (vendedor)
+const approveBtn = document.getElementById("approveButton");
+if (approveBtn) {
+  approveBtn.addEventListener("click", approveAllowanceFromUI);
+}
+
   
 });
