@@ -582,6 +582,47 @@
       "artifacts": [
         "MMDVWineTokenV4"
       ]
+    },
+    "C:\\Users\\luisr\\Documents\\Github\\MMDV-Blockchain\\projects\\mmdv-wine-token\\contract\\contracts\\MMDVWineTokenV5.sol": {
+      "lastModificationDate": 1763114056051,
+      "contentHash": "81959a504da93821bc12eaa1d299781d",
+      "sourceName": "contracts/MMDVWineTokenV5.sol",
+      "solcConfig": {
+        "version": "0.8.24",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "evmVersion": "paris",
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/extensions/ERC20Capped.sol",
+        "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol",
+        "@openzeppelin/contracts/token/ERC20/extensions/ERC20Pausable.sol",
+        "@openzeppelin/contracts/access/Ownable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.24"
+      ],
+      "artifacts": [
+        "MMDVWineTokenV5"
+      ]
     }
   }
 }
