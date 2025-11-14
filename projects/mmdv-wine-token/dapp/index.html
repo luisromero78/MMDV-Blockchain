@@ -11,10 +11,15 @@
 
   <style>
     /* Ajustes ligeros para esta página, encima de tu CSS global */
-    main {
-      padding-bottom: 4rem;
-    }
+   /* Reducir espacio antes del footer */
+main {
+  padding-bottom: 2rem !important; /* antes eran 4rem */
+}
 
+/* Footer más pegado */
+footer .wrap {
+  padding-top: 0.5rem !important; 
+}
     .hero-educativa {
       padding: 3rem 0 2rem;
       background: radial-gradient(circle at top left, #3b1633 0, #0a0508 45%, #050308 100%);
@@ -64,10 +69,11 @@
     }
 
     .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
-      gap: 1.25rem;
-    }
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+  gap: 1rem; /* reducido */
+}
+
 
     .card {
       background: #0b0610;
@@ -182,10 +188,15 @@
       font-family: "JetBrains Mono", monospace;
     }
 
-    section {
-      padding: 2rem 0 0;
-    }
+    /* === Compactar bloques verticales === */
+section {
+  padding: 1.2rem 0 0;   /* antes 2rem */
+}
 
+.card {
+  padding: 1.2rem 1.4rem;  /* antes ~1.5–1.75 */
+  margin-bottom: 1rem;     /* da respiro entre cards */
+}
     section h2.section-title {
       font-size: 1.4rem;
       margin-bottom: .2rem;
