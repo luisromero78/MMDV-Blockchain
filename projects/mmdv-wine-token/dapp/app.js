@@ -353,42 +353,47 @@ async function connectWallet() {
 
 // 7.1) Desconectar Wallet
 async function disconnectWallet() {
-  try {
-    // Reseteamos estado interno
-    currentAccount = null;
-    signer = null;
-    writeProvider = null;
-    writeContract = null;
+  console.log("⛔ Desconectando wallet…");
 
-    // UI
-    const btn = document.getElementById("connectButton");
-    if (btn) {
-      btn.textContent = "Conectar wallet";
-      btn.disabled = false;
-    }
+  // Limpiar estado interno JS
+  currentAccount = null;
+  signer = null;
+  writeProvider = null;
+  writeContract = null;
 
-    const addrLabel = document.getElementById("connectedAddress");
-    if (addrLabel) addrLabel.textContent = "No conectada";
-
-    // Limpieza del panel del holder
-    document.getElementById("holderAddress").textContent = "–";
-    document.getElementById("holderBalance").textContent = "–";
-    document.getElementById("holderTrackedAmount").textContent = "–";
-    document.getElementById("holderFirstPurchase").textContent = "–";
-    document.getElementById("holderPriority").textContent = "–";
-    document.getElementById("holderMultiplier").textContent = "–";
-    document.getElementById("holderLoyaltyBonus").textContent = "–";
-    document.getElementById("holderMinResale").textContent = "–";
-
-    // Estado de transacciones
-    document.getElementById("txStatus").textContent = "Sin transacciones aún.";
-
-    console.log("Wallet desconectada (modo manual).");
-  } catch (err) {
-    console.error("Error al desconectar wallet:", err);
+  // Restaurar UI del botón "Conectar"
+  const connectBtn = document.getElementById("connectWalletBtn");
+  if (connectBtn) {
+    connectBtn.textContent = "Conectar wallet";
+    connectBtn.classList.remove("connected");
+    connectBtn.disabled = false;
   }
-}
 
+  // Restablecer texto de cuenta conectada
+  const addrLabel = document.getElementById("connectedAddress");
+  if (addrLabel) addrLabel.textContent = "No conectada";
+
+  // Limpiar panel del holder
+  const ids = [
+    "holderAddress",
+    "holderBalance",
+    "holderTrackedAmount",
+    "holderFirstPurchase",
+    "holderPriority",
+    "holderMultiplier",
+    "holderLoyaltyBonus",
+    "holderMinResale",
+  ];
+
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = "–";
+  });
+
+  // Estado de transacción
+  const tx = document.getElementById("txStatus");
+  if (tx) tx.textContent = "Sin transacciones aún.";
+}
 
 // 8) Cancelación 24h
 async function cancelWithin24hFromUI() {
@@ -495,4 +500,11 @@ window.addEventListener("DOMContentLoaded", async () => {
   if (buybackBtn) {
     buybackBtn.addEventListener("click", ownerBuybackFromUI);
   }
+
+  // 7. Botón desconectar 
+  const disconnectBtn = document.getElementById("disconnectWalletBtn");
+  if (disconnectBtn) {
+    disconnectBtn.addEventListener("click", disconnectWallet);
+  }
+  
 });
