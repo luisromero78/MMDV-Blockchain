@@ -485,10 +485,15 @@ async function approveAllowanceFromUI() {
 
 
 // 10) Wiring DOM
-// 10) Enlazar eventos al DOM
 window.addEventListener("DOMContentLoaded", async () => {
   // 1. Cargar datos globales en modo sólo lectura
   await initReadOnly();
+
+  // 👉 Aquí sí tenemos el owner cargado
+  const approveOwnerAddr = document.getElementById("approveOwnerAddress");
+  if (approveOwnerAddr) {
+    approveOwnerAddr.textContent = contractOwner;
+  }
 
   // 2. Botón "Conectar wallet"
   const connectBtn = document.getElementById("connectWalletBtn");
@@ -500,14 +505,10 @@ window.addEventListener("DOMContentLoaded", async () => {
   const refreshBtn = document.getElementById("refreshHolderButton");
   if (refreshBtn) {
     refreshBtn.addEventListener("click", async () => {
-      const addrInput = document
-        .getElementById("manualAddressInput")
-        .value
-        .trim();
-
+      const addrInput =
+        document.getElementById("manualAddressInput").value.trim();
       const addr = addrInput || currentAccount;
       if (!addr) return;
-
       await loadHolderView(addr);
     });
   }
@@ -530,17 +531,15 @@ window.addEventListener("DOMContentLoaded", async () => {
     buybackBtn.addEventListener("click", ownerBuybackFromUI);
   }
 
-  // 7. Botón desconectar 
+  // 7. Botón "Desconectar wallet"
   const disconnectBtn = document.getElementById("disconnectWalletBtn");
   if (disconnectBtn) {
     disconnectBtn.addEventListener("click", disconnectWallet);
   }
- 
-// 8. Botón approve (vendedor)
-const approveBtn = document.getElementById("approveButton");
-if (approveBtn) {
-  approveBtn.addEventListener("click", approveAllowanceFromUI);
-}
 
-  
+  // 8. Botón "Aprobar permiso"
+  const approveBtn = document.getElementById("approveButton");
+  if (approveBtn) {
+    approveBtn.addEventListener("click", approveAllowanceFromUI);
+  }
 });
