@@ -489,12 +489,12 @@ window.addEventListener("DOMContentLoaded", async () => {
   // 1. Cargar datos globales en modo sólo lectura
   await initReadOnly();
 
-  // 👉 Aquí sí tenemos el owner cargado
+   // 👉 Rellenar automáticamente la dirección del owner en la tarjeta de aprobación
   const approveOwnerAddr = document.getElementById("approveOwnerAddress");
-  if (approveOwnerAddr) {
+  if (approveOwnerAddr && contractOwner) {
     approveOwnerAddr.textContent = contractOwner;
   }
-
+  
   // 2. Botón "Conectar wallet"
   const connectBtn = document.getElementById("connectWalletBtn");
   if (connectBtn) {
