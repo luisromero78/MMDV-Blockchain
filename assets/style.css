@@ -461,18 +461,22 @@ footer {
   align-items: center;
 }
 
-@media (max-width: 900px) {
-  .main-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .form-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
+/* --- Ajuste para separación del contenido --- */
+main.wrap {
+  padding-bottom: 60px;
 }
 
+/* --- Footer coherente y minimalista --- */
 .footer {
-  margin-top: 60px;
-  padding: 30px 0;
+  margin-top: 40px;
+  padding: 20px 0;
   text-align: center;
   opacity: 0.6;
+}
+
+/* --- Navegación entre bloques --- */
+.nav-bloques {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
 }
