@@ -480,3 +480,15 @@ main.wrap {
   display: flex;
   justify-content: space-between;
 }
+
+/* Footer específico para páginas del Wine Token */
+body.mwt-page .footer {
+  margin-top: 40px !important;
+  padding: 20px 0 !important;
+  text-align: center;
+  opacity: 0.6;
+  border-top: 1px solid var(--stroke) !important;
+  background: var(--bg) !important;
+  color: var(--muted) !important;
+}
+
