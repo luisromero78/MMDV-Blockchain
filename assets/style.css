@@ -470,3 +470,9 @@ footer {
   }
 }
 
+.footer {
+  margin-top: 60px;
+  padding: 30px 0;
+  text-align: center;
+  opacity: 0.6;
+}
