@@ -1,64 +1,49 @@
+import os
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-import os
-import requests
-from dotenv import load_dotenv
+from requests_oauthlib import OAuth1Session
 
-# Cargar variables de entorno desde .env
-load_dotenv()
+app = FastAPI(title="MMDV X Bot")
 
-X_BEARER_TOKEN = os.getenv("X_BEARER_TOKEN")
-
-app = FastAPI()
-
-
-class TweetRequest(BaseModel):
+class Tweet(BaseModel):
     text: str
 
 
+API_KEY = os.getenv("TWITTER_API_KEY")
+API_SECRET = os.getenv("TWITTER_API_SECRET")
+ACCESS_TOKEN = os.getenv("TWITTER_ACCESS_TOKEN")
+ACCESS_TOKEN_SECRET = os.getenv("TWITTER_ACCESS_TOKEN_SECRET")
+
+
 @app.get("/health")
-def health_check():
+def health():
     return {"status": "ok", "service": "mmdv-x-bot"}
 
 
 @app.post("/tweet")
-def create_tweet(payload: TweetRequest):
-    """
-    Endpoint mínimo:
-    - Recibe un JSON { "text": "mensaje" }
-    - Llama a la API de X (cuando tengamos un token válido)
-    """
-
-    if not X_BEARER_TOKEN:
+def create_tweet(tweet: Tweet):
+    if not all([API_KEY, API_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET]):
         raise HTTPException(
             status_code=500,
-            detail="X_BEARER_TOKEN no está definido en las variables de entorno",
+            detail="Faltan credenciales de X en las variables de entorno",
         )
 
     url = "https://api.x.com/2/tweets"
-    headers = {
-        "Authorization": f"Bearer {X_BEARER_TOKEN}",
-        "Content-Type": "application/json",
-    }
-    data = {
-        "text": payload.text
-    }
 
-    # Llamada real a X
-    response = requests.post(url, headers=headers, json=data)
+    oauth = OAuth1Session(
+        API_KEY,
+        client_secret=API_SECRET,
+        resource_owner_key=ACCESS_TOKEN,
+        resource_owner_secret=ACCESS_TOKEN_SECRET,
+    )
+
+    response = oauth.post(url, json={"text": tweet.text})
 
     if response.status_code >= 400:
-        # Para debug: devolvemos la respuesta de X
-        raise HTTPException(
-            status_code=response.status_code,
-            detail={
-                "message": "Error al crear el tweet",
-                "x_response": response.json()
-            },
-        )
+        try:
+            detail = response.json()
+        except Exception:
+            detail = response.text
+        raise HTTPException(status_code=response.status_code, detail=detail)
 
-    return {
-        "status": "sent",
-        "tweet_response": response.json()
-    }
-
+    return response.json()
