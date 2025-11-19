@@ -16,9 +16,12 @@ app = FastAPI(
 class TweetRequest(BaseModel):
     text: str
 
+
 class TweetWithImagePayload(BaseModel):
     text: str
-    # IMPORTANTE: solo el string base64. NO incluir "data:image/png;base64,"
+    # Puede ser:
+    #  - base64 "puro"
+    #  - ó un data URL tipo "data:image/png;base64,AAAA..."
     image_base64: str
 
 
@@ -29,12 +32,20 @@ TWITTER_API_SECRET = os.getenv("TWITTER_API_SECRET")
 TWITTER_ACCESS_TOKEN = os.getenv("TWITTER_ACCESS_TOKEN")
 TWITTER_ACCESS_TOKEN_SECRET = os.getenv("TWITTER_ACCESS_TOKEN_SECRET")
 
+
 def get_oauth1():
     """
     Devuelve el objeto OAuth1 para firmar TODAS las peticiones
     (texto y texto+imagen) con contexto de usuario.
     """
-    if not all([TWITTER_API_KEY, TWITTER_API_SECRET, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET]):
+    if not all(
+        [
+            TWITTER_API_KEY,
+            TWITTER_API_SECRET,
+            TWITTER_ACCESS_TOKEN,
+            TWITTER_ACCESS_TOKEN_SECRET,
+        ]
+    ):
         raise RuntimeError("Faltan variables de entorno de X (OAuth1)")
     return OAuth1(
         TWITTER_API_KEY,
@@ -49,6 +60,7 @@ def get_oauth1():
 @app.get("/")
 def root():
     return {"status": "ok", "message": "MMDV X Bot funcionando ✔️"}
+
 
 @app.get("/health")
 def health():
@@ -90,7 +102,10 @@ def upload_image_to_x(image_bytes: bytes) -> str:
     if not media_id:
         raise HTTPException(
             status_code=500,
-            detail={"message": "X no devolvió media_id para la imagen", "x_body": data},
+            detail={
+                "message": "X no devolvió media_id para la imagen",
+                "x_body": data,
+            },
         )
 
     return media_id
@@ -148,11 +163,32 @@ def tweet_text(payload: TweetRequest):
 def tweet_with_image(payload: TweetWithImagePayload):
     """
     Publica un tweet con una sola imagen.
-    - payload.image_base64: string base64 SIN prefijo "data:image/...;base64,"
+
+    Acepta:
+    - base64 "puro"
+    - o data URL tipo "data:image/png;base64,AAAA..."
     """
+    img_b64 = (payload.image_base64 or "").strip()
+
+    if not img_b64:
+        raise HTTPException(
+            status_code=400,
+            detail={"message": "image_base64 está vacío"},
+        )
+
+    # Si viene como data URL, quitar el prefijo "data:image/...;base64,"
+    if img_b64.startswith("data:image"):
+        try:
+            img_b64 = img_b64.split(",", 1)[1]
+        except Exception:
+            raise HTTPException(
+                status_code=400,
+                detail={"message": "Formato data URL inválido en image_base64"},
+            )
+
     # 1) decodificar base64
     try:
-        image_bytes = base64.b64decode(payload.image_base64)
+        image_bytes = base64.b64decode(img_b64)
     except Exception as e:
         raise HTTPException(
             status_code=400,
