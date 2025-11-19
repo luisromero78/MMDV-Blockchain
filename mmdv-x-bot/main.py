@@ -1,5 +1,7 @@
 from fastapi import FastAPI, HTTPException, Request
 from pydantic import BaseModel
+from typing import Optional
+
 import os
 import requests
 from urllib.parse import urlencode
@@ -8,7 +10,7 @@ import base64
 
 app = FastAPI(
     title="MMDV X Bot",
-    version="0.6.0",
+    version="0.7.0",
     description="Bot de X para MMDV, desplegado en Render.",
 )
 
@@ -99,8 +101,9 @@ def tweet_with_image(payload: TweetWithImagePayload):
     # 1) Subir imagen a X (endpoint legacy de media)
     upload_url = "https://upload.twitter.com/1.1/media/upload.json"
 
+    # Requests espera un "file-like" o una tupla (nombre, bytes, mimetype)
     files = {
-        "media": base64.b64decode(payload.image_base64)
+        "media": ("image.png", base64.b64decode(payload.image_base64))
     }
 
     headers_upload = {
@@ -108,12 +111,19 @@ def tweet_with_image(payload: TweetWithImagePayload):
     }
 
     resp_upload = requests.post(upload_url, headers=headers_upload, files=files)
-    data_upload = resp_upload.json()
 
-    if "media_id_string" not in data_upload:
+    try:
+        data_upload = resp_upload.json()
+    except Exception:
+        data_upload = {"raw": resp_upload.text}
+
+    if resp_upload.status_code != 200 or "media_id_string" not in data_upload:
         raise HTTPException(
             status_code=400,
-            detail={"message": "Error al subir la imagen a X", "x_response": data_upload},
+            detail={
+                "message": "Error al subir la imagen a X",
+                "x_response": data_upload,
+            },
         )
 
     media_id = data_upload["media_id_string"]
@@ -132,7 +142,11 @@ def tweet_with_image(payload: TweetWithImagePayload):
     }
 
     resp_tweet = requests.post(tweet_url, headers=headers_tweet, json=tweet_body)
-    data_tweet = resp_tweet.json()
+
+    try:
+        data_tweet = resp_tweet.json()
+    except Exception:
+        data_tweet = {"raw": resp_tweet.text}
 
     if resp_tweet.status_code != 201:
         raise HTTPException(
@@ -172,7 +186,11 @@ def auth_login():
 
 
 @app.get("/auth/callback")
-def auth_callback(code: str | None = None, state: str | None = None, request: Request | None = None):
+def auth_callback(
+    code: Optional[str] = None,
+    state: Optional[str] = None,
+    request: Request = None,
+):
     """
     Recibe el 'code' de X y lo intercambia por access_token + refresh_token.
     Devuelve el JSON para que copies el access_token y lo pongas en Render.
@@ -216,3 +234,45 @@ def auth_callback(code: str | None = None, state: str | None = None, request: Re
         "state": state,
     }
 
+
+# ---------- REVISIÓN AUTOMÁTICA DEL TOKEN ----------
+
+@app.get("/auth/check-token")
+def check_token():
+    """
+    Comprueba si TWITTER_USER_ACCESS_TOKEN es válido llamando a /2/users/me.
+    Útil para revisar rápidamente el token configurado en Render.
+    """
+    access_token = os.getenv("TWITTER_USER_ACCESS_TOKEN")
+    if not access_token:
+        raise HTTPException(
+            status_code=500,
+            detail="Falta TWITTER_USER_ACCESS_TOKEN en las variables de entorno",
+        )
+
+    url = "https://api.x.com/2/users/me"
+    headers = {
+        "Authorization": f"Bearer {access_token}",
+        "Content-Type": "application/json",
+    }
+
+    resp = requests.get(url, headers=headers)
+
+    try:
+        body = resp.json()
+    except Exception:
+        body = {"raw": resp.text}
+
+    if resp.status_code != 200:
+        raise HTTPException(
+            status_code=resp.status_code,
+            detail={
+                "message": "Token inválido o sin permisos",
+                "x_response": body,
+            },
+        )
+
+    return {
+        "message": "Token válido",
+        "user": body,
+    }
