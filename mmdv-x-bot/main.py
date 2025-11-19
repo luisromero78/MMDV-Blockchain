@@ -7,7 +7,7 @@ from requests_oauthlib import OAuth1
 
 app = FastAPI(
     title="MMDV X Bot",
-    version="1.0.0",
+    version="1.1.0",
     description="Bot de X para MMDV, desplegado en Render.",
 )
 
@@ -16,12 +16,11 @@ app = FastAPI(
 class TweetRequest(BaseModel):
     text: str
 
-
 class TweetWithImagePayload(BaseModel):
     text: str
     # Puede ser:
-    #  - base64 "puro"
-    #  - ó un data URL tipo "data:image/png;base64,AAAA..."
+    #  - UNA URL (http/https) a la imagen
+    #  - O un string base64 (con o sin prefijo "data:image/...;base64,")
     image_base64: str
 
 
@@ -32,20 +31,12 @@ TWITTER_API_SECRET = os.getenv("TWITTER_API_SECRET")
 TWITTER_ACCESS_TOKEN = os.getenv("TWITTER_ACCESS_TOKEN")
 TWITTER_ACCESS_TOKEN_SECRET = os.getenv("TWITTER_ACCESS_TOKEN_SECRET")
 
-
 def get_oauth1():
     """
     Devuelve el objeto OAuth1 para firmar TODAS las peticiones
     (texto y texto+imagen) con contexto de usuario.
     """
-    if not all(
-        [
-            TWITTER_API_KEY,
-            TWITTER_API_SECRET,
-            TWITTER_ACCESS_TOKEN,
-            TWITTER_ACCESS_TOKEN_SECRET,
-        ]
-    ):
+    if not all([TWITTER_API_KEY, TWITTER_API_SECRET, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET]):
         raise RuntimeError("Faltan variables de entorno de X (OAuth1)")
     return OAuth1(
         TWITTER_API_KEY,
@@ -60,7 +51,6 @@ def get_oauth1():
 @app.get("/")
 def root():
     return {"status": "ok", "message": "MMDV X Bot funcionando ✔️"}
-
 
 @app.get("/health")
 def health():
@@ -102,10 +92,7 @@ def upload_image_to_x(image_bytes: bytes) -> str:
     if not media_id:
         raise HTTPException(
             status_code=500,
-            detail={
-                "message": "X no devolvió media_id para la imagen",
-                "x_body": data,
-            },
+            detail={"message": "X no devolvió media_id para la imagen", "x_body": data},
         )
 
     return media_id
@@ -157,43 +144,78 @@ def tweet_text(payload: TweetRequest):
     }
 
 
-# ---------- ENDPOINT: TEXTO + IMAGEN ----------
+# ---------- ENDPOINT: TEXTO + IMAGEN (URL o BASE64) ----------
 
-@app.post("/tweet-with-image")
-def tweet_with_image(payload: TweetWithImagePayload):
+def _get_image_bytes_from_payload(image_field: str) -> bytes:
     """
-    Publica un tweet con una sola imagen.
-
     Acepta:
-    - base64 "puro"
-    - o data URL tipo "data:image/png;base64,AAAA..."
+      - una URL http/https
+      - o un string base64 (con o sin prefijo data:image/...;base64,)
+    y devuelve los bytes de la imagen.
     """
-    img_b64 = (payload.image_base64 or "").strip()
-
-    if not img_b64:
+    if not image_field or not image_field.strip():
         raise HTTPException(
             status_code=400,
             detail={"message": "image_base64 está vacío"},
         )
 
-    # Si viene como data URL, quitar el prefijo "data:image/...;base64,"
-    if img_b64.startswith("data:image"):
+    raw = image_field.strip()
+
+    # Caso 1: URL -> la descargamos
+    if raw.startswith("http://") or raw.startswith("https://"):
         try:
-            img_b64 = img_b64.split(",", 1)[1]
+            resp = requests.get(raw, timeout=30)
+        except Exception as e:
+            raise HTTPException(
+                status_code=502,
+                detail={"message": "Error de red al descargar la imagen desde la URL", "error": str(e)},
+            )
+
+        if resp.status_code != 200:
+            raise HTTPException(
+                status_code=502,
+                detail={
+                    "message": "No se pudo descargar la imagen desde la URL",
+                    "http_status": resp.status_code,
+                    "http_body": resp.text,
+                },
+            )
+
+        return resp.content
+
+    # Caso 2: Base64 (con o sin prefijo data:image/...)
+    b64_str = raw
+    if raw.startswith("data:image"):
+        # quitar "data:image/...;base64,"
+        try:
+            b64_str = raw.split(",", 1)[1]
         except Exception:
             raise HTTPException(
                 status_code=400,
-                detail={"message": "Formato data URL inválido en image_base64"},
+                detail={"message": "Formato data:image inválido en image_base64"},
             )
 
-    # 1) decodificar base64
     try:
-        image_bytes = base64.b64decode(img_b64)
+        image_bytes = base64.b64decode(b64_str)
     except Exception as e:
         raise HTTPException(
             status_code=400,
             detail={"message": "Base64 inválido en image_base64", "error": str(e)},
         )
+
+    return image_bytes
+
+
+@app.post("/tweet-with-image")
+def tweet_with_image(payload: TweetWithImagePayload):
+    """
+    Publica un tweet con una sola imagen.
+    - payload.image_base64 puede ser:
+        * una URL http/https
+        * o un base64 (con o sin prefijo data:image/...;base64,)
+    """
+    # 1) obtener bytes de la imagen (URL o base64)
+    image_bytes = _get_image_bytes_from_payload(payload.image_base64)
 
     # 2) subir imagen y obtener media_id
     media_id = upload_image_to_x(image_bytes)
