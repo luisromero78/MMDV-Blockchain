@@ -1,278 +1,220 @@
 from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import RedirectResponse
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 import os
 import requests
-import base64
 from urllib.parse import urlencode
-
-# =========================================================
-#  CONFIG APP
-# =========================================================
+from base64 import b64decode
+from requests_oauthlib import OAuth1
 
 app = FastAPI(
     title="MMDV X Bot",
-    version="0.8.0",
+    version="0.6.0",
     description="Bot de X para MMDV, desplegado en Render.",
 )
 
-# =========================================================
-#  MODELOS
-# =========================================================
+# ---------- MODELOS ----------
 
 class TweetRequest(BaseModel):
     text: str
 
-
 class TweetWithImagePayload(BaseModel):
     text: str
-    # Importante: SIN el prefijo "data:image/png;base64,"
+    # IMPORTANTE: solo el base64 puro, SIN 'data:image/png;base64,'
     image_base64: str
 
 
-# =========================================================
-#  CONFIG TWITTER/X
-# =========================================================
+# ---------- CONFIG GLOBAL X ----------
+
+TWITTER_BEARER_TOKEN = os.getenv("TWITTER_BEARER_TOKEN")
 
 TWITTER_CLIENT_ID = os.getenv("TWITTER_CLIENT_ID")
 TWITTER_CLIENT_SECRET = os.getenv("TWITTER_CLIENT_SECRET")
-TWITTER_USER_ACCESS_TOKEN = os.getenv("TWITTER_USER_ACCESS_TOKEN")
 
-TWITTER_REDIRECT_URI = os.getenv(
-    "TWITTER_REDIRECT_URI",
-    "https://mmdv-blockchain.onrender.com/auth/callback",
-)
+# OAuth 1.0a (para subir imágenes)
+TWITTER_API_KEY = os.getenv("TWITTER_API_KEY")
+TWITTER_API_SECRET = os.getenv("TWITTER_API_SECRET")
+TWITTER_ACCESS_TOKEN = os.getenv("TWITTER_ACCESS_TOKEN")
+TWITTER_ACCESS_TOKEN_SECRET = os.getenv("TWITTER_ACCESS_TOKEN_SECRET")
 
-TWITTER_SCOPES = os.getenv(
-    "TWITTER_SCOPES",
-    "tweet.read tweet.write users.read offline.access",
-)
+TWITTER_REDIRECT_URI = "https://mmdv-blockchain.onrender.com/auth/callback"
+TWITTER_SCOPES = "tweet.read tweet.write users.read offline.access"
 
-# Para PKCE (simple, estático)
-CODE_VERIFIER = os.getenv("TWITTER_CODE_VERIFIER", "mmdv-static-code-verifier")
+# ---------- HELPERS ----------
 
-# Endpoints de X
-TWITTER_API_TWEET_URL = "https://api.twitter.com/2/tweets"
-TWITTER_API_MEDIA_UPLOAD_URL = "https://upload.twitter.com/1.1/media/upload.json"
-TWITTER_API_TOKEN_URL = "https://api.twitter.com/2/oauth2/token"
-TWITTER_API_AUTH_URL = "https://twitter.com/i/oauth2/authorize"
-
-if not TWITTER_USER_ACCESS_TOKEN:
-    raise RuntimeError(
-        "Falta TWITTER_USER_ACCESS_TOKEN en las variables de entorno. "
-        "Configúralo en Render antes de arrancar la app."
-    )
-
-
-# =========================================================
-#  ENDPOINTS BÁSICOS
-# =========================================================
-
-@app.get("/")
-def root():
-    return {"message": "MMDV X Bot is running", "docs": "/docs", "health": "/health"}
-
-
-@app.get("/health")
-def health():
-    return {"status": "ok", "service": "mmdv-x-bot"}
-
-
-# =========================================================
-#  TWEETS SIN IMAGEN
-# =========================================================
-
-@app.post("/tweet")
-def create_tweet(payload: TweetRequest):
-    headers = {
-        "Authorization": f"Bearer {TWITTER_USER_ACCESS_TOKEN}",
+def get_bearer_headers() -> dict:
+    """
+    Headers para llamadas con Bearer token (texto simple a /2/tweets).
+    """
+    if not TWITTER_BEARER_TOKEN:
+        raise RuntimeError("TWITTER_BEARER_TOKEN no está configurado en Render.")
+    return {
+        "Authorization": f"Bearer {TWITTER_BEARER_TOKEN}",
         "Content-Type": "application/json",
     }
-    data = {"text": payload.text}
 
-    resp = requests.post(
-        TWITTER_API_TWEET_URL,
-        headers=headers,
-        json=data,
-        timeout=30,
+
+def get_oauth1_session() -> OAuth1:
+    """
+    Crea el objeto OAuth1 para las llamadas que requieren OAuth 1.0a
+    (subida de imágenes, etc.).
+    """
+    missing = [
+        name
+        for name, value in [
+            ("TWITTER_API_KEY", TWITTER_API_KEY),
+            ("TWITTER_API_SECRET", TWITTER_API_SECRET),
+            ("TWITTER_ACCESS_TOKEN", TWITTER_ACCESS_TOKEN),
+            ("TWITTER_ACCESS_TOKEN_SECRET", TWITTER_ACCESS_TOKEN_SECRET),
+        ]
+        if not value
+    ]
+    if missing:
+        raise RuntimeError(
+            f"Faltan variables de entorno para OAuth1: {', '.join(missing)}"
+        )
+
+    return OAuth1(
+        TWITTER_API_KEY,
+        TWITTER_API_SECRET,
+        TWITTER_ACCESS_TOKEN,
+        TWITTER_ACCESS_TOKEN_SECRET,
     )
 
-    if not resp.ok:
+
+# ---------- ENDPOINTS BÁSICOS ----------
+
+@app.get("/")
+async def root():
+    return {"message": "MMDV X Bot en marcha 🧠🍷"}
+
+
+@app.post("/tweet")
+async def post_tweet(payload: TweetRequest):
+    """
+    Publica un post SOLO TEXTO usando API v2 con Bearer token.
+    """
+    url = "https://api.twitter.com/2/tweets"
+    headers = get_bearer_headers()
+    body = {"text": payload.text}
+
+    resp = requests.post(url, headers=headers, json=body)
+
+    if resp.status_code != 201:
         raise HTTPException(
             status_code=resp.status_code,
             detail={
-                "message": "Error al publicar el tweet en X",
-                "x_response": resp.text,
+                "message": "Error al publicar el tweet de texto",
+                "x_status": resp.status_code,
+                "x_body": resp.text,
             },
         )
 
     return resp.json()
 
 
-# =========================================================
-#  TWEETS CON IMAGEN
-# =========================================================
-
-@app.post("/tweet-with-image")
-def tweet_with_image(payload: TweetWithImagePayload):
-    # 1) Decodificar el base64 -> bytes
-    try:
-        image_bytes = base64.b64decode(payload.image_base64, validate=True)
-    except Exception as e:
-        raise HTTPException(
-            status_code=400,
-            detail={"message": "image_base64 no es un base64 válido", "error": str(e)},
-        )
-
-    # 2) Subir la imagen a X (media/upload)
-    media_headers = {
-        "Authorization": f"Bearer {TWITTER_USER_ACCESS_TOKEN}",
-    }
-    files = {
-        "media": ("image.png", image_bytes, "image/png"),
-    }
-
-    media_resp = requests.post(
-        TWITTER_API_MEDIA_UPLOAD_URL,
-        headers=media_headers,
-        files=files,
-        timeout=30,
-    )
-
-    if not media_resp.ok:
-        raise HTTPException(
-            status_code=media_resp.status_code,
-            detail={
-                "message": "Error al subir la imagen a X",
-                "x_response": media_resp.text,
-            },
-        )
-
-    media_json = media_resp.json()
-    media_id = media_json.get("media_id_string")
-
-    if not media_id:
-        raise HTTPException(
-            status_code=500,
-            detail={
-                "message": "No se obtuvo media_id_string al subir la imagen",
-                "x_response": media_json,
-            },
-        )
-
-    # 3) Crear el tweet con esa imagen
-    tweet_headers = {
-        "Authorization": f"Bearer {TWITTER_USER_ACCESS_TOKEN}",
-        "Content-Type": "application/json",
-    }
-    tweet_body = {
-        "text": payload.text,
-        "media": {"media_ids": [media_id]},
-    }
-
-    tweet_resp = requests.post(
-        TWITTER_API_TWEET_URL,
-        headers=tweet_headers,
-        json=tweet_body,
-        timeout=30,
-    )
-
-    if not tweet_resp.ok:
-        raise HTTPException(
-            status_code=tweet_resp.status_code,
-            detail={
-                "message": "Error al publicar el tweet con imagen en X",
-                "x_response": tweet_resp.text,
-            },
-        )
-
-    return tweet_resp.json()
-
-
-# =========================================================
-#  AUTH (OPCIONAL, PARA FUTURO)
-# =========================================================
+# ---------- AUTH (PKCE) PARA FUTURO SI QUEREMOS REFRESCAR TOKENS ----------
 
 @app.get("/auth/login")
-def auth_login():
+async def auth_login():
     """
-    Genera la URL de login de X y redirige allí.
-    Necesita TWITTER_CLIENT_ID configurado.
+    Construye la URL de autorización (opcional, para flujo OAuth2/PKCE).
+    De momento no la estamos usando para las imágenes.
     """
-    if not TWITTER_CLIENT_ID:
-        raise HTTPException(
-            status_code=500,
-            detail="TWITTER_CLIENT_ID no está configurado en las variables de entorno",
-        )
-
     params = {
         "response_type": "code",
         "client_id": TWITTER_CLIENT_ID,
         "redirect_uri": TWITTER_REDIRECT_URI,
         "scope": TWITTER_SCOPES,
         "state": "mmdv-state",
-        "code_challenge": CODE_VERIFIER,
+        "code_challenge": "challenge",
         "code_challenge_method": "plain",
     }
-
-    url = f"{TWITTER_API_AUTH_URL}?{urlencode(params)}"
-    return RedirectResponse(url)
+    url = "https://twitter.com/i/oauth2/authorize?" + urlencode(params)
+    return {"auth_url": url}
 
 
 @app.get("/auth/callback")
-async def auth_callback(request: Request, code: str | None = None, state: str | None = None):
+async def auth_callback(request: Request):
     """
-    Callback de X. Intercambia el "code" por un access_token.
-    (Por ahora solo devuelve el JSON tal cual para copiar/pegar manualmente.)
+    Endpoint de callback (no lo estamos usando aún para refrescar tokens).
     """
-    if code is None:
-        raise HTTPException(status_code=400, detail="Falta el parámetro 'code' en la URL")
+    params = dict(request.query_params)
+    return {"received_params": params}
 
-    if not TWITTER_CLIENT_ID:
+
+# ---------- ENDPOINT TWEET + IMAGEN ----------
+
+@app.post("/tweet-with-image")
+async def tweet_with_image(payload: TweetWithImagePayload):
+    """
+    1) Sube una imagen PNG a X con OAuth 1.0a (upload.twitter.com v1.1)
+    2) Publica un tweet con ese media_id usando API v2 (tweets)
+    """
+    # 1. Decodificar el base64 que nos llega del cliente
+    try:
+        image_bytes = b64decode(payload.image_base64)
+    except Exception as e:
         raise HTTPException(
-            status_code=500,
-            detail="TWITTER_CLIENT_ID no está configurado en las variables de entorno",
+            status_code=400,
+            detail={"message": "image_base64 no es un base64 válido", "error": str(e)},
         )
 
-    data = {
-        "grant_type": "authorization_code",
-        "client_id": TWITTER_CLIENT_ID,
-        "redirect_uri": TWITTER_REDIRECT_URI,
-        "code_verifier": CODE_VERIFIER,
-        "code": code,
+    # 2. Subir imagen a X con OAuth1
+    upload_url = "https://upload.twitter.com/1.1/media/upload.json"
+    oauth1 = get_oauth1_session()
+
+    files = {
+        # OJO: aquí ya van los bytes puros de la imagen
+        "media": ("image.png", image_bytes, "image/png"),
     }
 
-    resp = requests.post(
-        TWITTER_API_TOKEN_URL,
-        data=data,
-        timeout=30,
-    )
+    upload_resp = requests.post(upload_url, files=files, auth=oauth1)
 
-    if not resp.ok:
-        raise HTTPException(
-            status_code=resp.status_code,
-            detail={
-                "message": "Error al intercambiar el código por token en X",
-                "x_response": resp.text,
+    if upload_resp.status_code != 200:
+        # Devolvemos TODO lo que X responde para poder depurar
+        return JSONResponse(
+            status_code=upload_resp.status_code,
+            content={
+                "detail": {
+                    "message": "Error al subir la imagen a X",
+                    "x_status": upload_resp.status_code,
+                    "x_body": upload_resp.text,
+                }
             },
         )
 
-    return resp.json()
+    media_id = upload_resp.json().get("media_id_string") or upload_resp.json().get("media_id")
+    if not media_id:
+        raise HTTPException(
+            status_code=500,
+            detail={
+                "message": "Respuesta de X sin media_id al subir imagen",
+                "x_body": upload_resp.text,
+            },
+        )
 
+    # 3. Crear tweet con esa imagen (API v2).
+    #    También lo firmamos con OAuth1 para ir “a juego” con la subida.
+    tweet_url = "https://api.twitter.com/2/tweets"
+    tweet_body = {
+        "text": payload.text,
+        "media": {"media_ids": [str(media_id)]},
+    }
 
-@app.get("/auth/check-token")
-def auth_check_token():
-    """
-    Simple: comprueba si hay TWITTER_USER_ACCESS_TOKEN cargado.
-    """
-    return {"has_user_access_token": bool(TWITTER_USER_ACCESS_TOKEN)}
+    tweet_resp = requests.post(tweet_url, json=tweet_body, auth=oauth1)
 
+    if tweet_resp.status_code != 201:
+        return JSONResponse(
+            status_code=tweet_resp.status_code,
+            content={
+                "detail": {
+                    "message": "Imagen subida, pero error al publicar el tweet",
+                    "x_status": tweet_resp.status_code,
+                    "x_body": tweet_resp.text,
+                }
+            },
+        )
 
-# =========================================================
-#  MAIN LOCAL (no se usa en Render, pero útil para pruebas)
-# =========================================================
+    return tweet_resp.json()
 
-if __name__ == "__main__":
-    import uvicorn
-
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
