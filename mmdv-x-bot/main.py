@@ -215,3 +215,66 @@ def auth_callback(code: str = None, state: str = None, request: Request = None):
         "tokens": body,
         "state": state,
     }
+
+import base64
+
+@app.post("/tweet-with-image")
+def tweet_with_image(payload: dict):
+    """
+    Publica un tweet con texto + una imagen generada por OpenAI.
+    Recibe:
+    {
+       "text": "...",
+       "image_base64": "..."   # cadena base64 SIN el "data:image/png;base64,"
+    }
+    """
+    access_token = os.getenv("TWITTER_USER_ACCESS_TOKEN")
+    if not access_token:
+        raise HTTPException(status_code=500, detail="Falta TWITTER_USER_ACCESS_TOKEN")
+
+    # 1️⃣ Subir imagen a X
+    upload_url = "https://upload.twitter.com/1.1/media/upload.json"
+
+    files = {
+        "media": base64.b64decode(payload["image_base64"])
+    }
+
+    headers_upload = {
+        "Authorization": f"Bearer {access_token}"
+    }
+
+    resp_upload = requests.post(upload_url, headers=headers_upload, files=files)
+    data_upload = resp_upload.json()
+
+    if "media_id_string" not in data_upload:
+        raise HTTPException(
+            status_code=400,
+            detail={"message": "Error al subir la imagen a X", "x_response": data_upload}
+        )
+
+    media_id = data_upload["media_id_string"]
+
+    # 2️⃣ Crear el tweet con la imagen
+    tweet_url = "https://api.twitter.com/2/tweets"
+
+    tweet_body = {
+        "text": payload["text"],
+        "media": {"media_ids": [media_id]}
+    }
+
+    headers_tweet = {
+        "Authorization": f"Bearer {access_token}",
+        "Content-Type": "application/json"
+    }
+
+    resp_tweet = requests.post(tweet_url, headers=headers_tweet, json=tweet_body)
+    data_tweet = resp_tweet.json()
+
+    if resp_tweet.status_code != 201:
+        raise HTTPException(
+            status_code=resp_tweet.status_code,
+            detail={"message": "Error al crear el tweet", "x_response": data_tweet}
+        )
+
+    return {"message": "Tweet publicado con imagen", "tweet": data_tweet}
+
