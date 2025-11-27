@@ -228,3 +228,77 @@ def tweet_with_image(payload: TweetWithImagePayload):
         "media_id": media_id,
         "x_response": data,
     }
+
+@app.post("/tweet-with-image-url")
+def tweet_with_image_url(payload: TweetWithImageUrlPayload):
+    """
+    Publica un tweet con texto + imagen descargada desde una URL.
+    Esto nos permite usar el response_format=URL de OpenAI en Make.
+    """
+    access_token = TWITTER_USER_ACCESS_TOKEN
+    if not access_token:
+        raise HTTPException(status_code=500, detail="Falta TWITTER_USER_ACCESS_TOKEN")
+
+    # 1️⃣ Descargar la imagen desde la URL que nos pasa Make
+    try:
+        img_resp = requests.get(payload.image_url, timeout=10)
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail={"message": "Error al descargar la imagen", "error": str(e)},
+        )
+
+    if img_resp.status_code != 200:
+        raise HTTPException(
+            status_code=500,
+            detail={
+                "message": "No se pudo descargar la imagen",
+                "status": img_resp.status_code,
+                "url": payload.image_url,
+            },
+        )
+
+    image_bytes = img_resp.content
+
+    # 2️⃣ Subir imagen a X
+    upload_url = "https://upload.twitter.com/1.1/media/upload.json"
+    headers_upload = {
+        "Authorization": f"Bearer {access_token}",
+    }
+    files = {
+        "media": image_bytes,
+    }
+
+    resp_upload = requests.post(upload_url, headers=headers_upload, files=files)
+    data_upload = resp_upload.json()
+
+    if "media_id_string" not in data_upload:
+        raise HTTPException(
+            status_code=400,
+            detail={"message": "Error al subir la imagen a X", "x_response": data_upload},
+        )
+
+    media_id = data_upload["media_id_string"]
+
+    # 3️⃣ Crear tweet con la imagen
+    tweet_url = "https://api.twitter.com/2/tweets"
+    tweet_body = {
+        "text": payload.text,
+        "media": {"media_ids": [media_id]},
+    }
+    headers_tweet = {
+        "Authorization": f"Bearer {access_token}",
+        "Content-Type": "application/json",
+    }
+
+    resp_tweet = requests.post(tweet_url, headers=headers_tweet, json=tweet_body)
+    data_tweet = resp_tweet.json()
+
+    if resp_tweet.status_code != 201:
+        raise HTTPException(
+            status_code=resp_tweet.status_code,
+            detail={"message": "Error al crear el tweet", "x_response": data_tweet},
+        )
+
+    return {"message": "Tweet publicado con imagen vía URL", "tweet": data_tweet}
+
