@@ -15,14 +15,15 @@
     padding-bottom: 1.5rem; /* antes ~4rem */
   }
 
-  /* Footer más pegado */
-  footer {
-    margin-top: 1rem;       /* por si en el global hay un margin grande */
-  }
-  footer .wrap {
-    padding-top: 0.5rem;
-    padding-bottom: 1.5rem;
-  }
+ /* Footer más pegado SOLO en esta página */
+.footer {
+  margin-top: 1rem;
+}
+.footer .wrap {
+  padding-top: 0.5rem;
+  padding-bottom: 1.5rem;
+}
+
 
   /* --- Hero educativa --- */
   .hero-educativa {
@@ -564,24 +565,27 @@
     </div>
   </section>
 
-  <div class="nav-bloques">
-  <a class="btn-inline btn-ghost"
-     href="/MMDV-Blockchain/projects/mmdv-wine-token/bloque3.html">
-    ← Volver al Bloque 3
-  </a>
+    <section>
+    <div class="wrap">
+      <div class="nav-bloques">
+        <a class="btn-inline btn-ghost"
+           href="/MMDV-Blockchain/projects/mmdv-wine-token/bloque3.html">
+          ← Volver al Bloque 3
+        </a>
 
-  <a class="btn-inline btn-vino"
-     href="/MMDV-Blockchain/projects/mmdv-wine-token/bloque5.html">
-    Ir al Bloque 5 →
-  </a>
-</div>
-
-  
+        <a class="btn-inline btn-vino"
+           href="/MMDV-Blockchain/projects/mmdv-wine-token/bloque5.html">
+          Ir al Bloque 5 →
+        </a>
+      </div>
+    </div>
+  </section>
 </main>
 
-<footer>
-  <div class="wrap">
-    <p style="font-size:.8rem;opacity:.7;padding:1.5rem 0 2rem;">
+
+<footer class="footer">
+  <div class="wrap center small">
+    <p style="font-size:.8rem;opacity:.7;">
       Proyecto educativo · MMDV Wine Token V5 · Sepolia Testnet ·
       No constituye oferta de inversión ni producto financiero.
     </p>
