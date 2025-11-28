@@ -1,1 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Social Media Agent · MMDV Analytics</title>
+
+  <link rel="stylesheet" href="/MMDV-Blockchain/assets/style.css" />
+</head>
+
+<body class="proyecto-page">
+  <header class="header">
+    <div class="container">
+      <h1>AI Social Media Agent</h1>
+      <p class="subtitle">
+        Automatización inteligente para generar y publicar contenido diario en X (Twitter)
+        usando RSS + Make + GPT.
+      </p>
+    </div>
+  </header>
+
+  <main class="container content">
+
+    <section>
+      <h2>Resumen del proyecto</h2>
+      <p>
+        Este proyecto desarrolla un <strong>agente social autónomo</strong> capaz de:
+      </p>
+
+      <ul>
+        <li>Leer noticias en tiempo real desde fuentes RSS especializadas en vino</li>
+        <li>Seleccionar automáticamente una noticia mediante un sistema aleatorio controlado</li>
+        <li>Generar un <strong>tweet en mi estilo</strong> (“Mi Mundo del Vino”)</li>
+        <li>Crear una <strong>imagen coherente</strong> con el contexto de la noticia</li>
+        <li>Publicar automáticamente en X usando un bot propio desplegado en Render</li>
+      </ul>
+
+      <p>
+        La integración está construida con <strong>Make</strong> (antes Integromat),
+        <strong>OpenAI GPT-5.1</strong> para texto, <strong>DALL·E 3.5</strong> para imágenes,
+        y un servicio backend propio en Python/FastAPI para controlar la publicación en X
+        mediante OAuth1.
+      </p>
+    </section>
+
+    <section>
+      <h2>Demo del escenario</h2>
+      <p>
+        Aquí puede verse el escenario completo ejecutándose:
+      </p>
+      <p>
+        🔗 <a href="https://eu2.make.com/public/shared-scenario/MJErOlzg84h/integration-rss-open-ai-chat-gpt-whispe" target="_blank">
+          Escenario público en Make
+        </a>
+      </p>
+
+      <img src="./images/scenario.png" class="screenshot" alt="Escenario Make">
+    </section>
+
+    <section>
+      <h2>Arquitectura del Agente</h2>
+
+      <img src="./images/architecture.png" class="screenshot" alt="Arquitectura del agente">
+
+      <ul>
+        <li><strong>RSS Watcher</strong>: escucha nuevas noticias (Wein.plus, Decanter, y otras fuentes europeas)</li>
+        <li><strong>Selector aleatorio</strong>: un módulo “Switch” que elige 1 de 3 feeds cada día</li>
+        <li><strong>OpenAI GPT-5.1</strong>: crea el texto final con mi estilo</li>
+        <li><strong>DALL·E</strong>: genera una imagen coherente con el tema (regulatorio, enología, cambio climático…)</li>
+        <li><strong>FastAPI Bot</strong>: publica texto + imagen vía X API usando OAuth1 de usuario</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Problemas técnicos superados</h2>
+
+      <h3>1. Limitación de 4000 caracteres en prompts</h3>
+      <p>
+        Se solucionó dividiendo el prompt en instrucciones fijas + contenido dinámico limpio.
+      </p>
+
+      <h3>2. Imposibilidad de fusionar múltiples RSS con “Watch”</h3>
+      <p>
+        Se resolvió usando un <strong>Switch aleatorio</strong> y luego un único módulo
+        <strong>Retrieve RSS feed items</strong> mapeado dinámicamente.
+      </p>
+
+      <h3>3. Penalización de Twitter al enviar imágenes inestables</h3>
+      <p>
+        Se implementó una verificación previa + fallback en caso de error del servidor de X.
+      </p>
+
+      <h3>4. Render rechazando JSON por comillas dobles en texto</h3>
+      <p>
+        Se agregó un sanitizador automático que limpia JSON sin romper acentos ni emojis.
+      </p>
+    </section>
+
+    <section>
+      <h2>Resultado final</h2>
+      <p>
+        El agente publica de manera autónoma <strong>una noticia diaria** de vino con texto
+        de alta calidad + imagen generada.</strong>  
+      </p>
+
+      <img src="./images/post-example.png" class="screenshot" alt="Tweet generado">
+
+      <p>
+        El resultado mantiene el estilo característico de <strong>Mi Mundo del Vino</strong>:
+        elegante, irónico, técnico y moderno.
+      </p>
+    </section>
+
+    <section>
+      <h2>Código del Bot</h2>
+      <p>
+        El backend completo (FastAPI + OAuth1 + envío multipart a X) está disponible en GitHub:
+      </p>
+      <pre><code>https://github.com/luisromero78/mmdv-social-bot</code></pre>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>
+      © 2025 MMDV Analytics — Research · Web3 · On-Chain Intelligence ·  
+      <strong>Luis Eduardo Romero</strong>
+    </p>
+  </footer>
+</body>
+</html>
 
