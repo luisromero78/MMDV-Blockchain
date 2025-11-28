@@ -1,134 +1,171 @@
-<main class="page">
-  <section class="section section--hero">
-    <div class="container">
-      <h1 class="section__title">AI Social Media Agent</h1>
-      <p class="section__subtitle">
-        Automatización inteligente para generar y publicar contenido diario en X (Twitter)
-        usando RSS + Make + GPT, integrada con el ecosistema <strong>MMDV</strong>.
-      </p>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MMDV · AI Social Media Agent</title>
+  <link rel="stylesheet" href="/MMDV-Blockchain/assets/style.css" />
+  <link rel="icon" href="/MMDV-Blockchain/assets/favicon.png" />
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header__inner container">
+      <a href="/MMDV-Blockchain/index.html" class="header__logo">MMDV Analytics</a>
+
+      <nav class="nav">
+        <a href="/MMDV-Blockchain/index.html">Inicio</a>
+        <a href="/MMDV-Blockchain/projects/index.html" class="active">Proyectos</a>
+        <a href="/MMDV-Blockchain/certifications/index.html">Certificaciones</a>
+        <a href="/MMDV-Blockchain/about/index.html">Sobre mí</a>
+      </nav>
     </div>
-  </section>
+  </header>
 
-  <section class="section">
+  <!-- MAIN -->
+  <main class="page">
+
+    <!-- Hero -->
+    <section class="section section--hero">
+      <div class="container">
+        <h1 class="section__title">AI Social Media Agent</h1>
+        <p class="section__subtitle">
+          Automatización inteligente para generar y publicar contenido diario en X (Twitter)
+          usando RSS + Make + GPT, integrada con el ecosistema <strong>MMDV</strong>.
+        </p>
+      </div>
+    </section>
+
+    <!-- Resumen -->
+    <section class="section">
+      <div class="container">
+        <h2>Resumen del proyecto</h2>
+        <p>
+          Este proyecto desarrolla un <strong>agente social autónomo</strong> capaz de:
+        </p>
+        <ul>
+          <li>Leer noticias en tiempo real desde fuentes RSS especializadas en vino.</li>
+          <li>Seleccionar automáticamente una noticia mediante un sistema aleatorio controlado.</li>
+          <li>Generar un <strong>tweet con mi estilo</strong> (“Mi Mundo del Vino”).</li>
+          <li>Crear una <strong>imagen coherente</strong> con el contexto de la noticia.</li>
+          <li>Publicar automáticamente en X usando un bot propio desplegado en Render.</li>
+          <li>Registrar cada post en una base de datos de Notion para análisis posterior.</li>
+        </ul>
+
+        <p>
+          La integración está construida con <strong>Make</strong> (antes Integromat),
+          <strong>OpenAI GPT-5.1</strong> para texto,
+          <strong>DALL-E 3.5</strong> para imágenes y un backend propio en
+          <strong>Python/FastAPI</strong> para controlar la publicación en X mediante OAuth1.
+        </p>
+
+        <p>
+          🔗 Escenario público en Make:  
+          <a href="https://eu2.make.com/public/shared-scenario/MJErOlzg84h/integration-rss-open-ai-chat-gpt-whispe"
+             target="_blank" rel="noopener">
+            Ver escenario
+          </a>
+        </p>
+      </div>
+    </section>
+
+    <!-- Arquitectura -->
+    <section class="section section--alt">
+      <div class="container">
+        <h2>Arquitectura del agente</h2>
+        <p>A nivel funcional, el flujo completo del agente es:</p>
+
+        <ul>
+          <li><strong>RSS Watcher</strong>: escucha nuevas noticias (Wein.plus, Decanter, OIV…).</li>
+          <li><strong>Selector aleatorio</strong>: módulo <em>Switch</em> que rota entre 3 feeds.</li>
+          <li><strong>GPT – Redacción</strong>: genera el texto del tweet con mi estilo.</li>
+          <li><strong>DALL·E – Imagen</strong>: crea una imagen contextual y coherente.</li>
+          <li><strong>HTTP → Bot X</strong>: envía texto + imagen al backend propio.</li>
+          <li><strong>Notion</strong>: registra datos del post, URLs, métricas iniciales…</li>
+        </ul>
+
+        <figure class="figure figure--full">
+          <img src="ai-social-agent-diagram.png"
+               alt="Diagrama del agente social MMDV usando Make, GPT, DALL-E y bot X" />
+          <figcaption>Workflow del agente social autónomo en Make.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- Bot -->
+    <section class="section">
+      <div class="container">
+        <h2>Bot de publicación en X</h2>
+
+        <p>
+          La pieza clave del sistema es un <strong>bot propio</strong> desplegado en Render que recibe 
+          peticiones desde Make y publica en X mediante <strong>OAuth1</strong>.
+        </p>
+
+        <p>El bot expone un endpoint <code>/tweet-with-image</code> que recibe:</p>
+        <ul>
+          <li><code>text</code>: tweet final generado por GPT y sanitizado.</li>
+          <li><code>image_base64</code>: imagen creada por DALL·E 3.5.</li>
+        </ul>
+
+        <p>
+          El backend valida el payload, gestiona errores de la API de X y devuelve el ID del tweet
+          para que Make lo registre en Notion.
+        </p>
+
+        <p>
+          🔗 Código completo del bot (FastAPI + OAuth1 + multipart a X):  
+          <a href="https://github.com/luisromero78/MMDV-Blockchain/tree/main/mmdv-x-bot"
+             target="_blank" rel="noopener">
+            Repositorio mmdv-x-bot
+          </a>
+        </p>
+      </div>
+    </section>
+
+    <!-- Problemas técnicos -->
+    <section class="section section--alt">
+      <div class="container">
+        <h2>Problemas técnicos superados</h2>
+
+        <h3>1. Límite de 4000 caracteres en prompts</h3>
+        <p>Solucionado dividiendo prompt fijo + contenido dinámico limpio.</p>
+
+        <h3>2. Fusión de múltiples RSS</h3>
+        <p>Make no permite fusionar varios Watch; se resolvió con Switch + un único Retrieve feed.</p>
+
+        <h3>3. Penalización de X por imágenes inestables</h3>
+        <p>Se añadió verificación previa + fallback automático.</p>
+
+        <h3>4. JSON roto por comillas</h3>
+        <p>Sanitizador automático que limpia el texto sin romper emojis.</p>
+      </div>
+    </section>
+
+    <!-- Resultado -->
+    <section class="section">
+      <div class="container">
+        <h2>Resultado final</h2>
+        <p>
+          El agente publica de forma autónoma <strong>una noticia diaria</strong> de vino con:
+          texto personalizado + imagen generada + registro automático en Notion.
+        </p>
+
+        <figure class="figure figure--full">
+          <img src="tweet-ejemplo.png"
+               alt="Ejemplo real del tweet publicado por el agente Mi Mundo del Vino" />
+          <figcaption>Ejemplo real generado automáticamente por el agente.</figcaption>
+        </figure>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
     <div class="container">
-      <h2>Resumen del proyecto</h2>
-      <p>
-        Este proyecto desarrolla un <strong>agente social autónomo</strong> capaz de:
-      </p>
-      <ul>
-        <li>Leer noticias en tiempo real desde fuentes RSS especializadas en vino.</li>
-        <li>Seleccionar automáticamente una noticia mediante un sistema aleatorio controlado.</li>
-        <li>Generar un <strong>tweet con mi estilo</strong> (“Mi Mundo del Vino”).</li>
-        <li>Crear una <strong>imagen coherente</strong> con el contexto de la noticia.</li>
-        <li>Publicar automáticamente en X usando un bot propio desplegado en Render.</li>
-        <li>Registrar cada post en una base de datos de Notion para análisis posterior.</li>
-      </ul>
-
-      <p>
-        La integración está construida con <strong>Make</strong> (antes Integromat),
-        <strong>OpenAI GPT-5.1</strong> para texto,
-        <strong>DALL-E 3.5</strong> para imágenes y un servicio backend propio en
-        <strong>Python/FastAPI</strong> para controlar la publicación en X mediante OAuth1.
-      </p>
-
-      <p>
-        🔗 Escenario público en Make:
-        <a href="https://eu2.make.com/public/shared-scenario/MJErOlzg84h/integration-rss-open-ai-chat-gpt-whispe" target="_blank" rel="noopener">
-          Ver escenario
-        </a>
-      </p>
+      © 2025 MMDV Analytics — Research · Web3 · On-Chain Intelligence · Luis Eduardo Romero
     </div>
-  </section>
-
-  <section class="section section--alt">
-    <div class="container">
-      <h2>Arquitectura del agente</h2>
-      <p>A nivel funcional, el flujo completo del agente es:</p>
-
-      <ul>
-        <li><strong>RSS Watcher</strong>: escucha nuevas noticias (Wein.plus, Decanter y otras fuentes europeas).</li>
-        <li><strong>Selector aleatorio</strong>: módulo <em>Switch</em> que elige 1 de las 3 feeds cada día.</li>
-        <li><strong>GPT – Redacción</strong>: genera el texto del tweet con mi tono y estilo.</li>
-        <li><strong>DALL·E – Imagen</strong>: crea una imagen coherente con el tema de la noticia.</li>
-        <li><strong>HTTP → Bot X</strong>: envía texto + imagen al backend propio.</li>
-        <li><strong>Notion</strong>: guarda URL, prompt, ID de tweet, métricas iniciales…</li>
-      </ul>
-
-      <figure class="figure figure--full">
-        <img src="ai-social-agent-diagram.png" alt="Diagrama del flujo del agente social MMDV en Make (RSS + GPT + Bot X + Notion)" />
-        <figcaption>Workflow del agente social autónomo en Make.</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <h2>Bot de publicación en X</h2>
-      <p>
-        La pieza clave del sistema es un <strong>bot propio</strong> desplegado en Render que recibe 
-        las peticiones desde Make y publica en X con autenticación <strong>OAuth1</strong>.  
-      </p>
-      <p>
-        El bot expone un endpoint <code>/tweet-with-image</code> que recibe:
-      </p>
-      <ul>
-        <li><code>text</code>: tweet final ya formateado y sanitizado (sin romper emojis).</li>
-        <li><code>image_base64</code>: imagen generada por DALL·E, codificada en base64.</li>
-      </ul>
-      <p>
-        El backend valida el payload, gestiona errores de la API de X (incluidas penalizaciones por imágenes 
-        inestables) y devuelve al escenario de Make el ID del tweet para registrarlo en Notion.
-      </p>
-      <p>
-        🔗 Código completo del bot (FastAPI + OAuth1 + cliente de X):
-        <a href="https://github.com/luisromero78/MMDV-Blockchain/tree/main/mmdv-x-bot" target="_blank" rel="noopener">
-          Repositorio mmdv-x-bot
-        </a>
-      </p>
-    </div>
-  </section>
-
-  <section class="section section--alt">
-    <div class="container">
-      <h2>Problemas técnicos superados</h2>
-
-      <h3>1. Límite de 4000 caracteres en prompts</h3>
-      <p>
-        Se solucionó dividiendo el prompt en <strong>instrucciones fijas</strong> + contenido dinámico limpio,
-        resumiendo la noticia antes de inyectarla en el prompt de imagen.
-      </p>
-
-      <h3>2. Fusión de múltiples RSS</h3>
-      <p>
-        Make no permite usar varios módulos <em>Watch RSS</em> como un único trigger, así que se usó un
-        <strong>Switch aleatorio</strong> más un solo módulo <em>Retrieve RSS feed items</em> mapeado dinámicamente.
-      </p>
-
-      <h3>3. Penalización de X al enviar imágenes inestables</h3>
-      <p>
-        Se añadió un chequeo previo de la respuesta del bot y una ruta de reintento si X devolvía error.
-      </p>
-
-      <h3>4. JSON roto por comillas dobles en el texto</h3>
-      <p>
-        Se implementó un <strong>sanitizador automático</strong> que limpia el JSON sin romper emojis ni formato.
-      </p>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <h2>Resultado final</h2>
-      <p>
-        El agente publica de manera autónoma <strong>una noticia diaria</strong> de vino con:
-        texto en tono <em>Mi Mundo del Vino</em> + imagen generada + registro analítico en Notion.
-      </p>
-
-      <figure class="figure figure--full">
-        <img src="tweet-ejemplo.png" alt="Tweet de ejemplo publicado por Mi Mundo del Vino usando el agente social MMDV" />
-        <figcaption>Ejemplo real de tweet generado y publicado por el agente.</figcaption>
-      </figure>
-    </div>
-  </section>
-</main>
-
+  </footer>
+</body>
+</html>
