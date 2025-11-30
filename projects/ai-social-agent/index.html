@@ -103,58 +103,69 @@
     </section>
 
     <!-- BOT PUBLICACIÓN EN X -->
-    <section class="card">
-      <h2>Bot de publicación en X</h2>
-      <p>
-        La pieza clave del sistema es un <strong>bot propio</strong> desplegado en Render que
-        recibe peticiones desde Make y publica en X mediante <strong>OAuth1</strong>.
-      </p>
-      <p>El bot expone un endpoint <code>/tweet-with-image</code> que recibe:</p>
-      <ul>
-        <li><code>text</code>: tweet final generado por GPT y ya saneado.</li>
-        <li><code>image_base64</code>: imagen creada por DALL-E 3.5.</li>
-      </ul>
-      <p>
-        El backend valida el payload, gestiona errores de la API de X y devuelve el ID del tweet
-        para que Make lo registre en Notion.
-      </p>
-      <p>
-        🔗 Código completo del bot (FastAPI + OAuth1 + envío multipart a X):
-        <a href="https://github.com/luisromero78/MMDV-Blockchain/tree/main/mmdv-x-bot" target="_blank" rel="noopener">
-          Repositorio mmdv-x-bot
-        </a>
-      </p>
-    </section>
+  <section class="card">
+  <h2>Bot de publicación en X</h2>
+  <p>
+    La pieza clave del sistema es un <strong>bot propio</strong> desplegado en Render que recibe peticiones desde Make
+    y publica en X mediante <strong>OAuth&nbsp;1.0a</strong>.
+  </p>
+
+  <h3>¿Por qué un bot propio y no el módulo nativo de X en Make?</h3>
+  <ul>
+    <li>Las credenciales de X (API key, secret, access token…) se gestionan en un solo backend, nunca se exponen en Make.</li>
+    <li>Necesitábamos enviar <strong>texto + imagen</strong> en un único request firmado (multipart), algo que el conector estándar limita bastante.</li>
+    <li>El bot puede aplicar lógica adicional: validaciones, saneo de payload, reintentos y manejo fino de errores de la API de X.</li>
+  </ul>
+
+  <p>El bot expone un endpoint <code>/tweet-with-image</code> que recibe:</p>
+  <ul>
+    <li><code>text</code>: tweet final generado por GPT y ya saneado.</li>
+    <li><code>image_base64</code>: imagen creada por DALL·E&nbsp;3.5.</li>
+  </ul>
+
+  <p>
+    El backend valida el payload, gestiona errores de la API de X y devuelve el ID del tweet para que Make lo registre en Notion.
+  </p>
+
+  <p>
+    🔗 Código completo del bot (FastAPI + OAuth1 + envío multipart a X): 
+    <a href="https://github.com/luisromero78/MMDV-Blockchain/tree/main/mmdv-x-bot" target="_blank">
+      Repositorio <code>mmdv-x-bot</code>
+    </a>.
+  </p>
+</section>
+
 
     <!-- PROBLEMAS TÉCNICOS SUPERADOS -->
     <section class="card">
-      <h2>Problemas técnicos superados</h2>
+  <h2>Problemas técnicos superados</h2>
 
-      <h3>1. Límite de 4000 caracteres en prompts</h3>
-      <p>
-        Se solucionó dividiendo el prompt en instrucciones fijas + contenido dinámico limpio,
-        evitando desbordar el límite de tokens y manteniendo contexto suficiente.
-      </p>
+  <h3>1. Límite de 4000 caracteres en prompts</h3>
+  <p>
+    Se solucionó dividiendo el prompt en <strong>instrucciones fijas</strong> + contenido dinámico limpio,
+    evitando desbordar el límite de tokens y manteniendo contexto suficiente.
+  </p>
 
-      <h3>2. Fusión de múltiples RSS</h3>
-      <p>
-        Make no permite fusionar varios módulos <em>Watch</em>. Se resolvió usando un
-        <strong>Switch aleatorio</strong> que selecciona un feed en cada ejecución y posteriormente
-        un único módulo <strong>Retrieve RSS feed items</strong> mapeado dinámicamente.
-      </p>
+  <h3>2. Autenticación segura con X (OAuth 1.0a)</h3>
+  <p>
+    Gestionar las credenciales de X directamente desde Make no era viable a nivel de seguridad ni de control.
+    La solución fue crear un <strong>bot propio</strong> que firma las peticiones con OAuth&nbsp;1.0a y centraliza
+    todas las claves en el backend, dejando a Make como orquestador sin exponer secretos.
+  </p>
 
-      <h3>3. Penalización de X por imágenes inestables</h3>
-      <p>
-        Se añadió una verificación previa de contenido y un <em>fallback</em> automático en caso de
-        error del servidor de X o de problemas en el upload de la imagen.
-      </p>
+  <h3>3. Penalización de X por imágenes inestables</h3>
+  <p>
+    Se añadió verificación previa de contenido y un <strong>fallback automático</strong> en caso de error del servidor de X
+    o de problemas en el upload de la imagen, reduciendo el riesgo de bloqueos temporales.
+  </p>
 
-      <h3>4. JSON roto por comillas</h3>
-      <p>
-        El payload hacia el bot pasó por un <strong>sanitizador automático</strong> que limpia el
-        texto sin romper emojis, evitando errores de parseo en el backend.
-      </p>
-    </section>
+  <h3>4. JSON roto por comillas</h3>
+  <p>
+    El payload hacia el bot pasó por un <strong>sanitizador automático</strong> que limpia el texto sin romper emojis,
+    evitando errores de parseo en el backend al enviar comillas y caracteres especiales.
+  </p>
+</section>
+
 
     <!-- RESULTADO FINAL -->
     <section class="card">
